@@ -1,24 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login/Login.jsx";
+import MDrawer from "./pages/Template/MDrawer.jsx";
+import CssBaseline from "@mui/material/CssBaseline";
+import { useState } from "react";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 function App() {
+  const [darkMode, setDarkMode] = useState(true);
+
+  const theme = createTheme({
+    palette: {
+      type: darkMode ? "dark" : "light",
+    },
+  });
+
+  const handleDarkModeChange = () => {
+    setDarkMode(!darkMode);
+  };
+
   return (
+    <BrowserRouter>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <ThemeProvider theme={theme}>
+        {console.log('Theme type:', theme.palette.type)}
+          <CssBaseline />
+          <Routes>
+            <Route
+              path="/"
+              element={<Login onDarkModeChange={handleDarkModeChange} />}
+            ></Route>
+            <Route
+              path="/Login"
+              element={<Login onDarkModeChange={handleDarkModeChange} />}
+            ></Route>
+            <Route
+              path="/Menu"
+              element={<MDrawer onDarkModeChange={handleDarkModeChange} />}
+            ></Route>
+          </Routes>
+        </ThemeProvider>
     </div>
+    </BrowserRouter>
   );
 }
 
