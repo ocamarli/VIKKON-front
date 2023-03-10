@@ -43,8 +43,9 @@ export default function Login() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
+        {console.log('Theme type:', theme.palette.type)}
+
         <CssBaseline />
         <Grid
           item
@@ -54,10 +55,10 @@ export default function Login() {
           sx={{
             backgroundImage: "url(https://source.unsplash.com/random)",
             backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
+            backgroundColor: (theme) =>
+            theme.palette.mode === "light"
+                ? theme.palette.grey[50]
+                : theme.palette.grey[900],
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -96,6 +97,5 @@ export default function Login() {
           </Box>
         </Grid>
       </Grid>
-    </ThemeProvider>
   );
 }
