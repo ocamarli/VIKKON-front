@@ -9,7 +9,7 @@ import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import ItemParameterTemplate from "./ItemParameterTemplate";
 
 const ListParametersTemplate = () => {
-  const classes = useStyles();
+
   const [leftItems, setLeftItems] = useState([
     "Setpoint normal",
     "Diferencial normal",
