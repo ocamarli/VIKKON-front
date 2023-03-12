@@ -92,10 +92,9 @@ export default function PersistentDrawerLeft(props) {
   const theme = useTheme();
   const { onDarkModeChange } = props;
   const [open, setOpen] = React.useState(false);
-  const [openSell, setOpenSell] = React.useState(false);
   const [openBuy, setOpenBuy] = React.useState(false);
   const [selectedComponent, setSelectedComponent] = useState(<Home/>);
-  const [openParameters, setOpenParameters] = React.useState(false);
+
   const selectHome = () => {
     setSelectedComponent(<Home />);
   };
@@ -112,12 +111,7 @@ export default function PersistentDrawerLeft(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const handleClickSell = () => {
-    setOpenSell(!openSell);
-  };
-  const handleClickParameters = () => {
-    setOpenParameters(!openParameters);
-  };
+
   const handleClickBuy = () => {
     setOpenBuy(!openBuy);
   };

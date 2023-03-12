@@ -10,7 +10,7 @@ import Divider from '@mui/material/Divider';
 import "../TemplateCss.css"
 
 function ItemTemplate(props) {
-  const{title,description,onClick}=props;
+  const{title,description}=props;
 
 
   return (
