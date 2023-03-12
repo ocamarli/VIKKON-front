@@ -1,16 +1,14 @@
-import { Grid, Paper, TextField} from "@mui/material";
+import { Grid, Paper, TextField } from "@mui/material";
 
 import CodeInput from "./CodeInput";
 import ItemTemplate from "./ItemTemplate";
-
-import AddParameter from "./AddParameter";
-
 import { Button, Dialog } from "@mui/material";
 import React, { useState } from "react";
 import store from "../../store";
 import { Provider } from "react-redux";
-
-function Template() {
+import CardTemplate from "./CardTemplate";
+import AddTemplate from "./AddTemplate";
+function Parameters() {
   const [open, setOpen] = useState(false); // Define el estado "open" en el componente padre
 
   const handleClickOpen = () => {
@@ -22,43 +20,68 @@ function Template() {
 
   return (
     <Provider store={store}>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Paper style={{ padding: 20 }}>
-            <h2>New parameter</h2>
-            <TextField
-              style={{ padding: 10 }}
-              id="outlined-search"
-              label="Name template"
-              type="search"
-              variant="standard"
-            />
-            <br></br>
-            <Button variant="outlined" onClick={handleClickOpen}>
-              Add parameter
-            </Button>
-          </Paper>
-        </Grid>
+      <Grid container padding={2}>
         <Grid item xs={12}>
           <Dialog open={open} onClose={handleClose}>
-            <AddParameter open={open} handleClose={handleClose}></AddParameter>
+            <AddTemplate open={open} handleClose={handleClose}></AddTemplate>
           </Dialog>
         </Grid>
         <Grid item xs={12}>
           <Paper style={{ padding: 20 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <Paper style={{ padding: 20 }}>
-                  <h2>Parameters:</h2>
-                  <ItemTemplate title="1" description="CIF I"></ItemTemplate>
-                  <ItemTemplate title="1" description="CIF I"></ItemTemplate>
-                  <ItemTemplate title="1" description="CIF I"></ItemTemplate>
-                </Paper>
-              </Grid>
-              <Grid item xs={6}>
-                <Paper style={{ padding: 20 }}>
-                  <h2>Sección 1.3</h2>
-                  <CodeInput></CodeInput>
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <Button variant="outlined" onClick={handleClickOpen}>
+                  Add new template
+                </Button>
+                <br />
+                <br />
+
+                <Paper style={{ padding: 10 }}>
+                  <h3>List of templates:</h3>
+                  <Grid container spacing={2}>
+                    <Grid item xs={3}>
+                    <CardTemplate
+                      name="ERC34"
+                      word="v.20"
+                      category="Imbera"
+                      description="Desciption"
+                    />
+                    </Grid>
+                    <Grid item xs={3}>
+                    <CardTemplate
+                      name="ERC34"
+                      word="v.20"
+                      category="Imbera"
+                      description="Desciption"
+                    />
+                    </Grid>
+                    <Grid item xs={3}>
+                    <CardTemplate
+                      name="ERC34"
+                      word="v.20"
+                      category="Imbera"
+                      description="Desciption"
+                    />
+                    </Grid>
+                    <Grid item xs={3}>
+                    <CardTemplate
+                      name="ERC34"
+                      word="v.20"
+                      category="Imbera"
+                      description="Desciption"
+                    />
+                    </Grid>
+                    <Grid item xs={3}>
+                    <CardTemplate
+                      name="ERC34"
+                      word="v.20"
+                      category="Imbera"
+                      description="Desciption"
+                    />
+                    </Grid>                                                                                
+                    
+
+                  </Grid>
                 </Paper>
               </Grid>
             </Grid>
@@ -68,4 +91,4 @@ function Template() {
     </Provider>
   );
 }
-export default Template;
+export default Parameters;

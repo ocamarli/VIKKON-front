@@ -14,14 +14,16 @@ const useStyles = makeStyles({
   },
   listItem:{
     padding: '0 !important',
+    margin: '0 !important',
 },
 listItemText:{
     padding: ' 0 !important',
+    margin:' 0 !important',
 },
 });
 
 function ItemTemplate(props) {
-  const{title,description}=props;
+  const{title,description,onClick}=props;
 
   const classes = useStyles();
 
@@ -30,11 +32,11 @@ function ItemTemplate(props) {
         <ListItem className={classes.listItem}>
         <ListItemText className={classes.listItemText} primary={title} secondary={description} />
         <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="edit"  fontSize="large">
-            <EditIcon />
+            <IconButton edge="end" aria-label="edit"  >
+            <EditIcon fontSize="small" />
             </IconButton>
-            <IconButton edge="end" aria-label="delete"  fontSize="small">
-            <DeleteIcon />
+            <IconButton edge="end" aria-label="delete" >
+            <DeleteIcon fontSize="small"/>
             </IconButton>
         </ListItemSecondaryAction>
         </ListItem>

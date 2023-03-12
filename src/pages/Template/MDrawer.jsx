@@ -42,6 +42,8 @@ import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import DescriptionIcon from "@mui/icons-material/Description";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import Parameters from "./Parameters";
+import Home from "./Home";
 const useStyles = makeStyles((theme) => ({
   listItemText: {
     fontSize: 13,
@@ -107,10 +109,16 @@ export default function PersistentDrawerLeft(props) {
   const [open, setOpen] = React.useState(false);
   const [openSell, setOpenSell] = React.useState(false);
   const [openBuy, setOpenBuy] = React.useState(false);
-  const [selectedComponent, setSelectedComponent] = useState(<Template />);
-
-  const selectComponent = () => {
-    setSelectedComponent(<Template />);
+  const [selectedComponent, setSelectedComponent] = useState(<Home/>);
+  const [openParameters, setOpenParameters] = React.useState(false);
+  const selectHome = () => {
+    setSelectedComponent(<Home />);
+  };
+  const selectParameters = () => {
+    setSelectedComponent(<Parameters/>);
+  };
+  const selectTemplate = () => {
+    setSelectedComponent(<Template/>);
   };
 
   const handleDrawerOpen = () => {
@@ -121,6 +129,9 @@ export default function PersistentDrawerLeft(props) {
   };
   const handleClickSell = () => {
     setOpenSell(!openSell);
+  };
+  const handleClickParameters = () => {
+    setOpenParameters(!openParameters);
   };
   const handleClickBuy = () => {
     setOpenBuy(!openBuy);
@@ -137,7 +148,7 @@ export default function PersistentDrawerLeft(props) {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open} sx={{ height: "60px" }}>
-        <Toolbar>
+        <Toolbar style={{ backgroundColor: '#3AAA35' }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -184,36 +195,20 @@ export default function PersistentDrawerLeft(props) {
         </DrawerHeader>
         <Divider />
         <List>
-          <ListItemButton>
+          <ListItemButton onClick={selectHome}>
             <ListItemIcon classes={classes.icons}>
               <HomeIcon />
             </ListItemIcon>
             <ListItemText primary="Home" classes={{primary:classes.listItemText}} />
           </ListItemButton>
 
-          <ListItemButton onClick={handleClickSell}>
+          <ListItemButton onClick={selectTemplate}>
             <ListItemIcon>
               <DescriptionIcon />
             </ListItemIcon>
             <ListItemText primary="Template" classes={{primary:classes.listItemText}} />
-            {openSell ? <ExpandLess /> : <ExpandMore />}
+ 
           </ListItemButton>
-          <Collapse in={openSell} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemIcon>
-                  <NoteAddIcon />
-                </ListItemIcon>
-                <ListItemText primary="New" classes={{primary:classes.listItemText}} />
-              </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemIcon>
-                  <SearchIcon />
-                </ListItemIcon>
-                <ListItemText primary="Search" classes={{primary:classes.listItemText}} />
-              </ListItemButton>
-            </List>
-          </Collapse>
 
           <ListItemButton onClick={handleClickBuy}>
             <ListItemIcon>
@@ -238,6 +233,14 @@ export default function PersistentDrawerLeft(props) {
               </ListItemButton>
             </List>
           </Collapse>
+          <ListItemButton onClick={selectParameters}>
+            <ListItemIcon>
+              <DescriptionIcon />
+            </ListItemIcon>
+            <ListItemText primary="Parameters" classes={{primary:classes.listItemText}} />
+            
+          </ListItemButton>
+    
         </List>
         <Divider />
         <Box
@@ -271,7 +274,7 @@ export default function PersistentDrawerLeft(props) {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Template />
+        {selectedComponent}
       </Main>
     </Box>
   );
