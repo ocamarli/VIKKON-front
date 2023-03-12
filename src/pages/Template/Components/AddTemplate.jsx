@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+
 
 import {
   TextField,
@@ -15,27 +15,6 @@ import "../TemplateCss.css"
 
 const AddTemplate = ({ open, handleClose }) => {
 
-  const [radioValue, setRadioValue] = useState("");
-
-  const handleRadioChange = (event) => {
-    setRadioValue(event.target.value);
-  };
-  const [openOptions, setOpenOptions] = useState(false); // Define el estado "open" en el componente padre
-  const addOption = (newOption) => {
-    setOptions([...options, newOption]);
-    console.log(options);
-  };
-  const handleClickOpenOptions = () => {
-    setOpenOptions(true);
-  };
-
-  const handleCloseOptions = (props) => {
-    setOpenOptions(false);
-
-    addOption(props.key);
-  };
-
-  const [options, setOptions] = useState([]);
   return (
     <Modal open={open} onClose={handleClose} className="at-modal">
       <Paper elevation={3} spacing={5} sx={{padding:5,height:"fit-content",width:"calc(90vw)"}}>
