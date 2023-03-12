@@ -1,18 +1,12 @@
 import React, { useState } from "react";
-import { makeStyles } from "@mui/styles";
-
 import {
-  Button,
-  List,
-  ListItem,
-  ListItemText,
+
   Typography,
   Grid,
   Paper,
 } from "@mui/material";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import ItemParameterTemplate from "./ItemParameterTemplate";
-const useStyles = makeStyles({});
 
 const ListParametersTemplate = () => {
   const classes = useStyles();

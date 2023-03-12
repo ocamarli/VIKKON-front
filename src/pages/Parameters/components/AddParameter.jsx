@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles } from '@mui/styles';
-
+import "../ParametersCss.css"
 import {
   TextField,
   Button,
@@ -18,61 +17,9 @@ import {
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AddOptions from "./AddOptions";
 import ItemOptions from "./ItemOptions";
-
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: "flex",
-    justifyContent: "center",
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(0, 5, 5, 5),
-    height: "fit-content",
-    maxHeight: "calc(90vh)",
-    overflowY: "auto",
-    marginTop: 5,
-    minWidth: "calc(35vw)",
-  },
-
-  gridContainer: {
-    display: "grid",
-    gridGap: theme.spacing(1, 0),
-  },
-  gridItem: {
-    display: "flex",
-    flexDirection: "column",
-    padding: theme.spacing(0, 0, 2, 5),
-    margin: theme.spacing(0, 0, -1, 0),
-  },
-  buttonContainer: {
-    display: "flex",
-    justifyContent: "flex-end",
-    marginTop: theme.spacing(2),
-  },
-  acceptButton: {
-    marginRight: theme.spacing(2),
-  },
-  FormControlLabel: {
-    margin: theme.spacing(0, 0, 0, 1),
-  },
-  FormControl: {
-    marginTop: 0,
-  },
-  FormControlText: {
-    marginTop: 0,
-    marginBottom: 3,
-    marginLeft: 10,
-  },
-  gridContainerOptions: {
-    marginTop: 0,
-    marginBottom: 0,
-    marginLeft: 15,
-  },
-}));
+import Typography from '@mui/material/Typography'
 
 const AddParameter = ({ open, handleClose }) => {
-  const classes = useStyles();
   const [radioValue, setRadioValue] = useState("");
 
   const handleRadioChange = (event) => {
@@ -96,17 +43,24 @@ const AddParameter = ({ open, handleClose }) => {
 
   const [options, setOptions] = useState([]);
   return (
-    <Modal open={open} onClose={handleClose} className={classes.modal}>
-      <div className={classes.paper}>
-        <h2>Add parameter</h2>
+    <Modal open={open} onClose={handleClose} className="ap-modal">
+      <Paper elevation={3} spacing={5} sx={{minWidth: "calc(23vw)",padding:5, height: "fit-content",maxWidth: "calc(23vw)"}}>
+      <Grid container direction="column">
+      
+      <Typography sx={{ fontSize: 24 }} >
+            Add parameter
+          </Typography>   
 
-        <Grid container  spacing={1} className={classes.gridContainer}>
-          <Grid item xs={12} className={classes.gridItem}>
-            <TextField label="Name parameter" variant="standard" margin="normal"/>
-            <TextField label="Title" variant="standard" margin="normal" />
-            <TextField label="Description" variant="standard" margin="normal" />
+        <Grid container direction="column"  spacing={1} >
+          <Grid item xs={12} direction="column">
+            <Grid container direction="column">
+              <Grid item><TextField label="Name parameter" variant="standard" margin="normal"/></Grid>
+              <Grid item><TextField label="Title" variant="standard" margin="normal" /></Grid>
+              <Grid item><TextField label="Description" variant="standard" margin="normal" /></Grid>      
+            </Grid>
           </Grid>
-          <Grid item xs={12} className={classes.gridItem}>
+
+          <Grid item xs={12}>
             <FormControl>
               <FormLabel>Multiplied by:</FormLabel>
               <RadioGroup row aria-label="multiplyBy" name="multiplyBy">
@@ -115,20 +69,18 @@ const AddParameter = ({ open, handleClose }) => {
                   value="x1"
                   control={<Radio size="small" />}
                   label="x1"
-                  className={classes.FormControlLabel}
                 />
                 <FormControlLabel
                   labelPlacement="bottom"
                   value="x2"
                   control={<Radio size="small" />}
                   label="x2"
-                  className={classes.FormControlLabel}
                 />
               </RadioGroup>
             </FormControl>
           </Grid>
 
-          <Grid item xs={12} className={classes.gridItem}>
+          <Grid item xs={12} >
             <FormControl>
               <FormLabel>Type parameter:</FormLabel>
               <RadioGroup
@@ -143,31 +95,31 @@ const AddParameter = ({ open, handleClose }) => {
                   value="single"
                   control={<Radio size="small" />}
                   label="Single"
-                  className={classes.FormControlLabel}
+
                 />
                 <FormControlLabel
                   labelPlacement="bottom"
                   value="options"
                   control={<Radio size="small" />}
                   label="Options"
-                  className={classes.FormControlLabel}
+
                 />
               </RadioGroup>
             </FormControl>
           </Grid>
           {radioValue === "single" && (
-            <Grid item xs={12} className={classes.gridItem} name="gridSingle">
+            <Grid item xs={12} name="gridSingle">
               <Paper variant="outlined" style={{ padding: 15 }}>
                 <FormControl>
                   <FormLabel style={{ marginBottom: 10 }}>Single</FormLabel>
                   <RadioGroup aria-label="type" name="type">
                     <FormControlLabel
                       control={<TextField label="Max value" variant="standard"/>}
-                      className={classes.FormControlText}
+
                     />
                     <FormControlLabel
                       control={<TextField label="Min value" variant="standard"/>}
-                      className={classes.FormControlText}
+
                     />
                   </RadioGroup>
                 </FormControl>
@@ -175,19 +127,18 @@ const AddParameter = ({ open, handleClose }) => {
             </Grid>
           )}
           {radioValue === "options" && (
-            <Grid item xs={12} className={classes.gridItem} name="gridOptions">
+            <Grid item xs={12} name="gridOptions">
               <Paper variant="outlined" style={{ padding: 15 }}>
                 <FormLabel>
                   Add option:
                   <IconButton
                     aria-label="add parameter"
-                    className={classes.addButton}
                     onClick={handleClickOpenOptions}
                   >
                     <AddCircleIcon />
                   </IconButton>
                 </FormLabel>
-                <Grid item xs={12} className={classes.gridContainerOptions}>
+                <Grid item xs={12} >
                   <ItemOptions></ItemOptions>
                 </Grid>
               </Paper>
@@ -202,12 +153,11 @@ const AddParameter = ({ open, handleClose }) => {
             </Dialog>
           </Grid>
 
-          <Grid item xs={12} className={classes.gridItem}>
-            <div className={classes.buttonContainer}>
+          <Grid item xs={12}>
+
               <Button
                 variant="outlined"
                 color="primary"
-                className={classes.acceptButton}
                 onClick={handleClose}
               >
                 Accept
@@ -215,10 +165,12 @@ const AddParameter = ({ open, handleClose }) => {
               <Button variant="outlined" onClick={handleClose}>
                 Close
               </Button>
-            </div>
+
           </Grid>
         </Grid>
-      </div>
+        
+        </Grid>
+        </Paper>
     </Modal>
   );
 };

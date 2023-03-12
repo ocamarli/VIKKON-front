@@ -1,78 +1,20 @@
 import React, { useState } from "react";
-import { makeStyles } from "@mui/styles";
 
 import {
   TextField,
   Button,
-  RadioGroup,
-  Radio,
-  FormControlLabel,
-  IconButton,
-  FormControl,
-  FormLabel,
   Grid,
   Paper,
-  Dialog,
+  
   Modal,
 } from "@mui/material";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import AddOptions from "./AddOptions";
-import ItemOptions from "./ItemOptions";
 import ListParametersTemplate from "./ListParametersTemplate";
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: "flex",
-    justifyContent: "center",
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(0, 5, 5, 5),
-    height: "fit-content",
-    maxHeight: "calc(90vh)",
-    overflowY: "auto",
-    marginTop: 5,
-    minWidth: "calc(95vw)",
-  },
+import Typography from '@mui/material/Typography'
+import "../TemplateCss.css"
 
-  gridContainer: {
-    display: "grid",
-    gridGap: theme.spacing(1, 0),
-  },
-  gridItem: {
-    display: "flex",
-    flexDirection: "column",
-    padding: theme.spacing(0, 0, 2, 5),
-    margin: theme.spacing(0, 0, -1, 0),
-  },
-  buttonContainer: {
-    display: "flex",
-    justifyContent: "flex-end",
-    marginTop: theme.spacing(2),
-  },
-  acceptButton: {
-    marginRight: theme.spacing(2),
-  },
-  FormControlLabel: {
-    margin: theme.spacing(0, 0, 0, 1),
-  },
-  FormControl: {
-    marginTop: 0,
-  },
-  FormControlText: {
-    marginTop: 0,
-    marginBottom: 3,
-    marginLeft: 10,
-  },
-  gridContainerOptions: {
-    marginTop: 0,
-    marginBottom: 0,
-    marginLeft: 15,
-  },
-}));
 
 const AddTemplate = ({ open, handleClose }) => {
-  const classes = useStyles();
+
   const [radioValue, setRadioValue] = useState("");
 
   const handleRadioChange = (event) => {
@@ -95,12 +37,15 @@ const AddTemplate = ({ open, handleClose }) => {
 
   const [options, setOptions] = useState([]);
   return (
-    <Modal open={open} onClose={handleClose} className={classes.modal}>
-      <div className={classes.paper}>
-        <h2>Add template</h2>
+    <Modal open={open} onClose={handleClose} className="at-modal">
+      <Paper elevation={3} spacing={5} sx={{padding:5,height:"fit-content",width:"calc(90vw)"}}>
+      
+      <Typography sx={{ fontSize: 24 }} >
+            Add template
+          </Typography> 
 
         <Grid container spacing={1}>
-          <Grid item xs={12} className={classes.gridItem}>
+          <Grid item xs={12} >
             <Grid container spacing={2}>
               <Grid item xs={3}>
                 <TextField label="Name" variant="standard" margin="normal" />
@@ -116,18 +61,17 @@ const AddTemplate = ({ open, handleClose }) => {
               </Grid>              
             </Grid>
           </Grid>
-          <Grid item xs={12} className={classes.gridItem}>
+          <Grid item xs={12} >
             <Paper variant="outlined" style={{ padding: 15 }}>
             <ListParametersTemplate/>
             </Paper>
           </Grid>
 
-          <Grid item xs={12} className={classes.gridItem}>
-            <div className={classes.buttonContainer}>
+          <Grid item xs={12} >
+
               <Button
                 variant="outlined"
                 color="primary"
-                className={classes.acceptButton}
                 onClick={handleClose}
               >
                 Accept
@@ -135,10 +79,10 @@ const AddTemplate = ({ open, handleClose }) => {
               <Button variant="outlined" onClick={handleClose}>
                 Close
               </Button>
-            </div>
+
           </Grid>
         </Grid>
-      </div>
+        </Paper>
     </Modal>
   );
 };
