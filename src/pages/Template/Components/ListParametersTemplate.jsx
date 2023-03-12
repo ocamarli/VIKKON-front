@@ -1,21 +1,8 @@
 import React, { useState } from "react";
-import { makeStyles } from "@mui/styles";
-
-import {
-  Button,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-  Grid,
-  Paper,
-} from "@mui/material";
-import { ChevronLeft, ChevronRight } from "@mui/icons-material";
+import { Typography, Grid, Paper } from "@mui/material";
 import ItemParameterTemplate from "./ItemParameterTemplate";
-const useStyles = makeStyles({});
 
 const ListParametersTemplate = () => {
-  const classes = useStyles();
   const [leftItems, setLeftItems] = useState([
     "Setpoint normal",
     "Diferencial normal",
@@ -71,39 +58,39 @@ const ListParametersTemplate = () => {
         </Paper>
       </Grid>
       <Grid item xs={6} padding={2}>
-      <Paper elevation={3} variant="outlined" sx={{ padding: 3 }}>        
-        <Grid container justifyContent="flex-end">
-          <Typography variant="h6" sx={{ marginBottom: 3 }}>
-            Available parameters
-          </Typography>
+        <Paper elevation={3} variant="outlined" sx={{ padding: 3 }}>
+          <Grid container justifyContent="flex-end">
+            <Typography variant="h6" sx={{ marginBottom: 3 }}>
+              Available parameters
+            </Typography>
 
-          <Grid
-            container
-            direction="row"
-            justifyContent="flex-end"
-            alignItems="center"
-            spacing={2}
-          >
-            {rightItems
-              .slice()
-              .reverse()
-              .map((item) => (
-                <Grid
-                  item
-                  key={item}
-                  spacing={2}
-                  alignItems="right"
-                  textAlign="right"
-                >
-                  <ItemParameterTemplate
-                    onClick={() => handleTransferLeft(item)}
-                    name={item}
-                    word="v.20"
-                  />
-                </Grid>
-              ))}
+            <Grid
+              container
+              direction="row"
+              justifyContent="flex-end"
+              alignItems="center"
+              spacing={2}
+            >
+              {rightItems
+                .slice()
+                .reverse()
+                .map((item) => (
+                  <Grid
+                    item
+                    key={item}
+                    spacing={2}
+                    alignItems="right"
+                    textAlign="right"
+                  >
+                    <ItemParameterTemplate
+                      onClick={() => handleTransferLeft(item)}
+                      name={item}
+                      word="v.20"
+                    />
+                  </Grid>
+                ))}
+            </Grid>
           </Grid>
-        </Grid>
         </Paper>
       </Grid>
     </Grid>

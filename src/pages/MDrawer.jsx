@@ -1,5 +1,5 @@
 import { styled, useTheme } from "@mui/material/styles";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 import MuiAppBar from "@mui/material/AppBar";
 import {
   Typography,
@@ -18,42 +18,28 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import SellIcon from "@mui/icons-material/Sell";
-import PontOfSaleIcon from "@mui/icons-material/PointOfSale";
-import MoneyIcon from "@mui/icons-material/Money";
+
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import SearchIcon from "@mui/icons-material/Search";
-import AddShopingIcon from "@mui/icons-material/AddShoppingCart";
-import ShoppingIcon from "@mui/icons-material/ShoppingCart";
-import NoteIcon from "@mui/icons-material/NoteAdd";
+
 import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import Template from "./Template";
+import Template from "./Template/Template";
 import { useNavigate } from "react-router-dom";
-import { makeStyles } from "@mui/styles";
+
 import HomeIcon from "@mui/icons-material/Home";
-import ReceiptIcon from "@mui/icons-material/Receipt";
+
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import DescriptionIcon from "@mui/icons-material/Description";
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
-import Parameters from "./Parameters";
-import Home from "./Home";
-const useStyles = makeStyles((theme) => ({
-  listItemText: {
-    fontSize: 13,
-    margin: -5,
- 
-  },
-  icons: {
-    minWidth: '40px', 
-  },
-}));
+
+import Parameters from "./Parameters/Parameters";
+import Home from "./Home/Home";
 
 const drawerWidth = 180;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -104,13 +90,11 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function PersistentDrawerLeft(props) {
   const navigate = useNavigate();
   const theme = useTheme();
-  const classes = useStyles();
   const { onDarkModeChange } = props;
   const [open, setOpen] = React.useState(false);
-  const [openSell, setOpenSell] = React.useState(false);
   const [openBuy, setOpenBuy] = React.useState(false);
   const [selectedComponent, setSelectedComponent] = useState(<Home/>);
-  const [openParameters, setOpenParameters] = React.useState(false);
+
   const selectHome = () => {
     setSelectedComponent(<Home />);
   };
@@ -127,12 +111,7 @@ export default function PersistentDrawerLeft(props) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const handleClickSell = () => {
-    setOpenSell(!openSell);
-  };
-  const handleClickParameters = () => {
-    setOpenParameters(!openParameters);
-  };
+
   const handleClickBuy = () => {
     setOpenBuy(!openBuy);
   };
@@ -196,17 +175,17 @@ export default function PersistentDrawerLeft(props) {
         <Divider />
         <List>
           <ListItemButton onClick={selectHome}>
-            <ListItemIcon classes={classes.icons}>
+            <ListItemIcon classes="icons">
               <HomeIcon />
             </ListItemIcon>
-            <ListItemText primary="Home" classes={{primary:classes.listItemText}} />
+            <ListItemText primary="Home" Nameclass="listItemText" />
           </ListItemButton>
 
           <ListItemButton onClick={selectTemplate}>
             <ListItemIcon>
               <DescriptionIcon />
             </ListItemIcon>
-            <ListItemText primary="Template" classes={{primary:classes.listItemText}} />
+            <ListItemText primary="Template" Nameclass="listItemText" />
  
           </ListItemButton>
 
@@ -214,7 +193,7 @@ export default function PersistentDrawerLeft(props) {
             <ListItemIcon>
               <FormatListNumberedIcon />
             </ListItemIcon>
-            <ListItemText classes={{primary:classes.listItemText}} primary="Receipes" />
+            <ListItemText Nameclass="listItemText" primary="Receipes" />
             {openBuy ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={openBuy} timeout="auto" unmountOnExit>
@@ -223,13 +202,13 @@ export default function PersistentDrawerLeft(props) {
                 <ListItemIcon>
                   <PlaylistAddIcon />
                 </ListItemIcon>
-                <ListItemText primary="New" classes={{primary:classes.listItemText}} />
+                <ListItemText primary="New" Nameclass="listItemText" />
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemIcon>
                   <SearchIcon />
                 </ListItemIcon>
-                <ListItemText primary="Search" classes={{primary:classes.listItemText}} />
+                <ListItemText primary="Search" Nameclass="listItemText" />
               </ListItemButton>
             </List>
           </Collapse>
@@ -237,7 +216,7 @@ export default function PersistentDrawerLeft(props) {
             <ListItemIcon>
               <DescriptionIcon />
             </ListItemIcon>
-            <ListItemText primary="Parameters" classes={{primary:classes.listItemText}} />
+            <ListItemText primary="Parameters" Nameclass="listItemText" />
             
           </ListItemButton>
     
@@ -259,7 +238,7 @@ export default function PersistentDrawerLeft(props) {
               </ListItemIcon>
               <ListItemText
                 primary={darkMode ? "Ligh mode" : "Dark mode"}
-                classes={{primary:classes.listItemText}}
+                Nameclass="listItemText"
               />
             </ListItemButton>
 
@@ -267,7 +246,7 @@ export default function PersistentDrawerLeft(props) {
               <ListItemIcon>
                 <ExitToAppIcon />
               </ListItemIcon>
-              <ListItemText primary="LogOut" classes={{primary:classes.listItemText}} />
+              <ListItemText primary="LogOut" Nameclass="listItemText" />
             </ListItemButton>
           </List>
         </Box>

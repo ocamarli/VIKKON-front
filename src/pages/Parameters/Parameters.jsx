@@ -1,9 +1,7 @@
-import { Grid, Paper, TextField} from "@mui/material";
+import { Grid, Paper} from "@mui/material";
+import ItemTemplate from "../Template/Components/ItemTemplate";
 
-import CodeInput from "./CodeInput";
-import ItemTemplate from "./ItemTemplate";
-
-import AddParameter from "./AddParameter";
+import AddParameter from "./components/AddParameter";
 
 import { Button, Dialog } from "@mui/material";
 import React, { useState } from "react";

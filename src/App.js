@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login/Login.jsx";
-import MDrawer from "./pages/Template/MDrawer.jsx";
+import MDrawer from "./pages/MDrawer.jsx";
 import CssBaseline from "@mui/material/CssBaseline";
 import { useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";

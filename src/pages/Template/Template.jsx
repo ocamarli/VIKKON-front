@@ -1,13 +1,10 @@
-import { Grid, Paper, TextField } from "@mui/material";
-
-import CodeInput from "./CodeInput";
-import ItemTemplate from "./ItemTemplate";
+import { Grid, Paper} from "@mui/material";
 import { Button, Dialog } from "@mui/material";
 import React, { useState } from "react";
 import store from "../../store";
 import { Provider } from "react-redux";
-import CardTemplate from "./CardTemplate";
-import AddTemplate from "./AddTemplate";
+import CardTemplate from "./Components/CardTemplate";
+import AddTemplate from "./Components/AddTemplate";
 function Parameters() {
   const [open, setOpen] = useState(false); // Define el estado "open" en el componente padre
 

@@ -1,5 +1,5 @@
 import * as React from "react"
-import LogoVikkon from "./LogoVikon";
+import LogoVikkon from "./components/LogoVikon";
 import { Grid } from '@mui/material';
 
 
