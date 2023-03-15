@@ -5,6 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { isExpired, decodeToken } from "react-jwt";
+import Test from "./Test"
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
@@ -64,6 +65,7 @@ function App() {
               element={<Login onDarkModeChange={handleDarkModeChange} />}
             ></Route>
             <Route path="/Menu" element={<ProtectedRoute type={PageTypes.MDrawer} />}></Route>
+            <Route path="/Test" element={<Test />} />
           </Routes>
         </ThemeProvider>
       </div>
