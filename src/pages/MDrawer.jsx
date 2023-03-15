@@ -40,12 +40,14 @@ import HomeIcon from "@mui/icons-material/Home";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import DescriptionIcon from "@mui/icons-material/Description";
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Parameters from "./Parameters/Parameters";
 import Home from "./Home/Home";
 import "./MenuCss.css";
 import RegisterPage from "./Register/RegisterPage";
 import { setRegister } from "../api/axios";
+import Snackbar from "@mui/material/Snackbar";
+import MuiAlert from "@mui/material/Alert";
 
 const drawerWidth = 180;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -100,8 +102,10 @@ export default function PersistentDrawerLeft(props) {
   const [open, setOpen] = React.useState(false);
   const [openBuy, setOpenBuy] = React.useState(false);
   const [selectedComponent, setSelectedComponent] = useState(<Home />);
-
   const [openRegister, setOpenRegister] = useState(false);
+  const [openAlert, setOpenAlert] = React.useState(false);
+  const [response, setResponse] = React.useState();
+
   const handleClickOpenRegister = () => {
     setOpenRegister(true);
   };
@@ -110,23 +114,34 @@ export default function PersistentDrawerLeft(props) {
       data,
       JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token
     );
-    
-    if (response.ok) {
-      const json = await response.json();
-      console.log(json);
-      console.log("YES");
-    } else {
-      console.log("Error");
+    console.log(response);
+    setOpenRegister(false);
+  };
+
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
+  const handleAlertClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
     }
 
-    setOpenRegister(false);
+    setOpenAlert(false);
   };
 
   const selectHome = () => {
     setSelectedComponent(<Home />);
   };
   const selectParameters = () => {
-    setSelectedComponent(<Parameters />);
+    setSelectedComponent(
+      <Parameters
+        onResponse={(json) => {
+          setResponse(json);
+          setOpenAlert(true);
+        }}
+      />
+    );
   };
   const selectTemplate = () => {
     setSelectedComponent(<Template />);
@@ -151,8 +166,6 @@ export default function PersistentDrawerLeft(props) {
     sessionStorage.removeItem("ACCSSTKN");
     navigate("/");
   };
-
-
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -293,12 +306,32 @@ export default function PersistentDrawerLeft(props) {
       </Drawer>
       <Grid item xs={12}>
         <Dialog open={openRegister} onClose={handleCloseRegister}>
-          <RegisterPage open={openRegister} handleCloseRegister={handleCloseRegister}></RegisterPage>
+          <RegisterPage
+            open={openRegister}
+            handleCloseRegister={handleCloseRegister}
+          ></RegisterPage>
         </Dialog>
       </Grid>
       <Main open={open}>
         <DrawerHeader />
         {selectedComponent}
+        <Snackbar
+          open={openAlert}
+          autoHideDuration={6000}
+          onClose={handleAlertClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+        >
+          <Alert
+            onClose={handleAlertClose}
+            severity={response?.status ? "success" : "error"}
+            sx={{ width: "100%" }}
+          >
+            {response?.msg}
+          </Alert>
+        </Snackbar>
       </Main>
     </Box>
   );

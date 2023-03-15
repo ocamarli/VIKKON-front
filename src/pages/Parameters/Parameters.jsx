@@ -6,13 +6,11 @@ import React, { useState, useEffect } from "react";
 import store from "../../store";
 import { Provider } from "react-redux";
 import { getParameters } from "../../api/axios";
-import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
 
-function Parameters() {
+function Parameters(props) {
+  const {onResponse} = props;
   const [open, setOpen] = useState(false); // Define el estado "open" en el componente padre
   const [parameters, setParameters] = useState([]);
-  const [response, setResponse] = useState(null);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -20,21 +18,6 @@ function Parameters() {
   const handleClose = async (props) => {
     await fetchParameters();
     setOpen(false);
-  };
-
-  const HandleResponse = ({ title = "Mensaje de sistema" }) => {
-    console.log(response);
-    if (response != null)
-      return (
-        <Alert
-          severity={response.status ? "success" : "error"}
-          onClose={() => setResponse(null)}
-        >
-          <AlertTitle>{response.status ? title : "Error"}</AlertTitle>
-          {response.msg}
-        </Alert>
-      );
-    else return <></>;
   };
 
   const fetchParameters = async () => {
@@ -45,13 +28,13 @@ function Parameters() {
         const json = await getParameters(tkn);
         console.log(json);
         setParameters(json.parameters);
-        setResponse(json);
+        onResponse(json)
       }else{
         setParameters([])
-        setResponse({status:false, msg: "Unauthorized Access"})
+        onResponse({status:false, msg: "Unauthorized Access"})
       }
     } catch (error) {
-      setResponse({ status: false, msg: error });
+      onResponse({ status: false, msg: error });
       console.error(error);
     }
   };
@@ -101,7 +84,6 @@ function Parameters() {
           </Paper>
         </Grid>
       </Grid>
-      <HandleResponse />
     </Provider>
   );
 }
