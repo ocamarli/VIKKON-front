@@ -92,7 +92,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function PersistentDrawerLeft(props) {
   const navigate = useNavigate();
   const theme = useTheme();
-  const { onDarkModeChange } = props;
+  const { onDarkModeChange, auth } = props;
   const [open, setOpen] = React.useState(false);
   const [openBuy, setOpenBuy] = React.useState(false);
   const [selectedComponent, setSelectedComponent] = useState(<Home/>);
@@ -123,6 +123,7 @@ export default function PersistentDrawerLeft(props) {
     onDarkModeChange();
   };
   const logOut = () => {
+    sessionStorage.removeItem("ACCSSTKN");
     navigate("/");
   };
   return (
@@ -148,7 +149,7 @@ export default function PersistentDrawerLeft(props) {
           </IconButton>
           <IconButton color="inherit" sx={{ ml: 2 }}>
             <Avatar sx={{ mr: 1 }} />
-            <Typography variant="subtitle1">Username</Typography>
+            <Typography variant="subtitle1">{auth !== null ? auth?.username : "Username"}</Typography>
           </IconButton>
         </Toolbar>
       </AppBar>

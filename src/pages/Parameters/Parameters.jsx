@@ -23,7 +23,7 @@ function Parameters() {
   };
 
   const HandleResponse = ({ title = "Mensaje de sistema" }) => {
-    console.log(response)
+    console.log(response);
     if (response != null)
       return (
         <Alert
@@ -39,13 +39,17 @@ function Parameters() {
 
   const fetchParameters = async () => {
     try {
-      console.log(JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token);
-      const json = await getParameters(
-        JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token
-      );
-      console.log(json);
-      setParameters(json.parameters);
-      setResponse(json);
+      const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
+      console.log(tkn);
+      if (tkn !== undefined) {
+        const json = await getParameters(tkn);
+        console.log(json);
+        setParameters(json.parameters);
+        setResponse(json);
+      }else{
+        setParameters([])
+        setResponse({status:false, msg: "Unauthorized Access"})
+      }
     } catch (error) {
       setResponse({ status: false, msg: error });
       console.error(error);
