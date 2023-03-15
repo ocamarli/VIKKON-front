@@ -20,7 +20,7 @@ export default function ItemParameterTemplate(props) {
           <Typography sx={{fontWeight:700}} variant="h9" >
             {name}
           </Typography>
-          <Typography sx={{ fontSize: 14 }} gutterBottom>
+          <Typography sx={{ fontSize: 14 }} >
             {word}
           </Typography>
         </CardContent>

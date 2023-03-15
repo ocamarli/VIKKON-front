@@ -13,6 +13,7 @@ import {
   ListItemIcon,
   ListItemText,
   IconButton,
+  FormControl,
 } from "@mui/material/";
 
 import MenuIcon from "@mui/icons-material/Menu";
@@ -40,6 +41,7 @@ import DescriptionIcon from "@mui/icons-material/Description";
 
 import Parameters from "./Parameters/Parameters";
 import Home from "./Home/Home";
+import "./MenuCss.css"
 
 const drawerWidth = 180;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -127,7 +129,7 @@ export default function PersistentDrawerLeft(props) {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open} sx={{ height: "60px" }}>
-        <Toolbar style={{ backgroundColor: '#3AAA35' }}>
+        <Toolbar style={{ backgroundColor: '#5ECA58' }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -152,12 +154,14 @@ export default function PersistentDrawerLeft(props) {
       </AppBar>
       <Drawer
         sx={{
+          
           width: drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
           },
+
         }}
         variant="persistent"
         anchor="left"
@@ -173,19 +177,20 @@ export default function PersistentDrawerLeft(props) {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <List>
+        <FormControl className="listC">
+        <List  >
           <ListItemButton onClick={selectHome}>
             <ListItemIcon classes="icons">
               <HomeIcon />
             </ListItemIcon>
-            <ListItemText primary="Home" Nameclass="listItemText" />
+            <ListItemText >Home</ListItemText>
           </ListItemButton>
 
           <ListItemButton onClick={selectTemplate}>
             <ListItemIcon>
               <DescriptionIcon />
             </ListItemIcon>
-            <ListItemText primary="Template" Nameclass="listItemText" />
+            <ListItemText primary="Template" className="listItemText" />
  
           </ListItemButton>
 
@@ -193,7 +198,7 @@ export default function PersistentDrawerLeft(props) {
             <ListItemIcon>
               <FormatListNumberedIcon />
             </ListItemIcon>
-            <ListItemText Nameclass="listItemText" primary="Receipes" />
+            <ListItemText className="listItemText" primary="Receipes" />
             {openBuy ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={openBuy} timeout="auto" unmountOnExit>
@@ -202,13 +207,13 @@ export default function PersistentDrawerLeft(props) {
                 <ListItemIcon>
                   <PlaylistAddIcon />
                 </ListItemIcon>
-                <ListItemText primary="New" Nameclass="listItemText" />
+                <ListItemText primary="New" className="listItemText" />
               </ListItemButton>
               <ListItemButton sx={{ pl: 4 }}>
                 <ListItemIcon>
                   <SearchIcon />
                 </ListItemIcon>
-                <ListItemText primary="Search" Nameclass="listItemText" />
+                <ListItemText primary="Search" className="listItemText" />
               </ListItemButton>
             </List>
           </Collapse>
@@ -216,11 +221,12 @@ export default function PersistentDrawerLeft(props) {
             <ListItemIcon>
               <DescriptionIcon />
             </ListItemIcon>
-            <ListItemText primary="Parameters" Nameclass="listItemText" />
+            <ListItemText primary="Parameters" className="listItemText" />
             
           </ListItemButton>
     
         </List>
+        </FormControl>
         <Divider />
         <Box
           sx={{
@@ -238,7 +244,7 @@ export default function PersistentDrawerLeft(props) {
               </ListItemIcon>
               <ListItemText
                 primary={darkMode ? "Ligh mode" : "Dark mode"}
-                Nameclass="listItemText"
+                className="listItemText"
               />
             </ListItemButton>
 
@@ -246,7 +252,7 @@ export default function PersistentDrawerLeft(props) {
               <ListItemIcon>
                 <ExitToAppIcon />
               </ListItemIcon>
-              <ListItemText primary="LogOut" Nameclass="listItemText" />
+              <ListItemText primary="LogOut" className="listItemText" />
             </ListItemButton>
           </List>
         </Box>
