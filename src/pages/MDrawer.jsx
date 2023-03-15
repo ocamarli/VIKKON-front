@@ -180,7 +180,7 @@ export default function PersistentDrawerLeft(props) {
         <FormControl className="listC">
         <List  >
           <ListItemButton onClick={selectHome}>
-            <ListItemIcon classes="icons">
+            <ListItemIcon className="icons">
               <HomeIcon />
             </ListItemIcon>
             <ListItemText >Home</ListItemText>

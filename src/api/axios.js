@@ -1,28 +1,51 @@
 export async function authenticate(data) {
-  const response = await postData("http://127.0.0.1:5000/api/v1/login", data);
-  if (response.status === 200) {
-    return response.json();
-  } else {
-    throw new Error("Could not retrieve user data");
+  try {
+    const response = await postData("http://127.0.0.1:5000/api/v1/login", data);
+    if (response.status === 200) {
+      return await response.json();
+    } else {
+      return { status: false, msg: "Could not retrieve user data" };
+    }
+  } catch (error) {
+    return { status: false, msg: error.message };
   }
 }
 
-export async function setParameters(data, token){
-  const response = await postData("http://127.0.0.1:5000/api/v1/parameters/set", data, token);
-  if (response.status === 200) {
-    return response.json();
-  } else {
-    throw new Error("Could not set parameters");
+export async function setParameters(data, token) {
+  try {
+    const response = await postData(
+      "http://127.0.0.1:5000/api/v1/parameters/set",
+      data,
+      token
+    );
+    if (response.status === 200) {
+      return await response.json();
+    } else {
+      return { status: false, msg: "Could not set parameters" };
+    }
+  } catch (error) {
+    return { status: false, msg: error.message };
   }
 }
 
-export async function getParameters(token){
-  const response = await getData("http://127.0.0.1:5000/api/v1/parameters/get",token);
+export async function getParameters(token) {
+  try {
+    const response = await getData(
+      "http://127.0.0.1:5000/api/v1/parameters/get",
+      token
+    );
 
-  if (response.status === 200) {
-    return response;
-  } else {
-    throw new Error("Could not get parameters");
+    if (response.status === 200) {
+      return await response.json();
+    } else {
+      return {
+        parameters: [],
+        status: false,
+        msg: "Could not retrieve parameters",
+      };
+    }
+  } catch (error) {
+    return { parameters: [], status: false, msg: error.message};
   }
 }
 
@@ -35,7 +58,7 @@ async function postData(url = "", data = {}, token = undefined) {
       "Content-Type": "application/json",
       "Content-Length": JSON.stringify(data).length,
       "Access-Control-Allow-Origin": "*",
-      "Authorization": token !== undefined ? "Bearer " + token : "0"
+      Authorization: token !== undefined ? "Bearer " + token : "0",
     }),
     body: JSON.stringify(data), // body data type must match "Content-Type" header
   });
@@ -50,9 +73,9 @@ async function getData(url = "", token = undefined) {
     headers: new Headers({
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin": "*",
-      "Authorization": token !== undefined ? "Bearer " + token : "0"
+      Authorization: token !== undefined ? "Bearer " + token : "0",
     }),
-    body: null
+    body: null,
   });
 
   return response;
