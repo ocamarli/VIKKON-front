@@ -5,14 +5,14 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { isExpired, decodeToken } from "react-jwt";
-import Test from "./Test"
+import Test from "./Test";
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
   const PageTypes = {
     MDrawer: 0,
-    Test: 1
-  }
+    Test: 1,
+  };
 
   const theme = createTheme({
     palette: {
@@ -22,6 +22,17 @@ function App() {
 
   const handleDarkModeChange = () => {
     setDarkMode(!darkMode);
+  };
+
+  const AuthRoute = () => {
+    if (sessionStorage.getItem("ACCSSTKN") !== null) {
+      const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
+      if (!validateToken(tkn))
+        return <Login onDarkModeChange={handleDarkModeChange} />;
+      else return <Navigate to="/Menu" replace />;
+    } else {
+      return <Login onDarkModeChange={handleDarkModeChange} />;
+    }
   };
 
   const ProtectedRoute = ({ type }) => {
@@ -41,6 +52,8 @@ function App() {
     switch (type) {
       case 0:
         return <MDrawer onDarkModeChange={handleDarkModeChange} auth={auth} />;
+      case 1:
+        return <Test onDarkModeChange={handleDarkModeChange} auth={auth} />;
       default:
         return <></>;
     }
@@ -60,12 +73,15 @@ function App() {
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Routes>
+            <Route path="/" element={<AuthRoute />}></Route>
             <Route
-              path="/"
-              element={<Login onDarkModeChange={handleDarkModeChange} />}
+              path="/Menu"
+              element={<ProtectedRoute type={PageTypes.MDrawer} />}
             ></Route>
-            <Route path="/Menu" element={<ProtectedRoute type={PageTypes.MDrawer} />}></Route>
-            <Route path="/Test" element={<Test />} />
+            <Route
+              path="/Test"
+              element={<ProtectedRoute type={PageTypes.Test} />}
+            />
           </Routes>
         </ThemeProvider>
       </div>

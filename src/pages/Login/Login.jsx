@@ -40,7 +40,7 @@ export default function Login() {
       username: event.target.form[0].value,
       password: event.target.form[1].value,
     }).then((json) => {
-      sessionStorage.setItem("ACCSSTKN", JSON.stringify({access_token:json.access_token}));
+      sessionStorage.setItem("ACCSSTKN", JSON.stringify({access_token:json.access_token, refresh_token: json.refresh_token}));
       navigate("/Menu");
     }).catch((e) => {
       console.log(e);
