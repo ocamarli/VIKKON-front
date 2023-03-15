@@ -10,7 +10,18 @@ export async function authenticate(data) {
     return { status: false, msg: error.message };
   }
 }
-
+export async function setRegister(data, token) {
+  try {
+    const response = await postData("http://127.0.0.1:5000/api/v1/register/user", data, token);
+    if (response.status === 200) {
+      return await response.json();
+    } else {
+      return { status: false, msg: "Could not retrieve user data" };
+    }
+  } catch (error) {
+    return { status: false, msg: error.message };
+  }
+}
 export async function setParameters(data, token) {
   try {
     const response = await postData(

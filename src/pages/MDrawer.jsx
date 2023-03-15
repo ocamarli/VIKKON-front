@@ -14,6 +14,8 @@ import {
   ListItemText,
   IconButton,
   FormControl,
+  Grid,
+  Dialog,
 } from "@mui/material/";
 
 import MenuIcon from "@mui/icons-material/Menu";
@@ -38,10 +40,12 @@ import HomeIcon from "@mui/icons-material/Home";
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import DescriptionIcon from "@mui/icons-material/Description";
-
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Parameters from "./Parameters/Parameters";
 import Home from "./Home/Home";
-import "./MenuCss.css"
+import "./MenuCss.css";
+import RegisterPage from "./Register/RegisterPage";
+import { setRegister } from "../api/axios";
 
 const drawerWidth = 180;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -95,16 +99,37 @@ export default function PersistentDrawerLeft(props) {
   const { onDarkModeChange, auth } = props;
   const [open, setOpen] = React.useState(false);
   const [openBuy, setOpenBuy] = React.useState(false);
-  const [selectedComponent, setSelectedComponent] = useState(<Home/>);
+  const [selectedComponent, setSelectedComponent] = useState(<Home />);
+
+  const [openRegister, setOpenRegister] = useState(false);
+  const handleClickOpenRegister = () => {
+    setOpenRegister(true);
+  };
+  const handleCloseRegister = async (data) => {
+    const response = await setRegister(
+      data,
+      JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token
+    );
+    
+    if (response.ok) {
+      const json = await response.json();
+      console.log(json);
+      console.log("YES");
+    } else {
+      console.log("Error");
+    }
+
+    setOpenRegister(false);
+  };
 
   const selectHome = () => {
     setSelectedComponent(<Home />);
   };
   const selectParameters = () => {
-    setSelectedComponent(<Parameters/>);
+    setSelectedComponent(<Parameters />);
   };
   const selectTemplate = () => {
-    setSelectedComponent(<Template/>);
+    setSelectedComponent(<Template />);
   };
 
   const handleDrawerOpen = () => {
@@ -126,11 +151,14 @@ export default function PersistentDrawerLeft(props) {
     sessionStorage.removeItem("ACCSSTKN");
     navigate("/");
   };
+
+
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open} sx={{ height: "60px" }}>
-        <Toolbar style={{ backgroundColor: '#5ECA58' }}>
+        <Toolbar style={{ backgroundColor: "#5ECA58" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -149,20 +177,20 @@ export default function PersistentDrawerLeft(props) {
           </IconButton>
           <IconButton color="inherit" sx={{ ml: 2 }}>
             <Avatar sx={{ mr: 1 }} />
-            <Typography variant="subtitle1">{auth !== null ? auth?.username : "Username"}</Typography>
+            <Typography variant="subtitle1">
+              {auth !== null ? auth?.username : "Username"}
+            </Typography>
           </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
         sx={{
-          
           width: drawerWidth,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
           },
-
         }}
         variant="persistent"
         anchor="left"
@@ -179,56 +207,61 @@ export default function PersistentDrawerLeft(props) {
         </DrawerHeader>
         <Divider />
         <FormControl className="listC">
-        <List  >
-          <ListItemButton onClick={selectHome}>
-            <ListItemIcon className="icons">
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText >Home</ListItemText>
-          </ListItemButton>
+          <List>
+            <ListItemButton onClick={selectHome}>
+              <ListItemIcon className="icons">
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText>Home</ListItemText>
+            </ListItemButton>
 
-          <ListItemButton onClick={selectTemplate}>
-            <ListItemIcon>
-              <DescriptionIcon />
-            </ListItemIcon>
-            <ListItemText primary="Template" className="listItemText" />
- 
-          </ListItemButton>
+            <ListItemButton onClick={selectTemplate}>
+              <ListItemIcon>
+                <DescriptionIcon />
+              </ListItemIcon>
+              <ListItemText primary="Template" className="listItemText" />
+            </ListItemButton>
 
-          <ListItemButton onClick={handleClickBuy}>
-            <ListItemIcon>
-              <FormatListNumberedIcon />
-            </ListItemIcon>
-            <ListItemText className="listItemText" primary="Receipes" />
-            {openBuy ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={openBuy} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemIcon>
-                  <PlaylistAddIcon />
-                </ListItemIcon>
-                <ListItemText primary="New" className="listItemText" />
-              </ListItemButton>
-              <ListItemButton sx={{ pl: 4 }}>
-                <ListItemIcon>
-                  <SearchIcon />
-                </ListItemIcon>
-                <ListItemText primary="Search" className="listItemText" />
-              </ListItemButton>
-            </List>
-          </Collapse>
-          <ListItemButton onClick={selectParameters}>
-            <ListItemIcon>
-              <DescriptionIcon />
-            </ListItemIcon>
-            <ListItemText primary="Parameters" className="listItemText" />
-            
-          </ListItemButton>
-    
-        </List>
+            <ListItemButton onClick={handleClickBuy}>
+              <ListItemIcon>
+                <FormatListNumberedIcon />
+              </ListItemIcon>
+              <ListItemText className="listItemText" primary="Receipes" />
+              {openBuy ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton>
+            <Collapse in={openBuy} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemIcon>
+                    <PlaylistAddIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="New" className="listItemText" />
+                </ListItemButton>
+                <ListItemButton sx={{ pl: 4 }}>
+                  <ListItemIcon>
+                    <SearchIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Search" className="listItemText" />
+                </ListItemButton>
+              </List>
+            </Collapse>
+            <ListItemButton onClick={selectParameters}>
+              <ListItemIcon>
+                <DescriptionIcon />
+              </ListItemIcon>
+              <ListItemText primary="Parameters" className="listItemText" />
+            </ListItemButton>
+            <Divider />
+
+            <ListItemButton onClick={handleClickOpenRegister}>
+              <ListItemIcon className="icons">
+                <PersonAddIcon />
+              </ListItemIcon>
+              <ListItemText>New User</ListItemText>
+            </ListItemButton>
+          </List>
         </FormControl>
-        <Divider />
+
         <Box
           sx={{
             display: "flex",
@@ -258,6 +291,11 @@ export default function PersistentDrawerLeft(props) {
           </List>
         </Box>
       </Drawer>
+      <Grid item xs={12}>
+        <Dialog open={openRegister} onClose={handleCloseRegister}>
+          <RegisterPage open={openRegister} handleCloseRegister={handleCloseRegister}></RegisterPage>
+        </Dialog>
+      </Grid>
       <Main open={open}>
         <DrawerHeader />
         {selectedComponent}
