@@ -3,9 +3,8 @@ import { Typography, Grid, Paper } from "@mui/material";
 import ItemParameterTemplate from "./ItemParameterTemplate";
 import { getParameters } from "../../../api/axios";
 
-const ListParametersTemplate = (props) => {
+const ListParametersTemplate = ({setList}) => {
   const [parameters, setParameters] = useState(null);
-  const handleClose = props.handleClose;
   const [leftItems, setLeftItems] = useState([]);
   const [rightItems, setRightItems] = useState([]);
 
@@ -43,6 +42,7 @@ const ListParametersTemplate = (props) => {
     setRightItems(updatedItems);
     const newItems = [...leftItems, item];
     setLeftItems(newItems);
+    setList(newItems);
   };
 
   const handleTransferRight = (item) => {
@@ -50,6 +50,7 @@ const ListParametersTemplate = (props) => {
     setLeftItems(updatedItems);
     const newItems = [...rightItems, item];
     setRightItems(newItems);
+    setList(updatedItems);
   };
 
   return (

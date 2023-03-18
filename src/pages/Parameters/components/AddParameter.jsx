@@ -37,6 +37,7 @@ const AddParameter = ({ open, handleClose }) => {
   const [maxVal, setMaxVal] = useState("");
   const [openOptions, setOpenOptions] = useState(false); // Define el estado "open" en el componente padre
   const [options, setOptions] = useState([]);
+  
   const handleClickOpenOptions = () => {
     setOpenOptions(true);
   };

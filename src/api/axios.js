@@ -39,6 +39,23 @@ export async function setParameters(data, token) {
     return { status: false, msg: error.message };
   }
 }
+export async function setParametersTemplate(data, token) {
+  try {
+    const response = await postData(
+      "http://127.0.0.1:5000/api/v1/templates/set",
+      data,
+      token
+    );
+    console.log(data)
+    if (response.status === 200) {
+      return await response.json();
+    } else {
+      return { status: false, msg: "Could not set parameters" };
+    }
+  } catch (error) {
+    return { status: false, msg: error.message };
+  }
+}
 
 export async function getParameters(token) {
   try {
