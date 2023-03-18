@@ -35,7 +35,6 @@ const AddParameter = ({ open, handleClose }) => {
   const [type, setType] = useState("");
   const [minVal, setMinVal] = useState("");
   const [maxVal, setMaxVal] = useState("");
-  const [data,setData] = useState("");
   const [openOptions, setOpenOptions] = useState(false); // Define el estado "open" en el componente padre
   const [options, setOptions] = useState([]);
   const handleClickOpenOptions = () => {
@@ -57,32 +56,32 @@ const AddParameter = ({ open, handleClose }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (type==="single"){
-       data = {
+    let data={}
+    if(type==="single"){
+      data={
+        id_parameter: idParameter,
         name: name,
         description: description,
         multiplicate: multiplicate,
         number_bytes: numberBytes,
-        value: value,
-        id_parameter: idParameter,
         unit: unit,
         type: type,
-      };
-    }
-    else{
-      const data = {
+        min_value:minVal,
+        max_value:maxVal
+       }
+    }else{
+      data={
+        id_parameter: idParameter,
         name: name,
         description: description,
         multiplicate: multiplicate,
         number_bytes: numberBytes,
-        value: value,
-        id_parameter: idParameter,
         unit: unit,
         type: type,
-        min_val:minVal,
-        max_val:maxVal,
-      };      
+        option: options
+       }     
     }
+
 
     console.log(data);
     console.log(JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token);

@@ -29,6 +29,7 @@ export async function setParameters(data, token) {
       data,
       token
     );
+    console.log(data)
     if (response.status === 200) {
       return await response.json();
     } else {

@@ -1,20 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Typography, Grid, Paper } from "@mui/material";
 import ItemParameterTemplate from "./ItemParameterTemplate";
+import { getParameters } from "../../../api/axios";
 
-const ListParametersTemplate = () => {
-  const [leftItems, setLeftItems] = useState([
-    "Setpoint normal",
-    "Diferencial normal",
-    "Duración de modo normal",
-  ]);
-  const [rightItems, setRightItems] = useState([
-    "Tipo de deshielo",
-    "Tipo de sonda",
-    "Modo de deshielo",
-    "Duración de modo ES2",
-    "Temperatura para pasar a ES1",
-  ]);
+const ListParametersTemplate = (props) => {
+  const [parameters, setParameters] = useState(null);
+  const handleClose = props.handleClose;
+  const [leftItems, setLeftItems] = useState([]);
+  const [rightItems, setRightItems] = useState([]);
+
+  const fetchParameters = async () => {
+    try {
+      const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
+      console.log(tkn);
+      if (tkn !== undefined) {
+        const json = await getParameters(tkn);
+        console.log(json);
+        return json.parameters;
+      } else {
+        return [];
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useMemo(async () => {
+    if (parameters === null) {
+      fetchParameters().then((json) => {
+        setParameters(json)
+        setRightItems(
+          json.map((param) => {
+            return param.name;
+          })
+        );
+      })
+    }
+  }, [parameters]);
 
   const handleTransferLeft = (item) => {
     const updatedItems = rightItems.filter((i) => i !== item);
