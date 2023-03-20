@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function CardTemplate(props) {
+export default function CardReceipe(props) {
     const { name, word, category, description } = props;
   return (
 

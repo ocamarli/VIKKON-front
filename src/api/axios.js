@@ -77,6 +77,26 @@ export async function getParameters(token) {
     return { parameters: [], status: false, msg: error.message};
   }
 }
+export async function getParametersReceipe(token) {
+  try {
+    const response = await getData(
+      "http://127.0.0.1:5000/api/v1/parameters/get",
+      token
+    );
+
+    if (response.status === 200) {
+      return await response.json();
+    } else {
+      return {
+        parameters: [],
+        status: false,
+        msg: "Could not retrieve parameters",
+      };
+    }
+  } catch (error) {
+    return { parameters: [], status: false, msg: error.message};
+  }
+}
 export async function getTemplates(token) {
   try {
     const response = await getData(
@@ -97,6 +117,7 @@ export async function getTemplates(token) {
     return { parameters: [], status: false, msg: error.message};
   }
 }
+
 
 async function postData(url = "", data = {}, token = undefined) {
   // Default options are marked with *

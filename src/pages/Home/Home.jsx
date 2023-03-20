@@ -25,7 +25,7 @@ const SvgComponent = (props) => {
       justifyContent="center"
       sx={{ width: "95vw", height: "95vh" }}
     >
-      {/* <Canvas>
+      { <Canvas>
         <Html>
           <Grid
             item
@@ -56,8 +56,8 @@ const SvgComponent = (props) => {
 
           <Model3d  scale={2}/>
         </Suspense>
-      </Canvas> */}
-      <NovaCanvas />
+      </Canvas> }
+
     </Grid>
   );
 };

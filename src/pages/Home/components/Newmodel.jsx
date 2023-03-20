@@ -13,6 +13,7 @@ export function Model3d(props) {
   useEffect(() => {
     console.log(animations)
     actions[animations[0].name].play()
+    console.log(materials["Scene_-_Root"])
   }, [])
 
 

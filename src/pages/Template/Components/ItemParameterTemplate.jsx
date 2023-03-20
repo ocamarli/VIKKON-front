@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import { ButtonBase } from "@mui/material";
 
 
-export default function ItemParameterTemplate(props) {
+const  ItemParameterTemplate=(props) =>{
   const { name, word, onClick } = props;
   const backgroundCard1 = "#3AAA35";
   const colorTextLight="#fff";
@@ -18,7 +18,7 @@ export default function ItemParameterTemplate(props) {
       <ButtonBase onClick={onClick}>
         <CardContent sx={{padding: 1}}>
           <Typography sx={{fontWeight:700}} variant="h9" >
-            {name}
+            {props.name}
           </Typography>
           <Typography sx={{ fontSize: 14 }} >
             {word}
@@ -28,3 +28,4 @@ export default function ItemParameterTemplate(props) {
     </Card>
   );
 }
+export default ItemParameterTemplate

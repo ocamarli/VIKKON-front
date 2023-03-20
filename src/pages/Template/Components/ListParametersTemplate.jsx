@@ -30,7 +30,7 @@ const ListParametersTemplate = ({setList}) => {
         setParameters(json)
         setRightItems(
           json.map((param) => {
-            return param.name;
+            return  {name: param.name, id: param.id_parameter};
           })
         );
       })
@@ -38,19 +38,21 @@ const ListParametersTemplate = ({setList}) => {
   }, [parameters]);
 
   const handleTransferLeft = (item) => {
-    const updatedItems = rightItems.filter((i) => i !== item);
+    const updatedItems = rightItems.filter((i) => i.name !== item.name);
     setRightItems(updatedItems);
     const newItems = [...leftItems, item];
     setLeftItems(newItems);
     setList(newItems);
+    console.log(item);
   };
 
   const handleTransferRight = (item) => {
-    const updatedItems = leftItems.filter((i) => i !== item);
+    const updatedItems = leftItems.filter((i) => i.name !== item.name);
     setLeftItems(updatedItems);
     const newItems = [...rightItems, item];
     setRightItems(newItems);
     setList(updatedItems);
+    console.log(item);
   };
 
   return (
@@ -68,10 +70,11 @@ const ListParametersTemplate = ({setList}) => {
               spacing={2}
             >
               {leftItems.map((item) => (
-                <Grid item key={item} xs={12} sm={6} md={4} lg={3}>
+
+                <Grid item key={"left-"+item.name} xs={12} sm={6} md={4} lg={3}>
                   <ItemParameterTemplate
                     onClick={() => handleTransferRight(item)}
-                    name={item}
+                    name={item.name}
                     word="v.20"
                   />
                 </Grid>
@@ -95,19 +98,18 @@ const ListParametersTemplate = ({setList}) => {
               spacing={2}
             >
               {rightItems
-                .slice()
-                .reverse()
+                
                 .map((item) => (
                   <Grid
                     item
-                    key={item}
+                    key={"right-"+item.name}
                     spacing={2}
                     alignItems="right"
                     textAlign="right"
                   >
                     <ItemParameterTemplate
                       onClick={() => handleTransferLeft(item)}
-                      name={item}
+                      name={item.name}
                       word="v.20"
                     />
                   </Grid>

@@ -16,14 +16,12 @@ const AddTemplate = ({ open, handleClose }) => {
 
 
 const setList = (data) =>{
-  setListParameters(data)
-  console.log(data)
-}
+  setListParameters(data.map(d=>d.id))
 
+}
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let data={}
-     data = {
+    let data = {
       name: name,
       client: client,
       description: description,

@@ -1,5 +1,5 @@
 import { styled, useTheme } from "@mui/material/styles";
-
+import { CSSTransition, SwitchTransition} from "react-transition-group";
 import MuiAppBar from "@mui/material/AppBar";
 import {
   Typography,
@@ -48,6 +48,7 @@ import RegisterPage from "./Register/RegisterPage";
 import { setRegister } from "../api/axios";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import Receipes from "./Recipes/Receipes";
 
 const drawerWidth = 180;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -146,6 +147,9 @@ export default function PersistentDrawerLeft(props) {
   const selectTemplate = () => {
     setSelectedComponent(<Template />);
   };
+  const selectReceipes = () => {
+    setSelectedComponent(<Receipes />);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -167,6 +171,22 @@ export default function PersistentDrawerLeft(props) {
     navigate("/");
   };
 
+  const styles = {
+    fadeEnter: {
+      opacity: 0,
+    },
+    fadeEnterActive: {
+      opacity: 1,
+      transition: "opacity 500ms ease-in-out",
+    },
+    fadeExit: {
+      opacity: 1,
+    },
+    fadeExitActive: {
+      opacity: 0,
+      transition: "opacity 500ms ease-in-out",
+    },
+  };
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -235,7 +255,7 @@ export default function PersistentDrawerLeft(props) {
               <ListItemText primary="Template" className="listItemText" />
             </ListItemButton>
 
-            <ListItemButton onClick={handleClickBuy}>
+            <ListItemButton onClick={selectReceipes}>
               <ListItemIcon>
                 <FormatListNumberedIcon />
               </ListItemIcon>
@@ -314,7 +334,16 @@ export default function PersistentDrawerLeft(props) {
       </Grid>
       <Main open={open}>
         <DrawerHeader />
-        {selectedComponent}
+        <SwitchTransition>
+          <CSSTransition
+            key={selectedComponent.type}
+            timeout={300}
+            classNames="item"
+            unmountOnExit
+          >
+            {selectedComponent}
+          </CSSTransition>
+        </SwitchTransition>
         <Snackbar
           open={openAlert}
           autoHideDuration={6000}
