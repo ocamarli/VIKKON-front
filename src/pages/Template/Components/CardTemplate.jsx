@@ -25,7 +25,7 @@ export default function CardTemplate(props) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Clone</Button>
+        <Button size="small">Create receipe</Button>
         <Button size="small">Edit</Button>
       </CardActions>
     </Card>

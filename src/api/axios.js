@@ -77,10 +77,11 @@ export async function getParameters(token) {
     return { parameters: [], status: false, msg: error.message};
   }
 }
-export async function getParametersReceipe(token) {
+export async function getParametersTemplate(id_template,token) {
   try {
-    const response = await getData(
-      "http://127.0.0.1:5000/api/v1/parameters/get",
+    const response = await postData(
+      "http://127.0.0.1:5000/api/v1/fulltemplates/get",
+      {id_template},
       token
     );
 
@@ -108,13 +109,13 @@ export async function getTemplates(token) {
       return await response.json();
     } else {
       return {
-        parameters: [],
+        templates: [],
         status: false,
-        msg: "Could not retrieve parameters",
+        msg: "Could not retrieve templates",
       };
     }
   } catch (error) {
-    return { parameters: [], status: false, msg: error.message};
+    return { templates: [], status: false, msg: error.message};
   }
 }
 
@@ -130,9 +131,11 @@ async function postData(url = "", data = {}, token = undefined) {
       "Access-Control-Allow-Origin": "*",
       Authorization: token !== undefined ? "Bearer " + token : "0",
     }),
+    
     body: JSON.stringify(data), // body data type must match "Content-Type" header
+    
   });
-
+  console.log(JSON.stringify(data))
   return response;
 }
 async function getData(url = "", token = undefined) {
@@ -145,7 +148,8 @@ async function getData(url = "", token = undefined) {
       "Access-Control-Allow-Origin": "*",
       Authorization: token !== undefined ? "Bearer " + token : "0",
     }),
-    body: null,
+
+
   });
 
   return response;

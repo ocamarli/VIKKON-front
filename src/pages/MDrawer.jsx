@@ -49,6 +49,7 @@ import { setRegister } from "../api/axios";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Receipes from "./Recipes/Receipes";
+import LogoVikkon from "./Home/components/LogoVikon";
 
 const drawerWidth = 180;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -334,14 +335,16 @@ export default function PersistentDrawerLeft(props) {
       </Grid>
       <Main open={open}>
         <DrawerHeader />
+        
         <SwitchTransition>
           <CSSTransition
             key={selectedComponent.type}
             timeout={300}
             classNames="item"
             unmountOnExit
-          >
+>
             {selectedComponent}
+
           </CSSTransition>
         </SwitchTransition>
         <Snackbar

@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import LogoVikkon from "./components/LogoVikon";
 import { Grid } from "@mui/material";
 import { Canvas } from "react-three-fiber";
-import { Model3d, NovaCanvas } from "./components/Newmodel";
+import { Model3d } from "./components/Newmodel";
 import {
   Environment,
   useProgress,
@@ -25,13 +25,13 @@ const SvgComponent = (props) => {
       justifyContent="center"
       sx={{ width: "95vw", height: "95vh" }}
     >
-      { <Canvas>
+      <Canvas>
         <Html>
           <Grid
             item
             xs={10}
             sx={{
-              filter: "opacity(25%)",
+              filter: "opacity(30%)",
               width: "95vw",
               height: "95vh",
               position: "absolute",
@@ -49,15 +49,15 @@ const SvgComponent = (props) => {
             makeDefault
             autoRotate
             autoRotateSpeed={0.3}
-            enableZoom={false}
+
+            enableZoom={true}
             enablePan={true}
             enableDamping={true}
           ></OrbitControls>
 
-          <Model3d  scale={2}/>
+          <Model3d />
         </Suspense>
-      </Canvas> }
-
+      </Canvas>
     </Grid>
   );
 };
