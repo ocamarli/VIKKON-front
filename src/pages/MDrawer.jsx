@@ -1,5 +1,5 @@
 import { styled, useTheme } from "@mui/material/styles";
-import { CSSTransition, SwitchTransition} from "react-transition-group";
+import { CSSTransition, SwitchTransition } from "react-transition-group";
 import MuiAppBar from "@mui/material/AppBar";
 import {
   Typography,
@@ -48,7 +48,7 @@ import RegisterPage from "./Register/RegisterPage";
 import { setRegister } from "../api/axios";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
-import Receipes from "./Recipes/Receipes";
+import Recipes from "./Recipes/Recipe";
 import LogoVikkon from "./Home/components/LogoVikon";
 
 const drawerWidth = 180;
@@ -104,21 +104,9 @@ export default function PersistentDrawerLeft(props) {
   const [open, setOpen] = React.useState(false);
   const [openBuy, setOpenBuy] = React.useState(false);
   const [selectedComponent, setSelectedComponent] = useState(<Home />);
-  const [openRegister, setOpenRegister] = useState(false);
+
   const [openAlert, setOpenAlert] = React.useState(false);
   const [response, setResponse] = React.useState();
-
-  const handleClickOpenRegister = () => {
-    setOpenRegister(true);
-  };
-  const handleCloseRegister = async (data) => {
-    const response = await setRegister(
-      data,
-      JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token
-    );
-    console.log(response);
-    setOpenRegister(false);
-  };
 
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -132,6 +120,9 @@ export default function PersistentDrawerLeft(props) {
     setOpenAlert(false);
   };
 
+  const selectRegister = () => {
+    setSelectedComponent(<RegisterPage />);
+  };
   const selectHome = () => {
     setSelectedComponent(<Home />);
   };
@@ -146,10 +137,24 @@ export default function PersistentDrawerLeft(props) {
     );
   };
   const selectTemplate = () => {
-    setSelectedComponent(<Template />);
+    setSelectedComponent(
+      <Template
+        onResponse={(json) => {
+          setResponse(json);
+          setOpenAlert(true);
+        }}
+      />
+    );
   };
-  const selectReceipes = () => {
-    setSelectedComponent(<Receipes />);
+  const selectRecipe = () => {
+    setSelectedComponent(
+      <Recipes
+        onResponse={(json) => {
+          setResponse(json);
+          setOpenAlert(true);
+        }}
+      />
+    );
   };
 
   const handleDrawerOpen = () => {
@@ -192,7 +197,7 @@ export default function PersistentDrawerLeft(props) {
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar position="fixed" open={open} sx={{ height: "60px" }}>
-        <Toolbar style={{ backgroundColor: "#5ECA58" }}>
+        <Toolbar style={{ backgroundColor: "#212121", color: "white" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -203,7 +208,7 @@ export default function PersistentDrawerLeft(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Persistent drawer
+            VIKKON
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <IconButton color="inherit" onClick={toggleDarkMode}>
@@ -256,11 +261,11 @@ export default function PersistentDrawerLeft(props) {
               <ListItemText primary="Template" className="listItemText" />
             </ListItemButton>
 
-            <ListItemButton onClick={selectReceipes}>
+            <ListItemButton onClick={selectRecipe}>
               <ListItemIcon>
                 <FormatListNumberedIcon />
               </ListItemIcon>
-              <ListItemText className="listItemText" primary="Receipes" />
+              <ListItemText className="listItemText" primary="Recipes" />
               {openBuy ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>
             <Collapse in={openBuy} timeout="auto" unmountOnExit>
@@ -287,7 +292,7 @@ export default function PersistentDrawerLeft(props) {
             </ListItemButton>
             <Divider />
 
-            <ListItemButton onClick={handleClickOpenRegister}>
+            <ListItemButton onClick={selectRegister}>
               <ListItemIcon className="icons">
                 <PersonAddIcon />
               </ListItemIcon>
@@ -325,26 +330,18 @@ export default function PersistentDrawerLeft(props) {
           </List>
         </Box>
       </Drawer>
-      <Grid item xs={12}>
-        <Dialog open={openRegister} onClose={handleCloseRegister}>
-          <RegisterPage
-            open={openRegister}
-            handleCloseRegister={handleCloseRegister}
-          ></RegisterPage>
-        </Dialog>
-      </Grid>
+
       <Main open={open}>
         <DrawerHeader />
-        
+
         <SwitchTransition>
           <CSSTransition
             key={selectedComponent.type}
             timeout={300}
             classNames="item"
             unmountOnExit
->
+          >
             {selectedComponent}
-
           </CSSTransition>
         </SwitchTransition>
         <Snackbar

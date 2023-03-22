@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
 
 import {
   TextField,
@@ -6,78 +7,95 @@ import {
   FormControl,
   Grid,
   Paper,
-  Modal,
+  
 } from "@mui/material";
 
 import Typography from "@mui/material/Typography";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+import { setRegister } from "../../api/axios";
 
-const RegisterPage = ({ open, handleCloseRegister }) => {
-
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
-  const [data,setData] = useState("");
+const handleCloseRegister = async (data) => {
 
 
-  const handleSubmit = () => {
+  const response = await setRegister(
+    data,
+    JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token
+  );
+  console.log(response);
+};
 
-     const data = {
-        username:username,
-        password: password,
-        role: role
-    }
 
-    console.log(data);
-    handleCloseRegister(data);
-  };
+const onSubmit = (data) => {
+
+
+  console.log(data);
+  handleCloseRegister(data);
+};
+
+
+const RegisterPage = () => {
+
+  const { register, handleSubmit, formState: { errors } } = useForm();
+
+
 
 
   return (
-    <Modal open={open} onClose={handleCloseRegister} className="ap-modal">
+    <Grid container padding={2} justifyItems={"center"} justifyContent={"center"} alignContent={"center"} alignItems={"center"}>
       <Paper
         elevation={3}
         spacing={5}
         sx={{
-          minWidth: "calc(25vw)",
+
           padding: 3,
           height: "fit-content",
-          maxWidth: "calc(25vw)",
+
         }}
       >
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Grid container direction="column">
+
           <Typography sx={{ fontSize: 24 }}>Register</Typography>
 
           <Grid container direction="column" spacing={1}>
             <Grid item xs={12}>
               <TextField
+                {...register("username", { required: true })}
                 fullWidth
                 label="Username"
                 variant="standard"
-                
-                onChange={(e) => setUsername(e.target.value)}
+                error={errors.username ? true : false}
+                helperText={errors.username ? "Este campo es requerido" : ""}                
               />
+
             </Grid>
             <Grid item xs={12}>
               <TextField
+              {...register("password", { required: true })}
                 fullWidth
                 label="Password"
                 variant="standard"
-                onChange={(e) => setPassword(e.target.value)}
+                error={errors.password ? true : false}
+                helperText={errors.password ? "Este campo es requerido" : ""}
               />
+
             </Grid>
             <Grid item xs={12} >
               <FormControl variant="standard" sx={{ width: "100%" }}>
                 <InputLabel>Role</InputLabel>
-                <Select value={role} onChange={(e) => setRole(e.target.value)}>
+                <Select  {...register("role", { required: true })}
+                                error={errors.role ? true : false}
+                                helperText={errors.role ? "Este campo es requerido" : ""}
+                >
                   <MenuItem value="">
                     <em>Role</em>
                   </MenuItem>
                   <MenuItem value={"admin"}>Admin</MenuItem>
                   <MenuItem value={"standard"}>Minute</MenuItem>
                 </Select>
+
               </FormControl>
             </Grid>
 
@@ -87,23 +105,23 @@ const RegisterPage = ({ open, handleCloseRegister }) => {
                 <Grid item>
                   <Button
                     variant="outlined"
-                    onClick={handleSubmit}
                     type="submit"
+
                   >
                     Accept
                   </Button>
                 </Grid>
                 <Grid item>
-                  <Button variant="outlined" onClick={handleCloseRegister}>
-                    Close
-                  </Button>
+
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
+        </form>
       </Paper>
-    </Modal>
+      </Grid>
+    
   );
 };
 

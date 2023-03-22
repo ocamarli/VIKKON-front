@@ -3,9 +3,6 @@ import "../ParametersCss.css";
 import {
   TextField,
   Button,
-  RadioGroup,
-  Radio,
-  FormControlLabel,
   IconButton,
   FormControl,
   FormLabel,
@@ -24,13 +21,11 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
 const AddParameter = ({ open, handleClose }) => {
-  const [radioValue, setRadioValue] = useState("");
   const [idParameter, setIdParameter] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [multiplicate, setMultiplicate] = useState("");
   const [numberBytes, setNumberBytes] = useState("");
-  const [value, setValue] = useState("");
   const [unit, setUnit] = useState("");
   const [type, setType] = useState("");
   const [minVal, setMinVal] = useState("");

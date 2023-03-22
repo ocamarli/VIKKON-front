@@ -1,15 +1,19 @@
-import { Grid, Paper} from "@mui/material";
 import { Button, Dialog } from "@mui/material";
 import React, { useState } from "react";
 import store from "../../store";
 import { Provider } from "react-redux";
 import CardTemplate from "./Components/CardTemplate";
 import AddTemplate from "./Components/AddTemplate";
-import {  getTemplates } from "../../api/axios";
+import { getTemplates } from "../../api/axios";
 import { useEffect } from "react";
-function Parameters() {
+import Typography from "@mui/material/Typography";
+import { Grid, Paper, CircularProgress } from "@mui/material";
+
+function Parameters(props) {
+  const { onResponse } = props;
   const [open, setOpen] = useState(false); // Define el estado "open" en el componente padre
-  const [templates, setTemplates]= useState([])
+  const [isLoading, setIsLoading] = useState(false);
+  const [templates, setTemplates] = useState([]);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -17,22 +21,25 @@ function Parameters() {
     setOpen(false);
   };
 
-const fetchTemplates = async () => {
-  try{
-    const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
-    if(tkn !== undefined){
-      const json = await getTemplates (tkn)
-      setTemplates(json.templates)
+  const fetchTemplates = async () => {
+    try {
+      setIsLoading(true);
+      const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
+      if (tkn !== undefined) {
+        const json = await getTemplates(tkn);
+        setTemplates(json.templates);
+        onResponse({ status: json.status, msg: json.msg });
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      onResponse({ status: false, msg: "Error" });
     }
-  } catch (error){
-console.error(error)
-  }
-}
+  };
 
-useEffect(() => {
-  fetchTemplates();
-}, [])
-
+  useEffect(() => {
+    fetchTemplates();
+  }, []);
 
   return (
     <Provider store={store}>
@@ -53,20 +60,23 @@ useEffect(() => {
                 <br />
 
                 <Paper style={{ padding: 10 }}>
-                  <h3>List of templates:</h3>
+                  <Typography sx={{ fontSize: "1.4em" }}>
+                    List of templates
+                  </Typography>
+
+                  {isLoading && ( // Agrega el loader condicionalmente
+                <Grid item xs={12} align="center">
+                  <CircularProgress size={50} /> 
+                </Grid>
+              )}
+
+
                   <Grid container spacing={2}>
-                    {templates.map((template, index)=>(
-                    <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-                    <CardTemplate
-                      name={template.name}
-                      word={template.version}
-                      category={template.client}
-                      description={template.description}
-                    />
-                    </Grid>
+                    {templates.map((template, index) => (
+                      <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+                        <CardTemplate template={template} />
+                      </Grid>
                     ))}
-
-
                   </Grid>
                 </Paper>
               </Grid>

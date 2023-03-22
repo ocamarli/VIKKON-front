@@ -58,7 +58,7 @@ const ListParametersTemplate = ({setList}) => {
   return (
     <Grid container direction="row">
       <Grid item xs={6} padding={2} textAlign="center">
-        <Paper elevation={3} variant="outlined" sx={{ padding: 3 }}>
+        <Paper  variant="outlined" sx={{ padding: 3 }}>
           <Grid container justifyContent="flex-start">
             <Typography variant="h6" sx={{ marginBottom: 3 }}>
               Parameters

@@ -39,6 +39,23 @@ export async function setParameters(data, token) {
     return { status: false, msg: error.message };
   }
 }
+export async function setRecipe(data, token) {
+  try {
+    const response = await postData(
+      "http://127.0.0.1:5000/api/v1/recipe/set",
+      data,
+      token
+    );
+    console.log(data)
+    if (response.status === 200) {
+      return await response.json();
+    } else {
+      return { status: false, msg: "Could not set recipe" };
+    }
+  } catch (error) {
+    return { status: false, msg: error.message };
+  }
+}
 export async function setParametersTemplate(data, token) {
   try {
     const response = await postData(
@@ -75,6 +92,26 @@ export async function getParameters(token) {
     }
   } catch (error) {
     return { parameters: [], status: false, msg: error.message};
+  }
+}
+export async function getRecipes(token) {
+  try {
+    const response = await getData(
+      "http://127.0.0.1:5000/api/v1/recipes/get",
+      token
+    );
+
+    if (response.status === 200) {
+      return await response.json();
+    } else {
+      return {
+        recipes: [],
+        status: false,
+        msg: "Could not retrieve recipes",
+      };
+    }
+  } catch (error) {
+    return { recipes: [], status: false, msg: error.message};
   }
 }
 export async function getParametersTemplate(id_template,token) {

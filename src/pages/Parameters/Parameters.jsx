@@ -1,14 +1,16 @@
-import { Grid, Paper } from "@mui/material";
-import ItemTemplate from "../Template/Components/ItemTemplate";
+
+import CardParameter from "./components/CardParameter";
 import AddParameter from "./components/AddParameter";
 import { Button, Dialog } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import store from "../../store";
 import { Provider } from "react-redux";
 import { getParameters } from "../../api/axios";
+import { Grid, Paper, CircularProgress } from "@mui/material";
 
 function Parameters(props) {
   const {onResponse} = props;
+  const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false); // Define el estado "open" en el componente padre
   const [parameters, setParameters] = useState([]);
 
@@ -22,6 +24,7 @@ function Parameters(props) {
 
   const fetchParameters = async () => {
     try {
+      setIsLoading(true);
       const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
       console.log(tkn);
       if (tkn !== undefined) {
@@ -29,11 +32,13 @@ function Parameters(props) {
         console.log(json);
         setParameters(json.parameters);
         onResponse(json)
+        setIsLoading(false);
       }else{
         setParameters([])
         onResponse({status:false, msg: "Unauthorized Access"})
       }
     } catch (error) {
+      setIsLoading(false);
       onResponse({ status: false, msg: error });
       console.error(error);
     }
@@ -69,12 +74,18 @@ function Parameters(props) {
                     direction="row"
                     justifyContent="flex-start"
                   >
+              {isLoading && ( // Agrega el loader condicionalmente
+                <Grid item xs={12} align="center">
+                  <CircularProgress size={50} /> 
+                </Grid>
+              )}                    
+
                     {parameters.map((param, index) => (
                       <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-                        <ItemTemplate
+                        <CardParameter
                           id_parameter={param.id_parameter}
                           name={param.name}
-                        ></ItemTemplate>
+                        ></CardParameter>
                       </Grid>
                     ))}
                   </Grid>

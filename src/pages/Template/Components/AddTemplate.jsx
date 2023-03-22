@@ -19,9 +19,11 @@ const setList = (data) =>{
   setListParameters(data.map(d=>d.id))
 
 }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let data = {
+    
+    const data = {
       name: name,
       client: client,
       description: description,
