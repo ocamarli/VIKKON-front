@@ -1,6 +1,5 @@
-import { TextField, Button, Grid, Paper, Modal } from "@mui/material";
+import { TextField, Button, Grid, Paper, Modal, Typography } from "@mui/material";
 import ListParametersTemplate from "./ListParametersTemplate";
-import Typography from "@mui/material/Typography";
 import "../TemplateCss.css";
 import { useState } from "react";
 import { setParametersTemplate } from "../../../api/axios";

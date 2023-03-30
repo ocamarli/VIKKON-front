@@ -337,7 +337,7 @@ export default function PersistentDrawerLeft(props) {
         <SwitchTransition>
           <CSSTransition
             key={selectedComponent.type}
-            timeout={300}
+            timeout={500}
             classNames="item"
             unmountOnExit
           >

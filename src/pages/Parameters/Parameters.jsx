@@ -22,7 +22,7 @@ function Parameters(props) {
     setOpen(false);
   };
 
-  const fetchParameters = async () => {
+  const fetchParameters = async () => {      
     try {
       setIsLoading(true);
       const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
