@@ -1,6 +1,7 @@
+import { ENV } from "../utils";
 export async function authenticate(data) {
   try {
-    const response = await postData("http://127.0.0.1:5000/api/v1/login", data);
+    const response = await postData(ENV.login(), data);
     if (response.status === 200) {
       return await response.json();
     } else {
@@ -12,7 +13,7 @@ export async function authenticate(data) {
 }
 export async function setRegister(data, token) {
   try {
-    const response = await postData("http://127.0.0.1:5000/api/v1/user", data, token);
+    const response = await postData(ENV.setRegister(), data, token);
     if (response.status === 200) {
       return await response.json();
     } else {
@@ -22,10 +23,22 @@ export async function setRegister(data, token) {
     return { status: false, msg: error.message };
   }
 }
+export async function setFileTemplate(data, token) {
+  try {
+    const response = await postData(ENV.setFileTemplate(), data, token);
+    if (response.status === 200) {
+      return await response.json();
+    } else {
+      return { status: false, msg: "Could not retrieve file data" };
+    }
+  } catch (error) {
+    return { status: false, msg: error.message };
+  }
+}
 export async function setParameters(data, token) {
   try {
     const response = await postData(
-      "http://127.0.0.1:5000/api/v1/parameters/set",
+      ENV.setParameters(),
       data,
       token
     );
@@ -42,7 +55,7 @@ export async function setParameters(data, token) {
 export async function setRecipe(data, token) {
   try {
     const response = await postData(
-      "http://127.0.0.1:5000/api/v1/recipe/set",
+     ENV.setRecipe(),
       data,
       token
     );
@@ -59,7 +72,7 @@ export async function setRecipe(data, token) {
 export async function setParametersTemplate(data, token) {
   try {
     const response = await postData(
-      "http://127.0.0.1:5000/api/v1/templates/set",
+     ENV.setTemplates(),
       data,
       token
     );
@@ -77,7 +90,7 @@ export async function setParametersTemplate(data, token) {
 export async function getParameters(token) {
   try {
     const response = await getData(
-      "http://127.0.0.1:5000/api/v1/parameters/get",
+      ENV.getParameters(),
       token
     );
 
@@ -97,7 +110,7 @@ export async function getParameters(token) {
 export async function getRecipes(token) {
   try {
     const response = await getData(
-      "http://127.0.0.1:5000/api/v1/recipes/get",
+     ENV.getRecipes(),
       token
     );
 
@@ -117,7 +130,7 @@ export async function getRecipes(token) {
 export async function getParametersTemplate(id_template,token) {
   try {
     const response = await postData(
-      "http://127.0.0.1:5000/api/v1/fulltemplates/get",
+    ENV.getFullTemplates(),
       {id_template},
       token
     );
@@ -138,7 +151,7 @@ export async function getParametersTemplate(id_template,token) {
 export async function getTemplates(token) {
   try {
     const response = await getData(
-      "http://127.0.0.1:5000/api/v1/templates/get",
+      ENV.getTemplates(),
       token
     );
 

@@ -1,4 +1,3 @@
-
 import CardParameter from "./components/CardParameter";
 import AddParameter from "./components/AddParameter";
 import { Button, Dialog } from "@mui/material";
@@ -9,7 +8,7 @@ import { getParameters } from "../../api/axios";
 import { Grid, Paper, CircularProgress } from "@mui/material";
 
 function Parameters(props) {
-  const {onResponse} = props;
+  const { onResponse } = props;
   const [isLoading, setIsLoading] = useState(false);
   const [open, setOpen] = useState(false); // Define el estado "open" en el componente padre
   const [parameters, setParameters] = useState([]);
@@ -22,7 +21,7 @@ function Parameters(props) {
     setOpen(false);
   };
 
-  const fetchParameters = async () => {      
+  const fetchParameters = async () => {
     try {
       setIsLoading(true);
       const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
@@ -31,11 +30,11 @@ function Parameters(props) {
         const json = await getParameters(tkn);
         console.log(json);
         setParameters(json.parameters);
-        onResponse(json)
+        onResponse(json);
         setIsLoading(false);
-      }else{
-        setParameters([])
-        onResponse({status:false, msg: "Unauthorized Access"})
+      } else {
+        setParameters([]);
+        onResponse({ status: false, msg: "Unauthorized Access" });
       }
     } catch (error) {
       setIsLoading(false);
@@ -74,11 +73,11 @@ function Parameters(props) {
                     direction="row"
                     justifyContent="flex-start"
                   >
-              {isLoading && ( // Agrega el loader condicionalmente
-                <Grid item xs={12} align="center">
-                  <CircularProgress size={50} /> 
-                </Grid>
-              )}                    
+                    {isLoading && ( // Agrega el loader condicionalmente
+                      <Grid item xs={12} align="center">
+                        <CircularProgress size={50} />
+                      </Grid>
+                    )}
 
                     {parameters.map((param, index) => (
                       <Grid key={index} item xs={12} sm={6} md={4} lg={3}>

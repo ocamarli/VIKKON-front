@@ -6,16 +6,23 @@ import Typography from "@mui/material/Typography";
 import AddReceipe from "../../Recipes/Componentes/AddRecipe";
 import { useState } from "react";
 import { TextField, Button, Grid, Paper, Modal,Dialog  } from "@mui/material";
-
+import EditCode from "./EditCode";
 
 export default function CardTemplate(props) {
   const { template } = props;
   const [open, setOpen] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = (props) => {
     setOpen(false);
+  };
+  const handleClickOpenEdit = () => {
+    setOpenEdit(true);
+  };
+  const handleCloseEdit = (props) => {
+    setOpenEdit(false);
   };
 
 
@@ -26,6 +33,9 @@ export default function CardTemplate(props) {
           <Dialog open={open} onClose={handleClose}>
             <AddReceipe open={open} handleClose={handleClose} templateOrigin={template}></AddReceipe>
           </Dialog>
+          <Dialog open={openEdit} onClose={handleCloseEdit}>
+            <EditCode open={openEdit} handleClose={handleCloseEdit} templateOrigin={template}></EditCode>
+          </Dialog>          
         </Grid>
       <Card variant="outlined">
         <CardContent>
@@ -44,7 +54,7 @@ export default function CardTemplate(props) {
           <Button size="small" onClick={handleClickOpen}>
             Create receipe
           </Button>
-          <Button size="small">Edit</Button>
+          <Button size="small" onClick={handleClickOpenEdit}>Edit</Button>
         </CardActions>
       </Card>
 </>
