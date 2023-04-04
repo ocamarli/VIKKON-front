@@ -4,17 +4,69 @@ import { Button, Box, Grid, Divider } from "@mui/material";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { light } from "@mui/material/styles/createPalette";
 import { useTheme } from "@mui/material";
-
+import { getFileTemplate, setFileTemplate } from "../../../api/axios";
 function CodeInput(props) {
-  const {setMatches}=props
+  const {id_template,setMatches}=props
+
   const [fileText, setFileText] = useState("");
   const [parameterCode, setParameterCode] = useState([]);
   const theme = useTheme();
   const fileInputRef = useRef(null);
-
+  const [isLoading, setIsLoading] = useState(false);
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
+
+
+useEffect(() =>{
+get_fetchFileTemplate(id_template)
+},[])
+
+
+  const handleUpdate = () => {
+    set_fetchFileTemplate({text:fileText,id_template:id_template});
+  };
+
+
+  const set_fetchFileTemplate = async (data) => {
+    try {
+      setIsLoading(true);
+
+      if (JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token !== undefined) {
+        const response = await setFileTemplate(
+          data,
+          JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token
+        );
+        
+        console.log(response)
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      console.log("error")
+    }
+  };
+  const get_fetchFileTemplate = async (data) => {
+    try {
+      setIsLoading(true);
+      if (JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token !== undefined) {
+        const response = await getFileTemplate(
+          data,
+          JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token
+        );
+        console.log("response")
+        console.log(response)
+        setFileText(response.code)
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      console.log("error")
+      setFileText("")
+    }
+  };  
+
+
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -67,7 +119,7 @@ function CodeInput(props) {
             <Button variant="outlined" onClick={handleButtonClick}>
               Upload base code
             </Button>
-            <Button variant="contained" onClick={handleButtonClick}>
+            <Button variant="contained" onClick={handleUpdate}>
               Save
             </Button>
           </Box>
@@ -81,12 +133,15 @@ function CodeInput(props) {
           data-color-mode={theme.palette.mode}
           value={fileText}
           language="c"
+          
           placeholder="code."
           onChange={(evn) => setFileText(evn.target.value)}
-          padding={15}
+          padding={5}
           style={{
             minWith:"100%",
             fontSize: 12,
+            fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+            backgroundColor: theme.palette.mode==="dark"?"#121212":"#f6f8fa",
 
           }}
         />

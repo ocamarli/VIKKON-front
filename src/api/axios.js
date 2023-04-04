@@ -26,6 +26,8 @@ export async function setRegister(data, token) {
 export async function setFileTemplate(data, token) {
   try {
     const response = await postData(ENV.setFileTemplate(), data, token);
+    console.log("data")
+    console.log(data)
     if (response.status === 200) {
       return await response.json();
     } else {
@@ -166,6 +168,27 @@ export async function getTemplates(token) {
     }
   } catch (error) {
     return { templates: [], status: false, msg: error.message};
+  }
+}
+export async function getFileTemplate(id_template,token) {
+  try {
+    const response = await postData(
+      ENV.getFileTemplate(),
+      {id_template},
+      token
+    );
+
+    if (response.status === 200) {
+      return await response.json();
+    } else {
+      return {
+        text:"",
+        status: false,
+        msg: "Could not retrieve templates",
+      };
+    }
+  } catch (error) {
+    return { text: "", status: false, msg: error.message};
   }
 }
 

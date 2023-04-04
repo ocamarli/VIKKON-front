@@ -1,4 +1,3 @@
-import { setFileTemplate } from "./api/axios";
 
 const api = {
   baseuri: "http://127.0.0.1:5000/api/v1/",
@@ -14,6 +13,7 @@ const api = {
     templatesGet:"templates/get",
     registerSet:"register/set",
     fileTemplateSet:"fileTemplate/set",
+    fileTemplateGet:"fileTemplate/get",
 
   },
 };
@@ -37,5 +37,6 @@ export const ENV = {
     getTemplates:()=>api.baseuri+api.endpoints.templatesGet,
     setRegister:()=>api.baseuri+api.endpoints.registerSet,
     setFileTemplate:()=>api.baseuri+api.endpoints.fileTemplateSet,
+    getFileTemplate:()=>api.baseuri+api.endpoints.fileTemplateGet,
 
 }; 

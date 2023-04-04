@@ -61,7 +61,6 @@ function EditCode({ open, handleClose, templateOrigin }) {
     console.log(data);
     handleCreateRecipe(data);
   };
-
   return (
     <Modal open={open} onClose={handleClose} className="ap-modal">
       <Paper
@@ -85,9 +84,8 @@ function EditCode({ open, handleClose, templateOrigin }) {
               ></ListParametersCode>
             </Grid>
             <Grid item xs={12}>
-              <CodeInput setMatches={setMatches}></CodeInput>
+              <CodeInput id_template={templateOrigin.id_template} setMatches={setMatches}></CodeInput>
             </Grid>
-
             <Grid item xs={12} sx={{ justifySelf: "end" }}>
               <Button variant="outlined" type="submit">
                 Add recipe
