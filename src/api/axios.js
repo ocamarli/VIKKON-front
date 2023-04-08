@@ -150,6 +150,48 @@ export async function getParametersTemplate(id_template,token) {
     return { parameters: [], status: false, msg: error.message};
   }
 }
+export async function updateParameterRecipe(data,token) {
+  try {
+    const response = await postData(
+    ENV.updateParameterRecipe(),
+      {data},
+      token
+    );
+
+    if (response.status === 200) {
+      return await response.json();
+    } else {
+      return {
+        parameters: [],
+        status: false,
+        msg: "Could not retrieve parameters",
+      };
+    }
+  } catch (error) {
+    return { parameters: [], status: false, msg: error.message};
+  }
+}
+export async function getParameterRecipe(data,token) {
+  try {
+    const response = await postData(
+    ENV.getParameterRecipe(),
+      {data},
+      token
+    );
+
+    if (response.status === 200) {
+      return await response.json();
+    } else {
+      return {
+        parameters: [],
+        status: false,
+        msg: "Could not retrieve parameters",
+      };
+    }
+  } catch (error) {
+    return { parameters: [], status: false, msg: error.message};
+  }
+}
 export async function getTemplates(token) {
   try {
     const response = await getData(

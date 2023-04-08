@@ -19,15 +19,13 @@ function CardParameter(props) {
 <Card variant="outlined" style={{  justifyContent: 'center'}}>
 
   <CardContent sx={{padding: 1, margin:0}}>
-    <Typography sx={{fontWeight:300, color:"#5ECA58",margin:0 ,fontSize:".9em"}} >
+    <Typography sx={{fontWeight:300, color:"#5ECA58",margin:0 ,fontSize:12}} >
       {name}
     </Typography>
-    <Typography sx={{ fontSize:".8em", margin:0 }} >
+    <Typography sx={{ fontSize:12, margin:0 }} >
       {id_parameter}
     </Typography>    
-    <Typography sx={{fontWeight:500, fontSize:".8em", margin:0 }} >
-      {id_parameter}
-    </Typography>
+
   </CardContent>
 
 </Card>

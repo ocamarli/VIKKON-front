@@ -1,6 +1,6 @@
 import CardParameter from "./components/CardParameter";
 import AddParameter from "./components/AddParameter";
-import { Button, Dialog } from "@mui/material";
+import { Button, Dialog, Typography } from "@mui/material";
 import React, { useState, useEffect } from "react";
 import store from "../../store";
 import { Provider } from "react-redux";
@@ -66,10 +66,10 @@ function Parameters(props) {
                 <br />
 
                 <Paper style={{ padding: 10 }}>
-                  <h3>List of parameters:</h3>
+                  <Typography>List of parameters:</Typography>
                   <Grid
                     container
-                    spacing={2}
+                    spacing={1}
                     direction="row"
                     justifyContent="flex-start"
                   >
@@ -80,7 +80,7 @@ function Parameters(props) {
                     )}
 
                     {parameters.map((param, index) => (
-                      <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+                      <Grid key={index} item xs={12} sm={6} md={3} lg={2}>
                         <CardParameter
                           id_parameter={param.id_parameter}
                           name={param.name}

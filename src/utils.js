@@ -14,6 +14,8 @@ const api = {
     registerSet:"register/set",
     fileTemplateSet:"fileTemplate/set",
     fileTemplateGet:"fileTemplate/get",
+    parameterRecipeUpdate:"recipe/parameter/update",
+    parameterRecipeGet:"recipe/parameter/get"
 
   },
 };
@@ -38,5 +40,6 @@ export const ENV = {
     setRegister:()=>api.baseuri+api.endpoints.registerSet,
     setFileTemplate:()=>api.baseuri+api.endpoints.fileTemplateSet,
     getFileTemplate:()=>api.baseuri+api.endpoints.fileTemplateGet,
-
+    updateParameterRecipe:()=>api.baseuri+api.endpoints.parameterRecipeUpdate,
+    getParameterRecipe:()=>api.baseuri+api.endpoints.parameterRecipeGet,
 }; 
