@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import CardRecipe from "./CardRecipe";
 import { getParametersTemplate, setRecipe } from "../../../api/axios";
 import Typography from "@mui/material/Typography";
 import "../../Template/TemplateCss.css";

@@ -6,22 +6,29 @@ const ItemParameterCode = (props) => {
   const { name, word, isEnable } = props;
   const backgroundCard1 = "#3AAA35";
   const colorTextLight = "#fff";
-console.log(isEnable)
+  console.log(isEnable);
   return (
-    <Card variant="outlined" sx={{ padding: "5px" ,  textDecoration: isEnable ? "line-through" : "none" }}>
+    <Card
+      variant="outlined"
+      sx={{
+        padding: "5px",
+        textDecoration: isEnable ? "line-through" : "none",
+      }}
+    >
       <Typography
         component="span"
         sx={{
           fontSize: ".8em",
           textAlign: "left",
           textDecorationLine: "underline",
-          color:backgroundCard1
+          color: backgroundCard1,
         }}
       >
         {word}
       </Typography>
       <Typography component="span" sx={{ fontSize: ".8em", textAlign: "left" }}>
-      {" "}{"-"} {name}
+        {" "}
+        {"-"} {name}
       </Typography>
     </Card>
   );
