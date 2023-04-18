@@ -14,8 +14,6 @@ import {
   ListItemText,
   IconButton,
   FormControl,
-  Grid,
-  Dialog,
 } from "@mui/material/";
 
 import MenuIcon from "@mui/icons-material/Menu";
@@ -45,11 +43,10 @@ import Parameters from "./Parameters/Parameters";
 import Home from "./Home/Home";
 import "./MenuCss.css";
 import RegisterPage from "./Register/RegisterPage";
-import { setRegister } from "../api/axios";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Recipes from "./Recipes/Recipe";
-import LogoVikkon from "./Home/components/LogoVikon";
+
 
 const drawerWidth = 180;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
@@ -102,7 +99,7 @@ export default function PersistentDrawerLeft(props) {
   const theme = useTheme();
   const { onDarkModeChange, auth } = props;
   const [open, setOpen] = React.useState(false);
-  const [openBuy, setOpenBuy] = React.useState(false);
+  const [openBuy] = React.useState(false);
   const [selectedComponent, setSelectedComponent] = useState(<Home />);
 
   const [openAlert, setOpenAlert] = React.useState(false);
@@ -164,9 +161,7 @@ export default function PersistentDrawerLeft(props) {
     setOpen(false);
   };
 
-  const handleClickBuy = () => {
-    setOpenBuy(!openBuy);
-  };
+
   const [darkMode, setDarkMode] = useState(false);
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -177,22 +172,7 @@ export default function PersistentDrawerLeft(props) {
     navigate("/");
   };
 
-  const styles = {
-    fadeEnter: {
-      opacity: 0,
-    },
-    fadeEnterActive: {
-      opacity: 1,
-      transition: "opacity 500ms ease-in-out",
-    },
-    fadeExit: {
-      opacity: 1,
-    },
-    fadeExitActive: {
-      opacity: 0,
-      transition: "opacity 500ms ease-in-out",
-    },
-  };
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />

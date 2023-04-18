@@ -1,21 +1,10 @@
 import React, { useState } from "react";
-import CardRecipe from "../../Recipes/Componentes/CardRecipe";
-import { getParametersTemplate } from "../../../api/axios";
 import { setRecipe } from "../../../api/axios";
 import Typography from "@mui/material/Typography";
 import "../TemplateCss.css";
-import {
-  TextField,
-  Button,
-  Grid,
-  Paper,
-  Modal,
-  CircularProgress,
-} from "@mui/material";
+import { Button, Grid, Paper, Modal } from "@mui/material";
 import { useForm } from "react-hook-form";
 import CodeInput from "./CodeInput";
-import { useEffect } from "react";
-import CardParameter from "../../Parameters/components/CardParameter";
 import ListParametersCode from "./ListParametersCode";
 
 function EditCode({ open, handleClose, templateOrigin }) {
@@ -24,9 +13,7 @@ function EditCode({ open, handleClose, templateOrigin }) {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [template, setTemplate] = useState([]);
-  const [parameters, setParameters] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+
   const [matches, setMatches] = useState([]);
   console.log(templateOrigin.id_template);
   console.log(templateOrigin);
@@ -84,7 +71,10 @@ function EditCode({ open, handleClose, templateOrigin }) {
               ></ListParametersCode>
             </Grid>
             <Grid item xs={12}>
-              <CodeInput id_template={templateOrigin.id_template} setMatches={setMatches}></CodeInput>
+              <CodeInput
+                id_template={templateOrigin.id_template}
+                setMatches={setMatches}
+              ></CodeInput>
             </Grid>
             <Grid item xs={12} sx={{ justifySelf: "end" }}>
               <Button variant="outlined" type="submit">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState,  useMemo } from "react";
 import { Typography, Grid, Paper } from "@mui/material";
 import ItemParameterTemplate from "./ItemParameterTemplate";
 import { getParameters } from "../../../api/axios";

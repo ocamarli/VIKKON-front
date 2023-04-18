@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import {
-  Button,
-  Grid,
-  Paper,
-  Modal,
-} from "@mui/material";
+import { Button, Grid, Paper, Modal } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ParameterForm from "./ParameterForm";
 import { useForm } from "react-hook-form";
@@ -13,15 +8,14 @@ import { getParametersTemplate } from "../../../api/axios";
 const FormRecipe = (props) => {
   const { recipe, open, handleClose } = props;
   const [parameters, setParameters] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  console.log(recipe)
+
+  console.log(recipe);
   useEffect(() => {
     fetchParameters();
   }, []);
 
   const fetchParameters = async () => {
     try {
-      setIsLoading(true);
       const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
       console.log("token");
       console.log(tkn);
@@ -31,13 +25,11 @@ const FormRecipe = (props) => {
 
         setParameters(JSON.parse(json.template).parameters);
         console.log(JSON.parse(json.template).parameters);
-        setIsLoading(false);
       } else {
         setParameters([]);
         //onResponse({status:false, msg: "Unauthorized Access"})
       }
     } catch (error) {
-      setIsLoading(false);
       //onResponse({ status: false, msg: error });
       console.error(error);
     }
@@ -70,10 +62,14 @@ const FormRecipe = (props) => {
               <Grid item xs={12}>
                 <Grid container>
                   {parameters.map((parameter) => (
-<>
+                    <>
                       {console.log(parameter)}
-                      <ParameterForm  key={parameter.name}  recipe={recipe} parameter={parameter} />
-                      </>
+                      <ParameterForm
+                        key={parameter.name}
+                        recipe={recipe}
+                        parameter={parameter}
+                      />
+                    </>
                   ))}
                 </Grid>
               </Grid>

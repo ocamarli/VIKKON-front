@@ -5,7 +5,6 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { useState,useEffect } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { isExpired, decodeToken } from "react-jwt";
-import {CircularProgress} from '@mui/material';
 import SplashPage from "./pages/Splash/SplashPage.jsx";
 import Test from "./Test";
 import { Box } from '@mui/material';

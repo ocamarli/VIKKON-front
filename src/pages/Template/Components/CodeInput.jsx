@@ -1,12 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Button, Box, Grid, Divider } from "@mui/material";
-
 import CodeEditor from "@uiw/react-textarea-code-editor";
-import { light } from "@mui/material/styles/createPalette";
 import { useTheme } from "@mui/material";
 import { getFileTemplate, setFileTemplate } from "../../../api/axios";
 function CodeInput(props) {
-  const {id_template,setMatches}=props
+  const { id_template, setMatches } = props;
 
   const [fileText, setFileText] = useState("");
   const [parameterCode, setParameterCode] = useState([]);
@@ -17,56 +15,57 @@ function CodeInput(props) {
     fileInputRef.current.click();
   };
 
-
-useEffect(() =>{
-get_fetchFileTemplate(id_template)
-},[])
-
+  useEffect(() => {
+    get_fetchFileTemplate(id_template);
+  }, []);
 
   const handleUpdate = () => {
-    set_fetchFileTemplate({text:fileText,id_template:id_template});
+    set_fetchFileTemplate({ text: fileText, id_template: id_template });
   };
-
 
   const set_fetchFileTemplate = async (data) => {
     try {
       setIsLoading(true);
 
-      if (JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token !== undefined) {
+      if (
+        JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token !==
+        undefined
+      ) {
         const response = await setFileTemplate(
           data,
           JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token
         );
-        
-        console.log(response)
+
+        console.log(response);
         setIsLoading(false);
       }
     } catch (error) {
       setIsLoading(false);
-      console.log("error")
+      console.log("error");
     }
   };
   const get_fetchFileTemplate = async (data) => {
     try {
       setIsLoading(true);
-      if (JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token !== undefined) {
+      if (
+        JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token !==
+        undefined
+      ) {
         const response = await getFileTemplate(
           data,
           JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token
         );
-        console.log("response")
-        console.log(response)
-        setFileText(response.code)
+        console.log("response");
+        console.log(response);
+        setFileText(response.code);
         setIsLoading(false);
       }
     } catch (error) {
       setIsLoading(false);
-      console.log("error")
-      setFileText("")
+      console.log("error");
+      setFileText("");
     }
-  };  
-
-
+  };
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -86,11 +85,11 @@ get_fetchFileTemplate(id_template)
         match.substring(1, match.length - 1)
       ); // Removemos los caracteres "{ }"
       setParameterCode(foundValues);
-      setMatches(foundValues)
+      setMatches(foundValues);
       console.log(foundValues);
     } else {
       setParameterCode([]);
-      setMatches([])
+      setMatches([]);
     }
   }, [fileText]);
 
@@ -128,24 +127,27 @@ get_fetchFileTemplate(id_template)
       <Grid item xs={12}>
         <Divider />
       </Grid>
-      <Grid item xs={12} style={{overflowY: 'scroll', maxHeight: '500px', fontSize: ".6em" }}>
+      <Grid
+        item
+        xs={12}
+        style={{ overflowY: "scroll", maxHeight: "500px", fontSize: ".6em" }}
+      >
         <CodeEditor
           data-color-mode={theme.palette.mode}
           value={fileText}
           language="c"
-          
           placeholder="code."
           onChange={(evn) => setFileText(evn.target.value)}
           padding={5}
           style={{
-            minWith:"100%",
+            minWith: "100%",
             fontSize: 12,
-            fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
-            backgroundColor: theme.palette.mode==="dark"?"#121212":"#f6f8fa",
-
+            fontFamily:
+              "ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace",
+            backgroundColor:
+              theme.palette.mode === "dark" ? "#121212" : "#f6f8fa",
           }}
         />
-
       </Grid>
       <Grid item xs={12}>
         {parameterCode.map((code, index) => (
