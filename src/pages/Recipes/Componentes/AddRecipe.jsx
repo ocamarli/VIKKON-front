@@ -18,6 +18,7 @@ function AddReceipes({ open, handleClose, templateOrigin }) {
     const list = [];
     templateOrigin.parameters.map((param) => {
       list.push({ id_parameter: param, value: "", status: false });
+      return null;
     });
 
     const newData= {...data,
