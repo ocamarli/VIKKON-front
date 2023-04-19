@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getParametersTemplate, setRecipe } from "../../../api/axios";
+import { setRecipe } from "../../../api/axios";
 import Typography from "@mui/material/Typography";
 import "../../Template/TemplateCss.css";
 
@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 function AddReceipes({ open, handleClose, templateOrigin }) {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const [template, setTemplate] = useState([]);
+  const [template] = useState([]);
 
   console.log(templateOrigin.id_template);
   console.log(templateOrigin);

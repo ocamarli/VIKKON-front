@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import { Button, Grid, Paper, Modal } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ParameterForm from "./ParameterForm";
-import { useForm } from "react-hook-form";
+
 import { getParametersTemplate } from "../../../api/axios";
 const FormRecipe = (props) => {
   const { recipe, open, handleClose } = props;
   const [parameters, setParameters] = useState([]);
 
   console.log(recipe);
-  useEffect(() => {
-    fetchParameters();
-  }, []);
 
-  const fetchParameters = async () => {
+  const fetchParameters = useCallback(async () => {
     try {
       const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
       console.log("token");
@@ -33,16 +30,10 @@ const FormRecipe = (props) => {
       //onResponse({ status: false, msg: error });
       console.error(error);
     }
-  };
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = (data) => {
-    console.log("onsub");
-    console.log(data);
-  };
+  },[recipe]);
+  useEffect(() => {
+    fetchParameters();
+  }, [fetchParameters]);
 
   return (
     <Modal open={open} onClose={handleClose} className="ap-modal">
@@ -55,7 +46,7 @@ const FormRecipe = (props) => {
           height: "calc(95vh)",
         }}
       >
-        <form onSubmit={handleSubmit(onSubmit)}>
+
           <Grid container direction="column">
             <Typography sx={{ fontSize: 24 }}>Add parameter</Typography>
             <Grid container direction="row">
@@ -89,7 +80,7 @@ const FormRecipe = (props) => {
               </Grid>
             </Grid>
           </Grid>
-        </form>
+
       </Paper>
     </Modal>
   );

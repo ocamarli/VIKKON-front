@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import AddReceipe from "../../Recipes/Componentes/AddRecipe";
 import { useState } from "react";
-import { TextField, Button, Grid, Paper, Modal,Dialog  } from "@mui/material";
+import { Button, Grid, Dialog } from "@mui/material";
 import EditCode from "./EditCode";
 
 export default function CardTemplate(props) {
@@ -25,38 +25,46 @@ export default function CardTemplate(props) {
     setOpenEdit(false);
   };
 
-
   return (
-<>
-
-<Grid item xs={12}>
-          <Dialog open={open} onClose={handleClose}>
-            <AddReceipe open={open} handleClose={handleClose} templateOrigin={template}></AddReceipe>
-          </Dialog>
-          <Dialog open={openEdit} onClose={handleCloseEdit}>
-            <EditCode open={openEdit} handleClose={handleCloseEdit} templateOrigin={template}></EditCode>
-          </Dialog>          
-        </Grid>
+    <>
+      <Grid item xs={12}>
+        <Dialog open={open} onClose={handleClose}>
+          <AddReceipe
+            open={open}
+            handleClose={handleClose}
+            templateOrigin={template}
+          ></AddReceipe>
+        </Dialog>
+        <Dialog open={openEdit} onClose={handleCloseEdit}>
+          <EditCode
+            open={openEdit}
+            handleClose={handleCloseEdit}
+            templateOrigin={template}
+          ></EditCode>
+        </Dialog>
+      </Grid>
       <Card variant="outlined">
         <CardContent>
           <Typography variant="h5" component="div">
             {template.name}
           </Typography>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-           V.{template.version}
+            V.{template.version}
           </Typography>
           <Typography variant="body2">{template.description}</Typography>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-           {template.id_template}
+            {template.id_template}
           </Typography>
         </CardContent>
         <CardActions>
           <Button size="small" onClick={handleClickOpen}>
             Create receipe
           </Button>
-          <Button size="small" onClick={handleClickOpenEdit}>Edit</Button>
+          <Button size="small" onClick={handleClickOpenEdit}>
+            Edit
+          </Button>
         </CardActions>
       </Card>
-</>
+    </>
   );
 }

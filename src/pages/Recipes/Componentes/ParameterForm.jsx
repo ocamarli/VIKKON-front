@@ -59,7 +59,7 @@ export default function ParameterForm(props) {
       data,
       JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token
     );
-    
+    console.log(response);
   };
   const fetchGetparameterRecipe = async (data) => {
 
@@ -76,7 +76,7 @@ export default function ParameterForm(props) {
     const data={"id_recipe":recipe.id_recipe,"id_parameter":parameter.id_parameter,"value":parameterValue}
     fetchGetparameterRecipe(data)
 
-  },[]);
+  },[recipe,parameter,parameterValue]);
 
   console.log(parameter);
   return (

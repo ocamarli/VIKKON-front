@@ -19,14 +19,14 @@ const api = {
 
   },
 };
-
+/*
 function Encode2Url(obj) {
   var str = [];
   for(var p in obj)
      str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
   return str.join("&");
 }
-
+*/
 export const ENV = {
     login:()=> api.baseuri+api.endpoints.login,
     user:()=> api.baseuri+api.endpoints.user,

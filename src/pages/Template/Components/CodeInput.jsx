@@ -16,9 +16,9 @@ function CodeInput(props) {
   };
 
   useEffect(() => {
-    let load= isLoading
+    console.log(isLoading)
     get_fetchFileTemplate(id_template);
-  }, []);
+  }, [isLoading,id_template]);
 
   const handleUpdate = () => {
     set_fetchFileTemplate({ text: fileText, id_template: id_template });
@@ -92,7 +92,7 @@ function CodeInput(props) {
       setParameterCode([]);
       setMatches([]);
     }
-  }, [fileText]);
+  }, [fileText,setMatches]);
 
   return (
     <Grid container spacing={1}>

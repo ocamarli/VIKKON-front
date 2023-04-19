@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useCallback } from "react";
 import store from "../../store";
 import { Provider } from "react-redux";
 import CardRecipe from "./Componentes/CardRecipe";
@@ -11,7 +11,7 @@ function Recipes(props) {
   const { onResponse } = props;
   const [isLoading, setIsLoading] = useState(false);
   const [recipes, setRecipes] = useState([]);
-  const fetchRecipes = async () => {
+  const fetchRecipes =useCallback( async () => {
     try {
       setIsLoading(true);
       const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
@@ -29,11 +29,11 @@ function Recipes(props) {
       onResponse({ status: false, msg: "Error" });
       console.error(error);
     }
-  };
+  },[onResponse]);
 
   useEffect(() => {
     fetchRecipes();
-  }, []);
+  }, [fetchRecipes]);
 
   return (
 

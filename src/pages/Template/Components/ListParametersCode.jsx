@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Typography, Grid, Paper,Box } from "@mui/material";
 import { getParametersTemplate } from "../../../api/axios";
 import ItemParameterCode from "./ItemParameterCode";
@@ -13,7 +13,9 @@ const ListParametersCode = (props) => {
   const [isLoading, setIsLoading] = useState(false);
 
 
-  const fetchParameters = async () => {      
+  const fetchParameters =useCallback(async () => {      
+
+    console.log(isLoading)
     try {
       setIsLoading(true);
       const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
@@ -34,11 +36,11 @@ const ListParametersCode = (props) => {
       //onResponse({ status: false, msg: error });
       console.error(error);
     }
-  };
+  },[template,isLoading]);
 
   useEffect(() => {
     fetchParameters();
-  }, []);
+  }, [fetchParameters]);
 
   useMemo(async () => {
     if (parameters === null) {
@@ -46,7 +48,7 @@ const ListParametersCode = (props) => {
         setParameters(json)
       })
     }
-  }, [parameters]);
+  }, [parameters,fetchParameters]);
 
 
   return (

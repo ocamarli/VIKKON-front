@@ -1,4 +1,11 @@
-import { TextField, Button, Grid, Paper, Modal, Typography } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Grid,
+  Paper,
+  Modal,
+  Typography,
+} from "@mui/material";
 import ListParametersTemplate from "./ListParametersTemplate";
 import "../TemplateCss.css";
 import { useState } from "react";
@@ -10,25 +17,21 @@ const AddTemplate = ({ open, handleClose }) => {
   const [client, setClient] = useState("");
   const [description, setDescription] = useState("");
   const [version, setVersion] = useState("");
-  const [parameters, setParameters] = useState([]);
 
-
-
-const setList = (data) =>{
-  setListParameters(data.map(d=>d.id))
-
-}
+  const setList = (data) => {
+    setListParameters(data.map((d) => d.id));
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     const data = {
       name: name,
       client: client,
       description: description,
       version: version,
-      parameters: listParameters
-    }
+      parameters: listParameters,
+    };
 
     console.log(data);
     console.log(JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token);
@@ -96,7 +99,7 @@ const setList = (data) =>{
           </Grid>
           <Grid item xs={12}>
             <Paper variant="outlined" style={{ padding: 15 }}>
-              <ListParametersTemplate setList={(data)=>setList(data)} />
+              <ListParametersTemplate setList={(data) => setList(data)} />
             </Paper>
           </Grid>
 

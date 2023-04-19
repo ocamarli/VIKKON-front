@@ -3,16 +3,11 @@ import { setRecipe } from "../../../api/axios";
 import Typography from "@mui/material/Typography";
 import "../TemplateCss.css";
 import { Button, Grid, Paper, Modal } from "@mui/material";
-import { useForm } from "react-hook-form";
+
 import CodeInput from "./CodeInput";
 import ListParametersCode from "./ListParametersCode";
 
 function EditCode({ open, handleClose, templateOrigin }) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
 
   const [matches, setMatches] = useState([]);
   console.log(templateOrigin.id_template);
@@ -43,11 +38,7 @@ function EditCode({ open, handleClose, templateOrigin }) {
       console.log("Error");
     }
   };
-  const onSubmit = (data) => {
-    console.log("onsub");
-    console.log(data);
-    handleCreateRecipe(data);
-  };
+
   return (
     <Modal open={open} onClose={handleClose} className="ap-modal">
       <Paper
@@ -58,7 +49,7 @@ function EditCode({ open, handleClose, templateOrigin }) {
           height: "95vh",
         }}
       >
-        <form onSubmit={handleSubmit(onSubmit)}>
+
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography sx={{ fontSize: "1.4em" }}>Config file.h</Typography>
@@ -82,7 +73,7 @@ function EditCode({ open, handleClose, templateOrigin }) {
               </Button>
             </Grid>
           </Grid>
-        </form>
+
       </Paper>
     </Modal>
   );

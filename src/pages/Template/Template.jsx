@@ -1,5 +1,5 @@
 import { Button, Dialog } from "@mui/material";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import store from "../../store";
 import { Provider } from "react-redux";
 import CardTemplate from "./Components/CardTemplate";
@@ -21,7 +21,7 @@ function Parameters(props) {
     setOpen(false);
   };
 
-  const fetchTemplates = async () => {
+  const fetchTemplates = useCallback(async () => {
     try {
       setIsLoading(true);
       const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
@@ -35,11 +35,11 @@ function Parameters(props) {
       setIsLoading(false);
       onResponse({ status: false, msg: "Error" });
     }
-  };
+  },[onResponse]);
 
   useEffect(() => {
     fetchTemplates();
-  }, []);
+  }, [fetchTemplates]);
 
   return (
     <Provider store={store}>
