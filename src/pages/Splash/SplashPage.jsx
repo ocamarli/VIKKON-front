@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { Box } from '@mui/material';
+
 import './splash.scss'; // importa la hoja de estilo SASS
 
 const SplashPage = () => {

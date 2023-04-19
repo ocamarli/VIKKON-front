@@ -1,12 +1,11 @@
 import CardParameter from "./components/CardParameter";
 import AddParameter from "./components/AddParameter";
 import { Button, Dialog, Typography } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback } from "react";
 import store from "../../store";
 import { Provider } from "react-redux";
 import { getParameters } from "../../api/axios";
 import { Grid, Paper, CircularProgress } from "@mui/material";
-
 function Parameters(props) {
   const { onResponse } = props;
   const [isLoading, setIsLoading] = useState(false);
@@ -16,12 +15,8 @@ function Parameters(props) {
   const handleClickOpen = () => {
     setOpen(true);
   };
-  const handleClose = async (props) => {
-    await fetchParameters();
-    setOpen(false);
-  };
 
-  const fetchParameters = async () => {
+  const fetchParameters = useCallback (async () => {
     try {
       setIsLoading(true);
       const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
@@ -41,11 +36,19 @@ function Parameters(props) {
       onResponse({ status: false, msg: error });
       console.error(error);
     }
-  };
+  }, [setIsLoading,  setParameters, onResponse]);
+
+
+  const handleClose = useCallback(async () => {
+    await fetchParameters();
+    setOpen(false);
+  }, [fetchParameters]);
+
+  
 
   useEffect(() => {
     fetchParameters();
-  }, []);
+  }, [fetchParameters]);
 
   return (
     <Provider store={store}>

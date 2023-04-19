@@ -16,6 +16,7 @@ function CodeInput(props) {
   };
 
   useEffect(() => {
+    let load= isLoading
     get_fetchFileTemplate(id_template);
   }, []);
 
