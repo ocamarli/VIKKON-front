@@ -15,28 +15,24 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AddOptions from "./AddOptions";
 import ItemOptions from "./ItemOptions";
 import Typography from "@mui/material/Typography";
-import { setParameters } from "../../../api/axios";
+/*import { setParameters } from "../../../api/axios";*/
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { useForm } from "react-hook-form";
+import { FormHelperText } from "@mui/material";
 const AddParameter = ({ open, handleClose }) => {
-  const [idParameter, setIdParameter] = useState("");
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [multiplicate, setMultiplicate] = useState("");
-  const [numberBytes, setNumberBytes] = useState("");
-  const [unit, setUnit] = useState("");
+
   const [type, setType] = useState("");
-  const [minVal, setMinVal] = useState("");
-  const [maxVal, setMaxVal] = useState("");
   const [openOptions, setOpenOptions] = useState(false); // Define el estado "open" en el componente padre
   const [options, setOptions] = useState([]);
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm();
+
   const onSubmit = (data) => {
     console.log("onsub");
     console.log(data);
@@ -45,6 +41,7 @@ const AddParameter = ({ open, handleClose }) => {
   const handleClickOpenOptions = () => {
     setOpenOptions(true);
   };
+ 
 
   const handleCloseOptions = async (data) => {
     await setOpenOptions(false);
@@ -58,7 +55,7 @@ const AddParameter = ({ open, handleClose }) => {
       prevOptions.filter((options) => options.value !== value)
     );
   };
-
+/*
   const handleClickSend = async (event) => {
     event.preventDefault();
     let data = {};
@@ -103,7 +100,7 @@ const AddParameter = ({ open, handleClose }) => {
     }
     handleClose();
   };
-
+*/
   return (
     <Modal open={open} onClose={handleClose} className="ap-modal">
       <Paper
@@ -171,10 +168,13 @@ const AddParameter = ({ open, handleClose }) => {
                 <FormControl variant="standard" sx={{ width: "100%" }}>
                   <InputLabel>Unit</InputLabel>
                   <Select
-                    {...register("unit", { required: true })}
-                    value={unit}
+                      {...register("unit", { required: true })}
+                    onChange={(e) => {
+                      setValue("unit", e.target.value);console.log("sijala");
+                    }}
+
                     error={errors.unit ? true : false}
-                    helperText={errors.unit ? "Este campo es requerido" : ""}
+
                   >
                     <MenuItem value="">
                       <em>Unit</em>
@@ -183,17 +183,26 @@ const AddParameter = ({ open, handleClose }) => {
                     <MenuItem value={20}>Minute</MenuItem>
                     <MenuItem value={30}>Centigrade</MenuItem>
                   </Select>
+                  {errors.unit && (
+                    <FormHelperText error={true}>
+                      Este campo es requerido.
+                    </FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
-
               <Grid item xs={12}>
                 <FormControl variant="standard" sx={{ width: "100%" }}>
                   <InputLabel>Multiplied by</InputLabel>
                   <Select
+                    onChange={(e) => {
+                      setValue("unit", e.target.value);
+                    }}
                     {...register("multiplicate", { required: true })}
                     label="Multiplicate"
                     error={errors.multiplicate ? true : false}
-                    helperText={errors.multiplicate ? "Este campo es requerido" : ""}
+                    helperText={
+                      errors.multiplicate ? "Este campo es requerido" : ""
+                    }
                   >
                     <MenuItem value="">
                       <em>Multiplicate</em>
@@ -201,6 +210,11 @@ const AddParameter = ({ open, handleClose }) => {
                     <MenuItem value={1}>X1</MenuItem>
                     <MenuItem value={5}>X5</MenuItem>
                   </Select>
+                  {errors.multiplicate && (
+                    <FormHelperText error={true}>
+                      Este campo es requerido.
+                    </FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
 
@@ -209,8 +223,14 @@ const AddParameter = ({ open, handleClose }) => {
                   <InputLabel>Type parameter</InputLabel>
                   <Select
                     {...register("type", { required: true })}
+                    onChange={(e) => {
+                      setValue("type", e.target.value);
+                      setType(e.target.value);
+                      console.log("tyyyp");
+                    }}
                     label="Type"
-                    helperText={errors.type ? "Este campo es requerido" : ""} 
+
+                    error={errors.type ? true : false}
                   >
                     <MenuItem value="">
                       <em>Type</em>
@@ -218,9 +238,14 @@ const AddParameter = ({ open, handleClose }) => {
                     <MenuItem value={"single"}>Single</MenuItem>
                     <MenuItem value={"options"}>Options</MenuItem>
                   </Select>
+                  {errors.type && (
+                    <FormHelperText error={true}>
+                      Este campo es requerido.
+                    </FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
-              {type === "single" && (
+              {type === "single" ? (
                 <Grid item xs={12} name="gridSingle">
                   <Paper variant="outlined" style={{ padding: 15 }}>
                     <Grid container direction="column">
@@ -234,22 +259,28 @@ const AddParameter = ({ open, handleClose }) => {
                           {...register("min_value", { required: true })}
                           label="Min value"
                           variant="standard"
-                          helperText={errors.min_value ? "Este campo es requerido" : ""} 
+                          error={errors.min_value ? true : false}
+                          helperText={
+                            errors.min_value ? "Este campo es requerido" : ""
+                          }
                         />
+                       
                       </Grid>
                       <Grid item>
                         <TextField
                           {...register("max_value", { required: true })}
                           label="Max value"
                           variant="standard"
-                          helperText={errors.max_value ? "Este campo es requerido" : ""} 
+                          error={errors.max_value ? true : false}
+                          helperText={
+                            errors.max_value ? "Este campo es requerido" : ""
+                          }
                         />
                       </Grid>
                     </Grid>
                   </Paper>
                 </Grid>
-              )}
-              {type === "options" && (
+              ) : type === "options" ? (
                 <Grid item xs={12} name="gridOptions">
                   <Paper variant="outlined" style={{ padding: 15 }}>
                     <FormLabel>
@@ -281,7 +312,7 @@ const AddParameter = ({ open, handleClose }) => {
                     </Grid>
                   </Paper>
                 </Grid>
-              )}
+              ) : null}
               <Grid item xs={12}>
                 <Dialog open={openOptions} onClose={handleCloseOptions}>
                   <AddOptions
@@ -294,10 +325,7 @@ const AddParameter = ({ open, handleClose }) => {
               <Grid item xs={12}>
                 <Grid container sx={{ justifyContent: "flex-end" }} spacing={2}>
                   <Grid item>
-                    <Button
-                      variant="outlined"
-                      type="submit"
-                    >
+                    <Button variant="outlined" type="submit">
                       Accept
                     </Button>
                   </Grid>

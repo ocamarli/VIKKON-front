@@ -5,7 +5,6 @@ import Typography from "@mui/material/Typography";
 const ItemParameterCode = (props) => {
   const { name, word, isEnable } = props;
   const backgroundCard1 = "#3AAA35";
-  const colorTextLight = "#fff";
   console.log(isEnable);
   return (
     <Card

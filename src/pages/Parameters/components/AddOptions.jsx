@@ -6,24 +6,49 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import "../ParametersCss.css";
 // Estilos personalizados para el modal
-
 const AddOptions = ({ open, handleClose }) => {
-  const [inputOne, setInputOne] = useState("");
-  const [inputTwo, setInputTwo] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const [inputName, setInputName] = useState("");
+  const [validateValue, setValidateValue] = useState(false);
+  const [validateName, setValidateName] = useState(false);
 
-  const handleInputOneChange = (event) => {
-    setInputOne(event.target.value);
+  const handleInputValue = (e) => {
+    setInputValue(e.target.value);
+    if (e.target.value === "") {
+      setValidateValue(true);
+    } else {
+      setValidateValue(false);
+    }
   };
 
-  const handleInputTwoChange = (event) => {
-    setInputTwo(event.target.value);
+  const handleInputName = (e) => {
+    setInputName(e.target.value);
+    if (e.target.value === "") {
+      setValidateName(true);
+    } else {
+      setValidateName(false);
+    }
   };
 
   const handleSave = () => {
     // Realizar acciones al guardar los inputs
-    const data={value:inputOne,name:inputTwo} 
-    
-    handleClose(data);
+    const data = { value: inputValue, name: inputName };
+    let isError=false
+    if (inputValue === "") {
+      setValidateValue(true);
+      isError=true;
+    }
+    if (inputName === "") {
+      isError=true;
+      setValidateName(true)
+    }
+    if (isError)
+    {
+      
+    }
+    else{
+      handleClose(data);
+    }
   };
 
   return (
@@ -38,22 +63,27 @@ const AddOptions = ({ open, handleClose }) => {
           maxWidth: "calc(20vw)",
         }}
       >
-        <Grid container direction="column" spacing={2} >
-          <Grid item xs={12}> <Typography sx={{ fontSize: 20 }}>Add option</Typography></Grid>
+        <Grid container direction="column" spacing={2}>
+          <Grid item xs={12}>
+            {" "}
+            <Typography sx={{ fontSize: 20 }}>Add option</Typography>
+          </Grid>
           <Grid item xs={12}>
             <TextField
+              onChange={(e) => handleInputValue(e)}
               label="Value"
-              value={inputOne}
-              onChange={handleInputOneChange}
+              error={validateValue}
+              helperText={validateValue ? "Este campo es requerido" : ""}
               variant="standard"
               fullWidth
             />
           </Grid>
           <Grid item xs={12}>
             <TextField
+              onChange={(e) => handleInputName(e)}
+              error={validateName}
+              helperText={validateName ? "Este campo es requerido" : ""}
               label="Name"
-              value={inputTwo}
-              onChange={handleInputTwoChange}
               variant="standard"
               fullWidth
             />
@@ -61,7 +91,7 @@ const AddOptions = ({ open, handleClose }) => {
           <Grid item xs={12} spacing={2}>
             <Grid container sx={{ justifyContent: "flex-end" }} spacing={2}>
               <Grid item>
-                <Button variant="outlined" color="primary" onClick={handleSave}>
+                <Button variant="outlined" color="primary" type="submit" onClick={handleSave}>
                   Accept
                 </Button>
               </Grid>
