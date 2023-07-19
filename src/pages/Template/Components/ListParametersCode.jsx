@@ -40,15 +40,7 @@ const ListParametersCode = (props) => {
 
   useEffect(() => {
     fetchParameters();
-  }, [fetchParameters]);
-
-  useMemo(async () => {
-    if (parameters === null) {
-      fetchParameters().then((json) => {
-        setParameters(json)
-      })
-    }
-  }, [parameters,fetchParameters]);
+  }, []);
 
 
   return (

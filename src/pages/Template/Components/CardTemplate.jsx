@@ -43,16 +43,16 @@ export default function CardTemplate(props) {
           ></EditCode>
         </Dialog>
       </Grid>
-      <Card variant="outlined">
+      <Card variant="outlined" >
         <CardContent>
-          <Typography variant="h5" component="div">
+          <Typography variant="h6" sx={{ fontWeight: 600, margin: 0, display:"block"}}>
             {template.name}
           </Typography>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            V.{template.version}
+          <Typography variant="h6" color="text.secondary" >
+            {template.version}
           </Typography>
           <Typography variant="body2">{template.description}</Typography>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          <Typography variant="body2" color="text.secondary" >
             {template.id_template}
           </Typography>
         </CardContent>

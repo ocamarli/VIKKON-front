@@ -9,7 +9,7 @@ import SplashPage from "./pages/Splash/SplashPage.jsx";
 import Test from "./Test";
 import { Box } from '@mui/material';
 function App() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const PageTypes = {
     MDrawer: 0,

@@ -1,9 +1,9 @@
-import React, { useState,  useMemo } from "react";
+import React, { useState, useMemo } from "react";
 import { Typography, Grid, Paper } from "@mui/material";
 import ItemParameterTemplate from "./ItemParameterTemplate";
 import { getParameters } from "../../../api/axios";
-
-const ListParametersTemplate = ({setList}) => {
+ import { useForm } from "react-hook-form";
+const ListParametersTemplate = ({ setList }) => {
   const [parameters, setParameters] = useState(null);
   const [leftItems, setLeftItems] = useState([]);
   const [rightItems, setRightItems] = useState([]);
@@ -27,13 +27,13 @@ const ListParametersTemplate = ({setList}) => {
   useMemo(async () => {
     if (parameters === null) {
       fetchParameters().then((json) => {
-        setParameters(json)
+        setParameters(json);
         setRightItems(
           json.map((param) => {
-            return  {name: param.name, id: param.id_parameter};
+            return { name: param.name, id: param.id_parameter };
           })
         );
-      })
+      });
     }
   }, [parameters]);
 
@@ -58,10 +58,10 @@ const ListParametersTemplate = ({setList}) => {
   return (
     <Grid container direction="row">
       <Grid item xs={6} padding={2} textAlign="center">
-        <Paper  variant="outlined" sx={{ padding: 3 }}>
+      <Paper elevation={3} variant="outlined" sx={{ padding: 3 }}>
           <Grid container justifyContent="flex-start">
             <Typography variant="h6" sx={{ marginBottom: 3 }}>
-              Parameters
+              Selected parameters
             </Typography>
             <Grid
               container
@@ -70,8 +70,14 @@ const ListParametersTemplate = ({setList}) => {
               spacing={2}
             >
               {leftItems.map((item) => (
-
-                <Grid item key={"left-"+item.name} xs={12} sm={6} md={4} lg={3}>
+                <Grid
+                  item
+                  key={"left-" + item.name}
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  lg={3}
+                >
                   <ItemParameterTemplate
                     onClick={() => handleTransferRight(item)}
                     name={item.name}
@@ -89,7 +95,6 @@ const ListParametersTemplate = ({setList}) => {
             <Typography variant="h6" sx={{ marginBottom: 3 }}>
               Available parameters
             </Typography>
-
             <Grid
               container
               direction="row"
@@ -97,23 +102,25 @@ const ListParametersTemplate = ({setList}) => {
               alignItems="center"
               spacing={2}
             >
-              {rightItems
-                
-                .map((item) => (
-                  <Grid
-                    item
-                    key={"right-"+item.name}
-                    spacing={2}
-                    alignItems="right"
-                    textAlign="right"
-                  >
-                    <ItemParameterTemplate
-                      onClick={() => handleTransferLeft(item)}
-                      name={item.name}
-                      word="v.20"
-                    />
-                  </Grid>
-                ))}
+              {rightItems.map((item) => (
+                <Grid
+                  item
+                  key={"right-" + item.name}
+                  spacing={2}
+                  alignItems="right"
+                  textAlign="center"
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  lg={3}
+                >
+                  <ItemParameterTemplate
+                    onClick={() => handleTransferLeft(item)}
+                    name={item.name}
+                    word="v.20"
+                  />
+                </Grid>
+              ))}
             </Grid>
           </Grid>
         </Paper>

@@ -33,7 +33,7 @@ const FormRecipe = (props) => {
   },[recipe]);
   useEffect(() => {
     fetchParameters();
-  }, [fetchParameters]);
+  }, []);
 
   return (
     <Modal open={open} onClose={handleClose} className="ap-modal">

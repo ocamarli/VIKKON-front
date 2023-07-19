@@ -62,14 +62,15 @@ function Parameters(props) {
           <Paper style={{ padding: 20 }}>
             <Grid container spacing={1}>
               <Grid item xs={12}>
-                <Button variant="outlined" onClick={handleClickOpen}>
+                <Button variant="contained" onClick={handleClickOpen}>
                   Add new parameter
                 </Button>
                 <br />
                 <br />
 
                 <Paper style={{ padding: 10 }}>
-                  <Typography>List of parameters:</Typography>
+                  <Typography variant="h5">List of parameters:</Typography>
+                  <br />
                   <Grid
                     container
                     spacing={1}
@@ -85,8 +86,8 @@ function Parameters(props) {
                     {parameters.map((param, index) => (
                       <Grid key={index} item xs={12} sm={6} md={3} lg={2}>
                         <CardParameter
-                          id_parameter={param.id_parameter}
-                          name={param.name}
+
+                          parameter={param}
                         ></CardParameter>
                       </Grid>
                     ))}

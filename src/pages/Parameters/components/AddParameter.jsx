@@ -15,7 +15,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AddOptions from "./AddOptions";
 import ItemOptions from "./ItemOptions";
 import Typography from "@mui/material/Typography";
-/*import { setParameters } from "../../../api/axios";*/
+import { setParameters } from "../../../api/axios";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -36,6 +36,7 @@ const AddParameter = ({ open, handleClose }) => {
   const onSubmit = (data) => {
     console.log("onsub");
     console.log(data);
+    fetchSetParameter(data);
   };
 
   const handleClickOpenOptions = () => {
@@ -55,34 +56,8 @@ const AddParameter = ({ open, handleClose }) => {
       prevOptions.filter((options) => options.value !== value)
     );
   };
-/*
-  const handleClickSend = async (event) => {
-    event.preventDefault();
-    let data = {};
-    if (type === "single") {
-      data = {
-        id_parameter: idParameter,
-        name: name,
-        description: description,
-        multiplicate: multiplicate,
-        number_bytes: numberBytes,
-        unit: unit,
-        type: type,
-        min_value: minVal,
-        max_value: maxVal,
-      };
-    } else {
-      data = {
-        id_parameter: idParameter,
-        name: name,
-        description: description,
-        multiplicate: multiplicate,
-        number_bytes: numberBytes,
-        unit: unit,
-        type: type,
-        option: options,
-      };
-    }
+
+  const fetchSetParameter = async (data) => {
 
     console.log(data);
     console.log(JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token);
@@ -100,7 +75,7 @@ const AddParameter = ({ open, handleClose }) => {
     }
     handleClose();
   };
-*/
+
   return (
     <Modal open={open} onClose={handleClose} className="ap-modal">
       <Paper

@@ -10,19 +10,37 @@ import ListParametersTemplate from "./ListParametersTemplate";
 import "../TemplateCss.css";
 import { useState } from "react";
 import { setParametersTemplate } from "../../../api/axios";
-
+import { useForm } from "react-hook-form";
 const AddTemplate = ({ open, handleClose }) => {
   const [listParameters, setListParameters] = useState([]);
   const [name, setName] = useState("");
   const [client, setClient] = useState("");
   const [description, setDescription] = useState("");
   const [version, setVersion] = useState("");
+  const onSubmit = (data) => {
 
+    console.log("onsub",data);
+    reset({
+      fechaTicket: null,
+      noTicket: "",
+      totalTicket: "",
+      idProveedor: "",
+    });
+
+  };
   const setList = (data) => {
     setListParameters(data.map((d) => d.id));
   };
 
-  const handleSubmit = async (event) => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+    reset,
+  } = useForm();
+
+  const handleSubmitO = async (event) => {
     event.preventDefault();
 
     const data = {
@@ -52,11 +70,11 @@ const AddTemplate = ({ open, handleClose }) => {
   };
 
   return (
-    <Modal open={open} onClose={handleClose} className="at-modal">
+    <Modal open={open} onClose={handleClose} className="ap-modal">
       <Paper
         elevation={3}
         spacing={5}
-        sx={{ padding: 5, height: "fit-content", width: "calc(90vw)" }}
+        sx={{ padding: 5, height: "calc(90vh)", width: "calc(90vw)" }}
       >
         <Typography sx={{ fontSize: 24 }}>Add template</Typography>
 
@@ -65,22 +83,30 @@ const AddTemplate = ({ open, handleClose }) => {
             <Grid container spacing={2}>
               <Grid item xs={3}>
                 <TextField
+                 {...register("name", { required: true })}
+                 error={errors.name ? true : false}
+                 helperText={errors.name ? "Este campo es requerido" : ""}                 
                   label="Name"
                   variant="standard"
                   margin="normal"
-                  onChange={(e) => setName(e.target.value)}
+
                 />
               </Grid>
               <Grid item xs={3}>
                 <TextField
+                 {...register("client", { required: true })}
+                 error={errors.client ? true : false}
+                 helperText={errors.client ? "This field is required" : ""}                 
                   label="Client"
                   variant="standard"
                   margin="normal"
-                  onChange={(e) => setClient(e.target.value)}
                 />
               </Grid>
               <Grid item xs={3}>
                 <TextField
+                 {...register("description", { required: true })}
+                 error={errors.description ? true : false}
+                 helperText={errors.description ? "This field is required" : ""}                   
                   label="Description"
                   variant="standard"
                   margin="normal"
@@ -89,6 +115,9 @@ const AddTemplate = ({ open, handleClose }) => {
               </Grid>
               <Grid item xs={3}>
                 <TextField
+                 {...register("description", { required: true })}
+                 error={errors.description ? true : false}
+                 helperText={errors.description ? "This field is required" : ""}                 
                   label="Version"
                   variant="standard"
                   margin="normal"
@@ -103,16 +132,16 @@ const AddTemplate = ({ open, handleClose }) => {
             </Paper>
           </Grid>
 
-          <Grid item xs={12}>
+          <Grid item xs={12} >
             <Button
-              variant="outlined"
+              variant="contained"
               color="primary"
-              onClick={handleSubmit}
+              onClick={handleSubmit(onSubmit)}
               type="submit"
             >
               Accept
             </Button>
-            <Button variant="outlined" onClick={handleClose}>
+            <Button variant="contained" onClick={handleClose}>
               Close
             </Button>
           </Grid>

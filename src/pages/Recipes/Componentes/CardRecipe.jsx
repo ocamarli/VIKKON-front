@@ -29,13 +29,13 @@ export default function CardRecipe(props) {
 
 
       <CardContent>
-        <Typography variant="h7" component="div">
+        <Typography variant="h6" sx={{ fontWeight: 500, margin: 0, display:"block"}}>
           {recipe.name}
         </Typography>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+        <Typography variant="body2" color="text.secondary">
           template:{" "}{recipe.id_template}
         </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        <Typography variant="body2" color="text.secondary">
           {recipe.description}
         </Typography>
 
