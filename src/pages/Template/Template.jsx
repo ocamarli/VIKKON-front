@@ -19,6 +19,7 @@ function Parameters(props) {
   };
   const handleClose = (props) => {
     setOpen(false);
+    fetchTemplates();
   };
 
   const fetchTemplates = useCallback(async () => {
@@ -39,7 +40,7 @@ function Parameters(props) {
 
   useEffect(() => {
     fetchTemplates();
-  }, [fetchTemplates]);
+  }, []);
 
   return (
     <Provider store={store}>

@@ -4,7 +4,7 @@ import CodeEditor from "@uiw/react-textarea-code-editor";
 import { useTheme } from "@mui/material";
 import { getFileTemplate, setFileTemplate } from "../../../api/axios";
 function CodeInput(props) {
-  const { id_template, setMatches } = props;
+  const { id_template, setMatches, onClose } = props;
 
   const [fileText, setFileText] = useState("");
   const [parameterCode, setParameterCode] = useState([]);
@@ -16,12 +16,13 @@ function CodeInput(props) {
   };
 
   useEffect(() => {
-    console.log(isLoading)
+    console.log(isLoading);
     get_fetchFileTemplate(id_template);
-  }, [isLoading,id_template]);
+  }, [id_template]);
 
   const handleUpdate = () => {
     set_fetchFileTemplate({ text: fileText, id_template: id_template });
+
   };
 
   const set_fetchFileTemplate = async (data) => {
@@ -39,6 +40,7 @@ function CodeInput(props) {
 
         console.log(response);
         setIsLoading(false);
+        onClose();
       }
     } catch (error) {
       setIsLoading(false);
@@ -56,8 +58,7 @@ function CodeInput(props) {
           data,
           JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token
         );
-        console.log("response");
-        console.log(response);
+        console.log("response", response);
         setFileText(response.code);
         setIsLoading(false);
       }
@@ -92,7 +93,7 @@ function CodeInput(props) {
       setParameterCode([]);
       setMatches([]);
     }
-  }, [fileText,setMatches]);
+  }, [fileText, setMatches]);
 
   return (
     <Grid container spacing={1}>
@@ -119,9 +120,7 @@ function CodeInput(props) {
             <Button variant="outlined" onClick={handleButtonClick}>
               Upload base code
             </Button>
-            <Button variant="contained" onClick={handleUpdate}>
-              Save
-            </Button>
+
           </Box>
         </>
       </Grid>
@@ -150,10 +149,14 @@ function CodeInput(props) {
           }}
         />
       </Grid>
-      <Grid item xs={12}>
-        {parameterCode.map((code, index) => (
-          <div key={index}>{code}</div>
-        ))}
+      <Grid
+        item
+        xs={12}
+        sx={{display:"flex",justifyContent:"end"}}
+      >
+        <Button sx={{marginTop:"3em"}} variant="outlined" type="submit" onClick={handleUpdate}>
+          SAVE/CLOSE
+        </Button>
       </Grid>
     </Grid>
   );

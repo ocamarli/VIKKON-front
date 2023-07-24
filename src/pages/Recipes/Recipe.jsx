@@ -5,12 +5,15 @@ import CardRecipe from "./Componentes/CardRecipe";
 import { getRecipes } from "../../api/axios";
 import Typography from "@mui/material/Typography";
 import { useEffect } from "react";
-import { Grid, Paper, CircularProgress, Button } from "@mui/material";
+import { Grid, Paper, CircularProgress, Button, useTheme,alpha } from "@mui/material";
 
 function Recipes(props) {
   const { onResponse } = props;
   const [isLoading, setIsLoading] = useState(false);
   const [recipes, setRecipes] = useState([]);
+
+
+
   const fetchRecipes = useCallback(async () => {
     try {
       setIsLoading(true);

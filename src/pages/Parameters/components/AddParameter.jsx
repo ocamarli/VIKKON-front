@@ -53,23 +53,28 @@ const AddParameter = ({ open, handleClose }) => {
 
   const removeOption = (value) => {
     setOptions((prevOptions) =>
-      prevOptions.filter((options) => options.value !== value)
+      prevOptions.filter((option) => options.value !== value)
     );
   };
 
   const fetchSetParameter = async (data) => {
 
-    console.log(data);
-    console.log(JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token);
+    let newData ="";
+    
+    if(data.type==="options")
+    {
+      newData={...data,options:options}
+    }
+    else{console.log("options")}
+    console.log("newData",newData)
 
     const response = await setParameters(
-      data,
+      newData,
       JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token
     );
     if (response.ok) {
       const json = await response.json();
-      console.log(json);
-      console.log("YES");
+      console.log("yes",json);
     } else {
       console.log("Error");
     }

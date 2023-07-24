@@ -80,7 +80,7 @@ function Parameters(props) {
                   )}
 
                   {parameters.map((param, index) => (
-                    <Grid key={index} item xs={12} sm={6} md={3} lg={2}>
+                   <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
                       <CardParameter parameter={param}></CardParameter>
                     </Grid>
                   ))}

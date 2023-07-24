@@ -30,11 +30,12 @@ function AddReceipes({ open, handleClose, templateOrigin }) {
       newData,
       JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token
     );
-    if (response.ok) {
-      const json = await response.json();
-
-      console.log(json);
+    console.log("response",response);
+    if (response.status) {
       console.log("YES");
+
+
+      handleClose();
     } else {
       console.log("Error");
     }
@@ -60,6 +61,12 @@ function AddReceipes({ open, handleClose, templateOrigin }) {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Typography sx={{ fontSize: "1.4em" }}>Add recipe</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="h7">
+                  Id Template:<span>{"  "}</span>
+                  {templateOrigin.id_template}
+                </Typography>
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -91,19 +98,11 @@ function AddReceipes({ open, handleClose, templateOrigin }) {
                   helperText={errors.description ? "Este campo es requerido" : ""} 
                 />
               </Grid>
+
               <Grid item xs={12}>
-                <Typography sx={{ fontSize: "1rem" }}>
-                  Id Template:<span>{"  "}</span>
-                  {templateOrigin.id_template}
-                </Typography>
+
               </Grid>
-              <Grid item xs={12}>
-                <Typography sx={{ fontSize: "1rem" }}>
-                  Cliente:<span>{"  "}</span>
-                  {template.client}
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sx={{ justifySelf: "end" }}>
+              <Grid item xs={12} sx={{ display:"flex", justifyContent: "end" }}>
                 <Button variant="outlined" type="submit">
                 Add recipe
                 </Button>

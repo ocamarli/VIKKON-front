@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import AddReceipe from "../../Recipes/Componentes/AddRecipe";
 import { useState } from "react";
-import { Button, Grid, Dialog } from "@mui/material";
+import { Button, Grid, Dialog,alpha, CardHeader } from "@mui/material";
 import EditCode from "./EditCode";
 import { useTheme } from "@mui/material";
 export default function CardTemplate(props) {
@@ -25,6 +25,14 @@ export default function CardTemplate(props) {
     setOpenEdit(false);
   };
 const theme=useTheme();
+  // Obtener el color de fondo con transparencia según el modo del tema
+  const backgroundColorWithOpacity = theme.palette.mode === 'light'
+    ? alpha(theme.palette.primary.main, .7)// Para el modo oscuro, no se aplica transparencia
+    :  null;
+    const colorTextHeader = theme.palette.mode === 'light'
+    ? alpha("#ffffff", .9)// Para el modo oscuro, no se aplica transparencia
+    :  null;    
+
   return (
     <>
       <Grid item xs={12} >
@@ -43,11 +51,12 @@ const theme=useTheme();
           ></EditCode>
         </Dialog>
       </Grid>
-      <Card variant="outlined" sx={{backgroundColor:theme.palette.mode==="light"?"#f9f9ff":null}}>
+      <Card variant="outlined">
+        <CardHeader  titleTypographyProps={{ variant: 'h6'}} 
+        sx={{color:colorTextHeader, padding:"5px",backgroundColor:backgroundColorWithOpacity, marginBottom:"-10px"}} title={template.name}/>
+    
         <CardContent>
-          <Typography variant="h6" sx={{ fontWeight: 500, margin: 0, display:"block"}}>
-            {template.name}
-          </Typography>
+
           <Typography variant="body2" color="text.secondary" >
             Version:{" "}{template.version}
           </Typography>
@@ -57,12 +66,12 @@ const theme=useTheme();
           <Typography variant="body2" color="text.secondary">{template.description}</Typography>
 
         </CardContent>
-        <CardActions>
+        <CardActions sx={{display:"flex",justifyContent:"end"}}>
           <Button size="small" onClick={handleClickOpen}>
             Create receipe
           </Button>
           <Button size="small" onClick={handleClickOpenEdit}>
-            Edit
+            Edit BaseCode
           </Button>
         </CardActions>
       </Card>

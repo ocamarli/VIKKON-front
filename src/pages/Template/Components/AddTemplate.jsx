@@ -8,25 +8,18 @@ import {
 } from "@mui/material";
 import ListParametersTemplate from "./ListParametersTemplate";
 import "../TemplateCss.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { setParametersTemplate } from "../../../api/axios";
 import { useForm } from "react-hook-form";
-const AddTemplate = ({ open, handleClose }) => {
+const AddTemplate = ({ open, handleClose, idTemplate }) => {
   const [listParameters, setListParameters] = useState([]);
   const [name, setName] = useState("");
   const [client, setClient] = useState("");
   const [description, setDescription] = useState("");
   const [version, setVersion] = useState("");
   const onSubmit = (data) => {
-
-    console.log("onsub",data);
-    reset({
-      fechaTicket: null,
-      noTicket: "",
-      totalTicket: "",
-      idProveedor: "",
-    });
-
+    fetchSetTemplate(data);
+    console.log("onsub", data);
   };
   const setList = (data) => {
     setListParameters(data.map((d) => d.id));
@@ -40,22 +33,14 @@ const AddTemplate = ({ open, handleClose }) => {
     reset,
   } = useForm();
 
-  const handleSubmitO = async (event) => {
-    event.preventDefault();
+  const fetchSetTemplate = async (data) => {
+    const newData = { ...data, parameters: listParameters,code:"" };
 
-    const data = {
-      name: name,
-      client: client,
-      description: description,
-      version: version,
-      parameters: listParameters,
-    };
-
-    console.log(data);
+    console.log(newData);
     console.log(JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token);
 
     const response = await setParametersTemplate(
-      data,
+      newData,
       JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token
     );
 
@@ -69,6 +54,7 @@ const AddTemplate = ({ open, handleClose }) => {
     handleClose();
   };
 
+
   return (
     <Modal open={open} onClose={handleClose} className="ap-modal">
       <Paper
@@ -81,47 +67,63 @@ const AddTemplate = ({ open, handleClose }) => {
         <Grid container spacing={1}>
           <Grid item xs={12}>
             <Grid container spacing={2}>
-              <Grid item xs={3}>
+              <Grid item xs={2}>
                 <TextField
-                 {...register("name", { required: true })}
-                 error={errors.name ? true : false}
-                 helperText={errors.name ? "Este campo es requerido" : ""}                 
+                  {...register("id_template", { required: true })}
+                  error={errors.id_template ? true : false}
+                  helperText={
+                    errors.id_template ? "Este campo es requerido" : ""
+                  }
+                  label="ID-Template"
+                  variant="standard"
+                  margin="normal"
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={2}>
+                <TextField
+                  {...register("name", { required: true })}
+                  error={errors.name ? true : false}
+                  helperText={errors.name ? "Este campo es requerido" : ""}
                   label="Name"
                   variant="standard"
                   margin="normal"
-
+                  fullWidth
                 />
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={2}>
                 <TextField
-                 {...register("client", { required: true })}
-                 error={errors.client ? true : false}
-                 helperText={errors.client ? "This field is required" : ""}                 
+                  {...register("client", { required: true })}
+                  error={errors.client ? true : false}
+                  helperText={errors.client ? "This field is required" : ""}
                   label="Client"
                   variant="standard"
                   margin="normal"
+                  fullWidth
                 />
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={2}>
                 <TextField
-                 {...register("description", { required: true })}
-                 error={errors.description ? true : false}
-                 helperText={errors.description ? "This field is required" : ""}                   
+                  {...register("description", { required: true })}
+                  error={errors.description ? true : false}
+                  helperText={
+                    errors.description ? "This field is required" : ""
+                  }
                   label="Description"
                   variant="standard"
                   margin="normal"
-                  onChange={(e) => setDescription(e.target.value)}
+                  fullWidth
                 />
               </Grid>
-              <Grid item xs={3}>
+              <Grid item xs={2}>
                 <TextField
-                 {...register("description", { required: true })}
-                 error={errors.description ? true : false}
-                 helperText={errors.description ? "This field is required" : ""}                 
+                  {...register("version", { required: true })}
+                  error={errors.version ? true : false}
+                  helperText={errors.version ? "This field is required" : ""}
                   label="Version"
                   variant="standard"
                   margin="normal"
-                  onChange={(e) => setVersion(e.target.value)}
+                  fullWidth
                 />
               </Grid>
             </Grid>
@@ -132,7 +134,7 @@ const AddTemplate = ({ open, handleClose }) => {
             </Paper>
           </Grid>
 
-          <Grid item xs={12} >
+          <Grid item xs={12}>
             <Button
               variant="contained"
               color="primary"

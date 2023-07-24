@@ -226,7 +226,7 @@ export default function PersistentDrawerLeft(props) {
         anchor="left"
         open={open}
       >
-        <DrawerHeader  sx={{backgroundColor:theme.palette.mode==="light"?theme.palette.primary.main:null}}>
+        <DrawerHeader >
           <IconButton onClick={handleDrawerClose} >
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
@@ -306,7 +306,7 @@ export default function PersistentDrawerLeft(props) {
         </Box>
       </Drawer>
 
-      <Main open={open} sx={{backgroundColor:theme.palette.mode==="light"?"#f9f9ff":null, height:"100vh"}}>
+      <Main open={open} sx={{backgroundColor:theme.palette.mode==="light"?"#efefef":null, height:"100vh"}}>
         <DrawerHeader />
 
         <SwitchTransition>

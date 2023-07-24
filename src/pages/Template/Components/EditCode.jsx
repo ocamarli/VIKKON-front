@@ -11,35 +11,9 @@ function EditCode({ open, handleClose, templateOrigin }) {
   const [matches, setMatches] = useState([]);
   console.log(templateOrigin.id_template);
   console.log(templateOrigin);
-/*
-  const handleCreateRecipe = async (data) => {
-    const list = [];
+const save=()=>{
 
-    templateOrigin.parameters.map((param) => {
-      list.push({ id_parameter: param, value: "", status: false });
-      return null;
-    });
-
-    const newData = {
-      ...data,
-      id_template: templateOrigin.id_template,
-      parameters: list,
-    };
-    console.log(newData);
-    const response = await setRecipe(
-      newData,
-      JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token
-    );
-    if (response.ok) {
-      const json = await response.json();
-
-      console.log(json);
-      console.log("YES");
-    } else {
-      console.log("Error");
-    }
-  };
-*/
+}
   return (
     <Modal open={open} onClose={handleClose} className="ap-modal">
       <Paper
@@ -61,6 +35,7 @@ function EditCode({ open, handleClose, templateOrigin }) {
               matches={matches}
               templateOrigin={templateOrigin}
               style={{ maxHeight: "500px" }}
+
             ></ListParametersCode>
             </>
           </Grid>
@@ -68,12 +43,11 @@ function EditCode({ open, handleClose, templateOrigin }) {
             <CodeInput
               id_template={templateOrigin.id_template}
               setMatches={setMatches}
+              onClose={handleClose}
             ></CodeInput>
           </Grid>
-          <Grid item xs={12} sx={{ justifySelf: "end" }}>
-            <Button variant="outlined" type="submit">
-              Add recipe
-            </Button>
+          <Grid item xs={12} sx={{display:"flex", justifyContent:"end" }}>
+
           </Grid>
         </Grid>
       </Paper>

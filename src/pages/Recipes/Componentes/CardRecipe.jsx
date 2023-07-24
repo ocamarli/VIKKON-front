@@ -5,7 +5,8 @@ import CardContent from "@mui/material/CardContent";
 import { Typography, Box, IconButton,Modal } from "@mui/material/";
 import FormRecipe from "./FormRecipe";
 import { useState } from "react";
-import { Dialog, Button } from "@mui/material/";
+import { Dialog, Button,alpha } from "@mui/material/";
+import { useTheme,CardHeader } from "@mui/material/";
 import DownloadRoundedIcon from "@mui/icons-material/DownloadRounded";
 import { getFileTemplate } from "../../../api/axios";
 import { getRecipe } from "../../../api/axios";
@@ -17,6 +18,16 @@ export default function CardRecipe(props) {
   const [fileText, setFileText] = useState("");
   const [parametersRecipe,setParametersRecipe] =useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const theme=useTheme();
+  const [newFileText, setNewFileText] = useState("");
+  // Obtener el color de fondo con transparencia según el modo del tema
+  const backgroundColorWithOpacity = theme.palette.mode === 'light'
+    ? alpha(theme.palette.primary.main, .7)// Para el modo oscuro, no se aplica transparencia
+    :  null;
+    const colorTextHeader = theme.palette.mode === 'light'
+    ? alpha("#ffffff", .9)// Para el modo oscuro, no se aplica transparencia
+    :  null;    
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -42,7 +53,7 @@ export default function CardRecipe(props) {
       const objetoEncontrado = parametersRecipe.find(obj => obj.id_parameter === codigo);
       return objetoEncontrado ? objetoEncontrado.value : match;
     });
-    console.log(resultado)
+    setNewFileText(resultado)
   };
   const get_fetchFileTemplate = async (data) => {
     try {
@@ -92,7 +103,7 @@ export default function CardRecipe(props) {
   };  
 
   return (
-    <Card variant="outlined">
+    <Card variant="outlined" >
       <Box item xs>
         <Dialog open={open} onClose={handleClose}>
           <FormRecipe
@@ -109,14 +120,8 @@ export default function CardRecipe(props) {
           ></PrintRecipe>
         </Dialog>
       </Box>
-
+      <CardHeader  titleTypographyProps={{ variant: 'h6'}} sx={{color:colorTextHeader, padding:"5px",backgroundColor:backgroundColorWithOpacity, marginBottom:"-10px"}} title={recipe.name}/>
       <CardContent>
-        <Typography
-          sx={{ fontWeight: 500, margin: 0, display: "block" }}
-          variant="h6"
-        >
-          {recipe.name}
-        </Typography>
         <Typography variant="body2" color="text.secondary">
           template: {recipe.id_template}
         </Typography>
