@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Typography, Grid, Paper,Box } from "@mui/material";
 import { getParametersTemplate } from "../../../api/axios";
 import ItemParameterCode from "./ItemParameterCode";
@@ -39,7 +39,7 @@ const ListParametersCode = (props) => {
 
   useEffect(() => {
     fetchParameters();
-  }, []);
+  }, [fetchParameters]);
 
 
   return (

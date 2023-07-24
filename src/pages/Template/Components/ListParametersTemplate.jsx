@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import { Typography, Grid, Paper } from "@mui/material";
 import ItemParameterTemplate from "./ItemParameterTemplate";
 import { getParameters } from "../../../api/axios";
- import { useForm } from "react-hook-form";
+
 const ListParametersTemplate = ({ setList }) => {
   const [parameters, setParameters] = useState(null);
   const [leftItems, setLeftItems] = useState([]);

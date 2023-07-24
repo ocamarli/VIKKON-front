@@ -27,11 +27,8 @@ import Brightness7Icon from "@mui/icons-material/Brightness7";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import Template from "./Template/Template";
 import { useNavigate } from "react-router-dom";
-
 import HomeIcon from "@mui/icons-material/Home";
-
 import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
-import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import DescriptionIcon from "@mui/icons-material/Description";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Parameters from "./Parameters/Parameters";

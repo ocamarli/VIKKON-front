@@ -40,7 +40,7 @@ function Parameters(props) {
 
   useEffect(() => {
     fetchTemplates();
-  }, []);
+  }, [fetchTemplates]);
 
   return (
     <Provider store={store}>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 /*import { setRecipe } from "../../../api/axios";*/
 import Typography from "@mui/material/Typography";
 import "../TemplateCss.css";
-import { Button, Grid, Paper, Modal } from "@mui/material";
+import { Grid, Paper, Modal } from "@mui/material";
 
 import CodeInput from "./CodeInput";
 import ListParametersCode from "./ListParametersCode";
@@ -11,9 +11,7 @@ function EditCode({ open, handleClose, templateOrigin }) {
   const [matches, setMatches] = useState([]);
   console.log(templateOrigin.id_template);
   console.log(templateOrigin);
-const save=()=>{
 
-}
   return (
     <Modal open={open} onClose={handleClose} className="ap-modal">
       <Paper

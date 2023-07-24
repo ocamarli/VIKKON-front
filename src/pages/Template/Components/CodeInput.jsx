@@ -7,7 +7,7 @@ function CodeInput(props) {
   const { id_template, setMatches, onClose } = props;
 
   const [fileText, setFileText] = useState("");
-  const [parameterCode, setParameterCode] = useState([]);
+  const [setParameterCode] = useState([]);
   const theme = useTheme();
   const fileInputRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +18,7 @@ function CodeInput(props) {
   useEffect(() => {
     console.log(isLoading);
     get_fetchFileTemplate(id_template);
-  }, [id_template]);
+  }, [id_template,isLoading]);
 
   const handleUpdate = () => {
     set_fetchFileTemplate({ text: fileText, id_template: id_template });

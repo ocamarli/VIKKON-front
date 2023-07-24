@@ -2,7 +2,7 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import { Typography, Box, IconButton,Modal } from "@mui/material/";
+import { Typography, Box, IconButton } from "@mui/material/";
 import FormRecipe from "./FormRecipe";
 import { useState } from "react";
 import { Dialog, Button,alpha } from "@mui/material/";
@@ -17,9 +17,9 @@ export default function CardRecipe(props) {
   const [openPrintRecipe, setOpenPrintRecipe] = useState(false);
   const [fileText, setFileText] = useState("");
   const [parametersRecipe,setParametersRecipe] =useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [setIsLoading] = useState(false);
   const theme=useTheme();
-  const [newFileText, setNewFileText] = useState("");
+  const [ setNewFileText] = useState("");
   // Obtener el color de fondo con transparencia según el modo del tema
   const backgroundColorWithOpacity = theme.palette.mode === 'light'
     ? alpha(theme.palette.primary.main, .7)// Para el modo oscuro, no se aplica transparencia
@@ -33,9 +33,6 @@ export default function CardRecipe(props) {
   };
   const handleClose = (props) => {
     setOpen(false);
-  };
-  const handleClickOpenPrintRecipe = () => {
-    setOpenPrintRecipe(true);
   };
   const handleClosePrintRecipe = (props) => {
     setOpenPrintRecipe(false);

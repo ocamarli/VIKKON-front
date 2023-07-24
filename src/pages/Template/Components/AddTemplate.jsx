@@ -8,10 +8,10 @@ import {
 } from "@mui/material";
 import ListParametersTemplate from "./ListParametersTemplate";
 import "../TemplateCss.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { setParametersTemplate } from "../../../api/axios";
 import { useForm } from "react-hook-form";
-const AddTemplate = ({ open, handleClose, idTemplate }) => {
+const AddTemplate = ({ open, handleClose }) => {
   const [listParameters, setListParameters] = useState([]);
   const onSubmit = (data) => {
     fetchSetTemplate(data);

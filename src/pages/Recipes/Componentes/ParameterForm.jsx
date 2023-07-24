@@ -80,7 +80,7 @@ export default function ParameterForm(props) {
     const data={"id_recipe":recipe.id_recipe,"id_parameter":parameter.id_parameter,"value":parameterValue}
     fetchGetparameterRecipe(data)
 
-  },[recipe,parameter]);
+  },[recipe,parameter,fetchGetparameterRecipe]);
 
   console.log(parameter);
   return (
