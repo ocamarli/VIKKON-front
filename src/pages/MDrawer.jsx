@@ -20,11 +20,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-import Collapse from "@mui/material/Collapse";
-import ExpandLess from "@mui/icons-material/ExpandLess";
-import ExpandMore from "@mui/icons-material/ExpandMore";
-import SearchIcon from "@mui/icons-material/Search";
-
 import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
@@ -98,7 +93,6 @@ export default function PersistentDrawerLeft(props) {
   const theme = useTheme();
   const { onDarkModeChange, auth } = props;
   const [open, setOpen] = React.useState(false);
-  const [openBuy] = React.useState(false);
   const [selectedComponent, setSelectedComponent] = useState(<Home />);
 
   const [openAlert, setOpenAlert] = React.useState(false);

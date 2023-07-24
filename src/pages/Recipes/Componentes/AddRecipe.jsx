@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 function AddReceipes({ open, handleClose, templateOrigin }) {
 
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const [template] = useState([]);
+
 
   console.log(templateOrigin.id_template);
   console.log(templateOrigin);

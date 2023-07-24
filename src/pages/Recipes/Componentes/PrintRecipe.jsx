@@ -2,21 +2,12 @@ import React, { useState, useRef, useEffect } from "react";
 import { Button, Box, Grid, Divider, Modal, Paper } from "@mui/material";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { useTheme } from "@mui/material";
-import { getFileTemplate, setFileTemplate } from "../../../api/axios";
 import { saveAs } from 'file-saver';
 
 function PrintRecipe(props) {
   const { fileText, open, handleClose } = props;
   console.log("fileText",fileText)
-  const [parameterCode, setParameterCode] = useState([]);
   const theme = useTheme();
-  const fileInputRef = useRef(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const filename = 'beautiful-carpathia.jpg';
-  const handleButtonClick = () => {
-    fileInputRef.current.click();
-  };
   const handleDownloadFile = () => {
     const blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
     saveAs(blob, "hello world.txt");
