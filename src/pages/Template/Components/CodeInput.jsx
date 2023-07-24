@@ -93,7 +93,7 @@ function CodeInput(props) {
       setParameterCode([]);
       setMatches([]);
     }
-  }, [fileText, setMatches]);
+  }, [fileText, setMatches,setParameterCode]);
 
   return (
     <Grid container spacing={1}>

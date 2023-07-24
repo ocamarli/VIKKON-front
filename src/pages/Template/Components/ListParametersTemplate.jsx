@@ -8,7 +8,7 @@ const ListParametersTemplate = ({ setList }) => {
   const [leftItems, setLeftItems] = useState([]);
   const [rightItems, setRightItems] = useState([]);
 
-  const fetchParameters = async () => {
+  const fetchParameters = useCallback(async () => {
     try {
       const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
       console.log(tkn);
@@ -22,7 +22,7 @@ const ListParametersTemplate = ({ setList }) => {
     } catch (error) {
       console.error(error);
     }
-  };
+  });
   useEffect(() => {
     fetchParameters();
   }, [fetchParameters]);
