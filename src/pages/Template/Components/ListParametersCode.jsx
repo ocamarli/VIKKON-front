@@ -22,8 +22,7 @@ const ListParametersCode = (props) => {
       console.log(tkn);
       if (tkn !== undefined) {
         const json = await getParametersTemplate(template.id_template,tkn);
-
-
+        console.log("JSON",JSON.parse(json.template));
         setParameters(JSON.parse(json.template).parameters);
         console.log(JSON.parse(json.template).parameters);
         setIsLoading(false);

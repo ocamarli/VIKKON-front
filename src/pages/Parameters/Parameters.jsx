@@ -1,7 +1,7 @@
 import CardParameter from "./components/CardParameter";
 import AddParameter from "./components/AddParameter";
 import { Button, Dialog, Typography } from "@mui/material";
-import React, { useState, useEffect,useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import store from "../../store";
 import { Provider } from "react-redux";
 import { getParameters } from "../../api/axios";
@@ -16,7 +16,7 @@ function Parameters(props) {
     setOpen(true);
   };
 
-  const fetchParameters = useCallback (async () => {
+  const fetchParameters = useCallback(async () => {
     try {
       setIsLoading(true);
       const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
@@ -36,15 +36,12 @@ function Parameters(props) {
       onResponse({ status: false, msg: error });
       console.error(error);
     }
-  }, [setIsLoading,  setParameters, onResponse]);
-
+  }, [setIsLoading, setParameters, onResponse]);
 
   const handleClose = useCallback(async () => {
     await fetchParameters();
     setOpen(false);
   }, [fetchParameters]);
-
-  
 
   useEffect(() => {
     fetchParameters();
@@ -62,37 +59,32 @@ function Parameters(props) {
           <Paper style={{ padding: 20 }}>
             <Grid container spacing={1}>
               <Grid item xs={12}>
-                <Button variant="contained" onClick={handleClickOpen}>
+                <Button variant="outlined" onClick={handleClickOpen}>
                   Add new parameter
                 </Button>
                 <br />
                 <br />
 
-                <Paper style={{ padding: 10 }}>
-                  <Typography variant="h5">List of parameters:</Typography>
-                  <br />
-                  <Grid
-                    container
-                    spacing={1}
-                    direction="row"
-                    justifyContent="flex-start"
-                  >
-                    {isLoading && ( // Agrega el loader condicionalmente
-                      <Grid item xs={12} align="center">
-                        <CircularProgress size={50} />
-                      </Grid>
-                    )}
+                <Typography variant="h6">List of parameters:</Typography>
 
-                    {parameters.map((param, index) => (
-                      <Grid key={index} item xs={12} sm={6} md={3} lg={2}>
-                        <CardParameter
+                <Grid
+                  container
+                  spacing={1}
+                  direction="row"
+                  justifyContent="flex-start"
+                >
+                  {isLoading && ( // Agrega el loader condicionalmente
+                    <Grid item xs={12} align="center">
+                      <CircularProgress size={50} />
+                    </Grid>
+                  )}
 
-                          parameter={param}
-                        ></CardParameter>
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Paper>
+                  {parameters.map((param, index) => (
+                    <Grid key={index} item xs={12} sm={6} md={3} lg={2}>
+                      <CardParameter parameter={param}></CardParameter>
+                    </Grid>
+                  ))}
+                </Grid>
               </Grid>
             </Grid>
           </Paper>

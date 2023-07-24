@@ -55,11 +55,14 @@ function EditCode({ open, handleClose, templateOrigin }) {
             <Typography sx={{ fontSize: "1.4em" }}>Config file.h</Typography>
           </Grid>
           <Grid item xs={12} style={{ maxHeight: "600px" }}>
+            <>
+            {console.log("matches",matches)}
             <ListParametersCode
               matches={matches}
               templateOrigin={templateOrigin}
               style={{ maxHeight: "500px" }}
             ></ListParametersCode>
+            </>
           </Grid>
           <Grid item xs={12}>
             <CodeInput

@@ -47,8 +47,7 @@ import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Recipes from "./Recipes/Recipe";
 
-
-const drawerWidth = 180;
+const drawerWidth = 250;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
     flexGrow: 1,
@@ -161,7 +160,6 @@ export default function PersistentDrawerLeft(props) {
     setOpen(false);
   };
 
-
   const [darkMode, setDarkMode] = useState(false);
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
@@ -171,7 +169,20 @@ export default function PersistentDrawerLeft(props) {
     sessionStorage.removeItem("ACCSSTKN");
     navigate("/");
   };
-
+  const iconsStyle = {
+    color: "#b8babf",
+  };
+  const classes = {
+    root: {
+      width: "100%",
+      maxWidth: 360,
+      padding: "15px",
+      borderRadius: "3px",
+    },
+    nested: {
+      paddingLeft: 40,
+    },
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -215,8 +226,8 @@ export default function PersistentDrawerLeft(props) {
         anchor="left"
         open={open}
       >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+        <DrawerHeader  sx={{backgroundColor:theme.palette.mode==="light"?theme.palette.primary.main:null}}>
+          <IconButton onClick={handleDrawerClose} >
             {theme.direction === "ltr" ? (
               <ChevronLeftIcon />
             ) : (
@@ -225,56 +236,40 @@ export default function PersistentDrawerLeft(props) {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        <FormControl className="listC">
+        <FormControl style={classes.root}>
           <List>
             <ListItemButton onClick={selectHome}>
-              <ListItemIcon className="icons">
-                <HomeIcon />
+              <ListItemIcon>
+                <HomeIcon sx={iconsStyle} />
               </ListItemIcon>
-              <ListItemText>Home</ListItemText>
+              <ListItemText primary="Home" />
             </ListItemButton>
 
             <ListItemButton onClick={selectTemplate}>
               <ListItemIcon>
-                <DescriptionIcon />
+                <DescriptionIcon sx={iconsStyle} />
               </ListItemIcon>
-              <ListItemText primary="Template" className="listItemText" />
+              <ListItemText primary="Template" />
             </ListItemButton>
 
             <ListItemButton onClick={selectRecipe}>
               <ListItemIcon>
-                <FormatListNumberedIcon />
+                <FormatListNumberedIcon sx={iconsStyle} />
               </ListItemIcon>
-              <ListItemText className="listItemText" primary="Recipes" />
-              {openBuy ? <ExpandLess /> : <ExpandMore />}
+              <ListItemText primary="Recipes" />
             </ListItemButton>
-            <Collapse in={openBuy} timeout="auto" unmountOnExit>
-              <List component="div" disablePadding>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <PlaylistAddIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="New" className="listItemText" />
-                </ListItemButton>
-                <ListItemButton sx={{ pl: 4 }}>
-                  <ListItemIcon>
-                    <SearchIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Search" className="listItemText" />
-                </ListItemButton>
-              </List>
-            </Collapse>
+
             <ListItemButton onClick={selectParameters}>
               <ListItemIcon>
-                <DescriptionIcon />
+                <DescriptionIcon sx={iconsStyle} />
               </ListItemIcon>
-              <ListItemText primary="Parameters" className="listItemText" />
+              <ListItemText primary="Parameters" />
             </ListItemButton>
             <Divider />
 
             <ListItemButton onClick={selectRegister}>
-              <ListItemIcon className="icons">
-                <PersonAddIcon />
+              <ListItemIcon>
+                <PersonAddIcon sx={iconsStyle} />
               </ListItemIcon>
               <ListItemText>New User</ListItemText>
             </ListItemButton>
@@ -305,19 +300,19 @@ export default function PersistentDrawerLeft(props) {
               <ListItemIcon>
                 <ExitToAppIcon />
               </ListItemIcon>
-              <ListItemText primary="LogOut" className="listItemText" />
+              <ListItemText primary="LogOut" />
             </ListItemButton>
           </List>
         </Box>
       </Drawer>
 
-      <Main open={open}>
+      <Main open={open} sx={{backgroundColor:theme.palette.mode==="light"?"#f9f9ff":null, height:"100vh"}}>
         <DrawerHeader />
 
         <SwitchTransition>
           <CSSTransition
             key={selectedComponent.type}
-            timeout={500}
+            timeout={400}
             classNames="item"
             unmountOnExit
           >

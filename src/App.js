@@ -24,7 +24,7 @@ function App() {
     palette: {
       mode: darkMode ? "dark" : "light",
       primary: {
-        main: '#57B951',
+        main: '#3AAA35',
       },
     },
   });

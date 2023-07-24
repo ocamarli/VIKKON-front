@@ -9,36 +9,34 @@ const FormRecipe = (props) => {
   const { recipe, open, handleClose } = props;
   const [parameters, setParameters] = useState([]);
 
-  console.log(recipe);
-
   const fetchParameters = useCallback(async () => {
     try {
       const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
-      console.log("token");
-      console.log(tkn);
-      console.log("id:" + recipe.id_template);
       if (tkn !== undefined) {
         const json = await getParametersTemplate(recipe.id_template, tkn);
 
         setParameters(JSON.parse(json.template).parameters);
         console.log(JSON.parse(json.template).parameters);
+        console.log(JSON.parse(json.template))
       } else {
         setParameters([]);
         //onResponse({status:false, msg: "Unauthorized Access"})
       }
+
     } catch (error) {
       //onResponse({ status: false, msg: error });
       console.error(error);
     }
-  },[recipe]);
+  }, [recipe]);
   useEffect(() => {
     fetchParameters();
+
   }, []);
 
   return (
     <Modal open={open} onClose={handleClose} className="ap-modal">
       <Paper
-        elevation={3}
+        variant={"outlined"}
         spacing={2}
         sx={{
           padding: 3,
@@ -46,41 +44,38 @@ const FormRecipe = (props) => {
           height: "calc(95vh)",
         }}
       >
+        <Grid container>
+          <Grid item xs={12} spacing={2}>
+            <Paper style={{ padding: 10 }}>
+              <Typography variant="h5" sx={{ fontWeight: 500 }}>
+                Recipe: {recipe.name}
+              </Typography>
+            </Paper>
+          </Grid>
 
-          <Grid container direction="column">
-            <Typography sx={{ fontSize: 24 }}>Add parameter</Typography>
-            <Grid container direction="row">
-              <Grid item xs={12}>
-                <Grid container>
-                  {parameters.map((parameter) => (
-                    <>
-                      {console.log(parameter)}
-                      <ParameterForm
-                        key={parameter.name}
-                        recipe={recipe}
-                        parameter={parameter}
-                      />
-                    </>
-                  ))}
-                </Grid>
+          {parameters.map((parameter) => (
+            <ParameterForm
+              key={parameter.name}
+              recipe={recipe}
+              parameter={parameter}
+            />
+          ))}
+
+          <Grid item xs={12}>
+            <Grid container sx={{ justifyContent: "flex-end" }}>
+              <Grid item>
+                <Button variant="outlined" type="submit" onClick={handleClose}>
+                  Accept
+                </Button>
               </Grid>
-              <Grid item xs={12}>
-                <Grid container sx={{ justifyContent: "flex-end" }}>
-                  <Grid item>
-                    <Button variant="outlined" type="submit">
-                      Accept
-                    </Button>
-                  </Grid>
-                  <Grid item>
-                    <Button variant="outlined" onClick={handleClose}>
-                      Close
-                    </Button>
-                  </Grid>
-                </Grid>
+              <Grid item>
+                <Button variant="outlined" onClick={handleClose}>
+                  Close
+                </Button>
               </Grid>
             </Grid>
           </Grid>
-
+        </Grid>
       </Paper>
     </Modal>
   );

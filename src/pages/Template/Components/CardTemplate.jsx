@@ -7,7 +7,7 @@ import AddReceipe from "../../Recipes/Componentes/AddRecipe";
 import { useState } from "react";
 import { Button, Grid, Dialog } from "@mui/material";
 import EditCode from "./EditCode";
-
+import { useTheme } from "@mui/material";
 export default function CardTemplate(props) {
   const { template } = props;
   const [open, setOpen] = useState(false);
@@ -24,10 +24,10 @@ export default function CardTemplate(props) {
   const handleCloseEdit = (props) => {
     setOpenEdit(false);
   };
-
+const theme=useTheme();
   return (
     <>
-      <Grid item xs={12}>
+      <Grid item xs={12} >
         <Dialog open={open} onClose={handleClose}>
           <AddReceipe
             open={open}
@@ -43,18 +43,19 @@ export default function CardTemplate(props) {
           ></EditCode>
         </Dialog>
       </Grid>
-      <Card variant="outlined" >
+      <Card variant="outlined" sx={{backgroundColor:theme.palette.mode==="light"?"#f9f9ff":null}}>
         <CardContent>
-          <Typography variant="h6" sx={{ fontWeight: 600, margin: 0, display:"block"}}>
+          <Typography variant="h6" sx={{ fontWeight: 500, margin: 0, display:"block"}}>
             {template.name}
           </Typography>
-          <Typography variant="h6" color="text.secondary" >
-            {template.version}
-          </Typography>
-          <Typography variant="body2">{template.description}</Typography>
           <Typography variant="body2" color="text.secondary" >
-            {template.id_template}
+            Version:{" "}{template.version}
           </Typography>
+          <Typography variant="body2" color="text.secondary" >
+            Template:{" "}{template.id_template}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">{template.description}</Typography>
+
         </CardContent>
         <CardActions>
           <Button size="small" onClick={handleClickOpen}>

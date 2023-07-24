@@ -129,6 +129,27 @@ export async function getRecipes(token) {
     return { recipes: [], status: false, msg: error.message};
   }
 }
+export async function getRecipe(id_recipe,token) {
+  try {
+    const response = await getData(
+     ENV.getRecipe(id_recipe),
+     {id_recipe},
+      token
+    );
+
+    if (response.status === 200) {
+      return await response.json();
+    } else {
+      return {
+        recipe: "",
+        status: false,
+        msg: "Could not retrieve recipe",
+      };
+    }
+  } catch (error) {
+    return { recipes: "", status: false, msg: error.message};
+  }
+}
 export async function getParametersTemplate(id_template,token) {
   try {
     const response = await postData(

@@ -35,7 +35,7 @@ function Parameters(props) {
       setIsLoading(false);
       onResponse({ status: false, msg: "Error" });
     }
-  },[onResponse]);
+  }, [onResponse]);
 
   useEffect(() => {
     fetchTemplates();
@@ -58,27 +58,19 @@ function Parameters(props) {
                 </Button>
                 <br />
                 <br />
-
-                <Paper style={{ padding: 10 }}>
-                  <Typography sx={{ fontSize: "1.4em" }}>
-                    List of templates
-                  </Typography>
-
-                  {isLoading && ( // Agrega el loader condicionalmente
-                <Grid item xs={12} align="center">
-                  <CircularProgress size={50} /> 
-                </Grid>
-              )}
-
-
-                  <Grid container spacing={2}>
-                    {templates.map((template, index) => (
-                      <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
-                        <CardTemplate template={template}  />
-                      </Grid>
-                    ))}
+                <Typography variant="h6">List of templates</Typography>
+                {isLoading && ( // Agrega el loader condicionalmente
+                  <Grid item xs={12} align="center">
+                    <CircularProgress size={50} />
                   </Grid>
-                </Paper>
+                )}
+                <Grid container spacing={2}>
+                  {templates.map((template, index) => (
+                    <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
+                      <CardTemplate template={template} />
+                    </Grid>
+                  ))}
+                </Grid>
               </Grid>
             </Grid>
           </Paper>

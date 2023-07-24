@@ -15,7 +15,8 @@ const api = {
     fileTemplateSet:"fileTemplate/set",
     fileTemplateGet:"fileTemplate/get",
     parameterRecipeUpdate:"recipe/parameter/update",
-    parameterRecipeGet:"recipe/parameter/get"
+    parameterRecipeGet:"recipe/parameter/get",
+    recipeGet:"recipe/"
 
   },
 };
@@ -42,4 +43,5 @@ export const ENV = {
     getFileTemplate:()=>api.baseuri+api.endpoints.fileTemplateGet,
     updateParameterRecipe:()=>api.baseuri+api.endpoints.parameterRecipeUpdate,
     getParameterRecipe:()=>api.baseuri+api.endpoints.parameterRecipeGet,
+    getRecipe:(id_recipe)=>api.baseuri+api.endpoints.recipeGet+id_recipe,
 }; 
