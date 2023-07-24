@@ -13,10 +13,6 @@ import { setParametersTemplate } from "../../../api/axios";
 import { useForm } from "react-hook-form";
 const AddTemplate = ({ open, handleClose, idTemplate }) => {
   const [listParameters, setListParameters] = useState([]);
-  const [name, setName] = useState("");
-  const [client, setClient] = useState("");
-  const [description, setDescription] = useState("");
-  const [version, setVersion] = useState("");
   const onSubmit = (data) => {
     fetchSetTemplate(data);
     console.log("onsub", data);
@@ -29,8 +25,6 @@ const AddTemplate = ({ open, handleClose, idTemplate }) => {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
-    reset,
   } = useForm();
 
   const fetchSetTemplate = async (data) => {

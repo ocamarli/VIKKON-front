@@ -1,5 +1,5 @@
-import React, { Suspense } from "react";
-import LogoVikkon from "./components/LogoVikon";
+import React from "react";
+
 import { Grid } from "@mui/material";
 
 const SvgComponent = (props) => {
