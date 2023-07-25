@@ -22,7 +22,7 @@ const ListParametersTemplate = ({ setList }) => {
     } catch (error) {
       console.error(error);
     }
-  });
+  },[]);
   useEffect(() => {
     fetchParameters();
   }, [fetchParameters]);
@@ -37,7 +37,7 @@ const ListParametersTemplate = ({ setList }) => {
         );
       });
     }
-  }, [parameters]);
+  }, [parameters,fetchParameters]);
 
   const handleTransferLeft = (item) => {
     const updatedItems = rightItems.filter((i) => i.name !== item.name);

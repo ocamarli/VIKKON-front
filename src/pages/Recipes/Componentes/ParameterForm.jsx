@@ -2,7 +2,7 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { Typography, Box } from "@mui/material/";
-import { useState } from "react";
+import { useState,useCallback } from "react";
 import { Grid } from "@mui/material/";
 import UpdateIcon from "@mui/icons-material/Update";
 import { IconButton } from "@mui/material";
@@ -65,7 +65,7 @@ export default function ParameterForm(props) {
     );
     console.log(response);
   };
-  const fetchGetparameterRecipe = async (data) => {
+  const fetchGetparameterRecipe = useCallback(async (data) => {
 
     const response = await getParameterRecipe(
       data,
@@ -74,7 +74,7 @@ export default function ParameterForm(props) {
     
     setParameterValue(response.parameterRecipe.value)
     
-  };
+  });
 
   useEffect(() => {
     const data={"id_recipe":recipe.id_recipe,"id_parameter":parameter.id_parameter,"value":parameterValue}
