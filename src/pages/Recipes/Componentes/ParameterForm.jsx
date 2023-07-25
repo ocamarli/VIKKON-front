@@ -78,7 +78,7 @@ export default function ParameterForm(props) {
   },[]);
   const parameterValueRef = useRef(parameterValue);
   useEffect(() => {
-    const data={"id_recipe":recipe.id_recipe,"id_parameter":parameter.id_parameter,"value":parameterValue}
+    const data={"id_recipe":recipe.id_recipe,"id_parameter":parameter.id_parameter,"value":parameterValueRef.current}
     fetchGetparameterRecipe(data)
 
   },[recipe,parameter,fetchGetparameterRecipe]);
