@@ -62,7 +62,7 @@ const FormRecipe = (props) => {
           ))}
 
           <Grid item xs={12}>
-            <Grid container sx={{ justifyContent: "flex-end" }}>
+            <Grid container sx={{ display:"flex", marginTop:"3em", justifyContent: "flex-end" }}>
               <Grid item>
                 <Button variant="outlined" type="submit" onClick={handleClose}>
                   Accept

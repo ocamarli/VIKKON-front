@@ -6,18 +6,10 @@ import ItemParameterCode from "./ItemParameterCode";
 const ListParametersCode = (props) => {
   const template=props.templateOrigin
   const matches=props.matches
-  console.log("matches")
-  console.log(matches)
+  console.log("matches",matches)
   const [parameters, setParameters] = useState([]);
-
-  const [isLoading, setIsLoading] = useState(false);
-
-
   const fetchParameters =useCallback(async () => {      
-
-    console.log(isLoading)
     try {
-      setIsLoading(true);
       const tkn = JSON.parse(sessionStorage.getItem("ACCSSTKN"))?.access_token;
       console.log(tkn);
       if (tkn !== undefined) {
@@ -25,17 +17,15 @@ const ListParametersCode = (props) => {
         console.log("JSON",JSON.parse(json.template));
         setParameters(JSON.parse(json.template).parameters);
         console.log(JSON.parse(json.template).parameters);
-        setIsLoading(false);
+
       }else{
-        setParameters([])
-        //onResponse({status:false, msg: "Unauthorized Access"})
+        
       }
     } catch (error) {
-      setIsLoading(false);
       //onResponse({ status: false, msg: error });
       console.error(error);
     }
-  },[template,isLoading]);
+  },[template]);
 
   useEffect(() => {
     fetchParameters();

@@ -22,6 +22,7 @@ function Recipes(props) {
       if (tkn !== undefined) {
         const json = await getRecipes(tkn);
         setRecipes(json.recipes);
+        console.log(json.recipes)
         onResponse({ status: json.status, msg: json.msg });
         setIsLoading(false);
       } else {

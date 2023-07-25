@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Button, Box, Grid, Divider } from "@mui/material";
 import CodeEditor from "@uiw/react-textarea-code-editor";
 import { useTheme } from "@mui/material";
@@ -7,27 +7,25 @@ function CodeInput(props) {
   const { id_template, setMatches, onClose } = props;
 
   const [fileText, setFileText] = useState("");
-  const [setParameterCode] = useState([]);
   const theme = useTheme();
   const fileInputRef = useRef(null);
-  const [isLoading, setIsLoading] = useState(false);
+
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
-
+  const id_templateRef=useRef(id_template)
   useEffect(() => {
-    console.log(isLoading);
-    get_fetchFileTemplate(id_template);
-  }, [id_template,isLoading]);
+
+    get_fetchFileTemplate(id_templateRef);
+  }, []);
 
   const handleUpdate = () => {
-    set_fetchFileTemplate({ text: fileText, id_template: id_template });
-
+    setFetchFileTemplate({ text: fileText, id_template: id_template });
+    onClose();
   };
 
-  const set_fetchFileTemplate = async (data) => {
+  const setFetchFileTemplate = useCallback(async (data) => {
     try {
-      setIsLoading(true);
 
       if (
         JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token !==
@@ -37,19 +35,17 @@ function CodeInput(props) {
           data,
           JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token
         );
+        console.log(response);   
 
-        console.log(response);
-        setIsLoading(false);
-        onClose();
       }
     } catch (error) {
-      setIsLoading(false);
+      
       console.log("error");
     }
-  };
+  },[]);
   const get_fetchFileTemplate = async (data) => {
     try {
-      setIsLoading(true);
+      
       if (
         JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token !==
         undefined
@@ -60,10 +56,10 @@ function CodeInput(props) {
         );
         console.log("response", response);
         setFileText(response.code);
-        setIsLoading(false);
+        
       }
     } catch (error) {
-      setIsLoading(false);
+      
       console.log("error");
       setFileText("");
     }
@@ -86,14 +82,14 @@ function CodeInput(props) {
       const foundValues = matches.map((match) =>
         match.substring(1, match.length - 1)
       ); // Removemos los caracteres "{ }"
-      setParameterCode(foundValues);
+
       setMatches(foundValues);
       console.log(foundValues);
     } else {
-      setParameterCode([]);
+
       setMatches([]);
     }
-  }, [fileText, setMatches,setParameterCode]);
+  }, [fileText, setMatches]);
 
   return (
     <Grid container spacing={1}>
