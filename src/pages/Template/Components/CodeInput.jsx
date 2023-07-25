@@ -13,10 +13,10 @@ function CodeInput(props) {
   const handleButtonClick = () => {
     fileInputRef.current.click();
   };
-  const id_templateRef=useRef(id_template)
-  useEffect(() => {
 
-    get_fetchFileTemplate(id_templateRef);
+  const id_templateRef = useRef(id_template);
+  useEffect(() => {
+    get_fetchFileTemplate(id_templateRef.current);
   }, []);
 
   const handleUpdate = () => {
@@ -26,7 +26,7 @@ function CodeInput(props) {
 
   const setFetchFileTemplate = useCallback(async (data) => {
     try {
-
+      
       if (
         JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token !==
         undefined
@@ -35,7 +35,8 @@ function CodeInput(props) {
           data,
           JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token
         );
-        console.log(response);   
+        console.log(response);
+        
 
       }
     } catch (error) {

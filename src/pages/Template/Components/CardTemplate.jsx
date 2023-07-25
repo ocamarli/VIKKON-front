@@ -68,7 +68,7 @@ const theme=useTheme();
         </CardContent>
         <CardActions sx={{display:"flex",justifyContent:"end"}}>
           <Button size="small" onClick={handleClickOpen}>
-            Create receipe
+            Create recipe
           </Button>
           <Button size="small" onClick={handleClickOpenEdit}>
             Edit BaseCode

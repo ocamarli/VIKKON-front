@@ -65,6 +65,10 @@ const AddParameter = ({ open, handleClose }) => {
     {
       newData={...data,options:options}
     }
+    if(data.type==="single")
+    {
+      newData={...data}
+    }    
     else{console.log("options")}
     console.log("newData",newData)
 

@@ -20,6 +20,7 @@ import { useEffect } from "react";
 
 export default function ParameterForm(props) {
   const {recipe, parameter } = props;
+  console.log("dfdf",recipe,parameter)
   const [parameterValue, setParameterValue] = useState("");
   const handleFieldChange = (event) => {
     setParameterValue(event.target.value);
@@ -77,7 +78,7 @@ export default function ParameterForm(props) {
   },[]);
   const parameterValueRef = useRef(parameterValue);
   useEffect(() => {
-    const data={"id_recipe":recipe.id_recipe,"id_parameter":parameter.id_parameter,"value":parameterValueRef.current}
+    const data={"id_recipe":recipe.id_recipe,"id_parameter":parameter.id_parameter,"value":parameterValue}
     fetchGetparameterRecipe(data)
 
   },[recipe,parameter,fetchGetparameterRecipe]);
