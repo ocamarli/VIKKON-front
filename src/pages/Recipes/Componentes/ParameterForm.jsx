@@ -74,7 +74,7 @@ export default function ParameterForm(props) {
     
     setParameterValue(response.parameterRecipe.value)
     
-  });
+  },[]);
 
   useEffect(() => {
     const data={"id_recipe":recipe.id_recipe,"id_parameter":parameter.id_parameter,"value":parameterValue}
