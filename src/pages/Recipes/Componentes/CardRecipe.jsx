@@ -17,8 +17,6 @@ export default function CardRecipe(props) {
   const [fileText, setFileText] = useState("");
   const [newFileText, setNewFileText] = useState("");
   const theme = useTheme();
-  console.log("recipeProp", recipe);
-
   // Obtener el color de fondo con transparencia según el modo del tema
   const backgroundColorWithOpacity =
     theme.palette.mode === "light"
@@ -39,9 +37,7 @@ export default function CardRecipe(props) {
     setOpenPrintRecipe(false);
   };
   const clickCreateFile = () => {
-
     console.log("crea", recipe.id_template);
-
     convertText();
     setOpenPrintRecipe(true);
   };
@@ -57,9 +53,9 @@ export default function CardRecipe(props) {
     console.log("newFile", resultado);
   };
   const get_fetchFileTemplate = async (data) => {
-    console.log("get_fetch");
+
     try {
-      console.log("try");
+
       if (
         JSON.parse(sessionStorage.getItem("ACCSSTKN")).access_token !==
         undefined

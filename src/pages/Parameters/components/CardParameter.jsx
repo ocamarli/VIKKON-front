@@ -12,9 +12,6 @@ function CardParameter(props) {
     const colorTextHeader = theme.palette.mode === 'light'
     ? alpha("#ffffff", .9)// Para el modo oscuro, no se aplica transparencia
     :  null;    
-
-
-console.log(parameter)
   return (
     <Card variant="outlined" style={{ justifyContent: "center", height:"100%" }}>
 <CardHeader  titleTypographyProps={{ variant: 'h6'}} 

@@ -38,7 +38,8 @@ import RegisterPage from "./Register/RegisterPage";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import Recipes from "./Recipes/Recipe";
-
+import imgHeader from "./vikkonWH.png";
+import { alpha } from "@mui/material/";
 const drawerWidth = 250;
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
@@ -217,14 +218,29 @@ export default function PersistentDrawerLeft(props) {
         anchor="left"
         open={open}
       >
-        <DrawerHeader >
-          <IconButton onClick={handleDrawerClose} >
-            {theme.direction === "ltr" ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
+        <DrawerHeader
+          sx={{
+            justifyContent: "space-between",
+            display: "flex",
+            backgroundColor: "#3aaa35",
+            borderColor: "#3aaa35",
+          }}
+        >
+          <Box sx={{ width: "80%", display: "flex", justifyContent: "center" }}>
+            <img src={imgHeader} alt="Imagen de cabecera" width="50%" />
+          </Box>
+          <Box sx={{ width: "20%" }}>
+            <IconButton
+              onClick={handleDrawerClose}
+              sx={{ backgroundColor: alpha("#dddddd", 0.3) }}
+            >
+              {theme.direction === "ltr" ? (
+                <ChevronLeftIcon sx={{ color: "#ffffff" }} />
+              ) : (
+                <ChevronRightIcon sx={{ color: "#ffffff" }} />
+              )}
+            </IconButton>
+          </Box>
         </DrawerHeader>
         <Divider />
         <FormControl style={classes.root}>
@@ -273,9 +289,10 @@ export default function PersistentDrawerLeft(props) {
             flexDirection: "column",
             justifyContent: "flex-end",
             flexGrow: 1,
-            mb: 2,
+            height: "60px",
           }}
         >
+          <Divider/>
           <List>
             <ListItemButton color="inherit" onClick={toggleDarkMode}>
               <ListItemIcon>
@@ -297,7 +314,13 @@ export default function PersistentDrawerLeft(props) {
         </Box>
       </Drawer>
 
-      <Main open={open} sx={{backgroundColor:theme.palette.mode==="light"?"#efefef":null, height:"100vh"}}>
+      <Main
+        open={open}
+        sx={{
+          backgroundColor: theme.palette.mode === "light" ? "#efefef" : null,
+          height: "100vh",
+        }}
+      >
         <DrawerHeader />
 
         <SwitchTransition>

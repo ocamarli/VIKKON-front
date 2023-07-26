@@ -6,7 +6,6 @@ import { saveAs } from 'file-saver';
 
 function PrintRecipe(props) {
   const { fileText, open, handleClose } = props;
-  console.log("fileText",fileText)
   const theme = useTheme();
   const handleDownloadFile = () => {
     const blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
