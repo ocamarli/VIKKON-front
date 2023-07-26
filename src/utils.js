@@ -1,6 +1,6 @@
 
 const api = {
-  baseuri: "https://vikkonapi.azurewebsites.net/",
+  baseuri: "https://vikkonapi.azurewebsites.net/api/v1/",
   endpoints: {
     login: "login",
     user: "user",
