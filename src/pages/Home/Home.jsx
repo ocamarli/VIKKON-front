@@ -1,16 +1,23 @@
-import * as React from "react"
-import LogoVikkon from "./components/LogoVikon";
-import { Grid } from '@mui/material';
+import React from "react";
+
+import { Grid } from "@mui/material";
+
+const SvgComponent = (props) => {
+
+  return (
+    <Grid
+      container
+      padding={5}
+      alignItems="center"
+      justifyItems="center"
+      justifyContent="center"
+sx={{opacity:".7"}}
+    >
 
 
-
-const SvgComponent = (props) => (
-
-    <Grid container padding={40} >
-      <Grid item xs={12}><LogoVikkon/></Grid>
 
     </Grid>
+  );
+};
 
-)
-
-export default SvgComponent
+export default SvgComponent;

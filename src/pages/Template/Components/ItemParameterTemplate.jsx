@@ -4,27 +4,27 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { ButtonBase } from "@mui/material";
 
-
-export default function ItemParameterTemplate(props) {
+const ItemParameterTemplate = (props) => {
   const { name, word, onClick } = props;
   const backgroundCard1 = "#3AAA35";
-  const colorTextLight="#fff";
-
+  const colorTextLight = "#fff";
 
   console.log(colorTextLight);
 
   return (
-    <Card variant="outlined" style={{ backgroundColor: backgroundCard1, color: colorTextLight}} >
+    <Card
+      variant="outlined"
+      style={{ backgroundColor: backgroundCard1, color: colorTextLight }}
+    >
       <ButtonBase onClick={onClick}>
-        <CardContent sx={{padding: 1}}>
-          <Typography sx={{fontWeight:700}} variant="h9" >
+        <CardContent sx={{ padding: 1 }}>
+          <Typography sx={{ fontWeight: 700 }} variant="h9">
             {name}
           </Typography>
-          <Typography sx={{ fontSize: 14 }} gutterBottom>
-            {word}
-          </Typography>
+          <Typography sx={{ fontSize: 14 }}>{word}</Typography>
         </CardContent>
       </ButtonBase>
     </Card>
   );
-}
+};
+export default ItemParameterTemplate;
